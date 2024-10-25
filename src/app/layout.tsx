@@ -1,10 +1,5 @@
 import './globals.css'
-import type { Metadata } from 'next'
-
-export const metadata: Metadata = {
-  title: 'HelpBaer Prompt Library',
-  description: 'A modern web application built with Next.js',
-}
+import { Providers } from "@/components/providers"
 
 export default function RootLayout({
   children,
@@ -13,7 +8,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="de" suppressHydrationWarning>
-      <body className="min-h-screen bg-white">{children}</body>
+      <body className="min-h-screen bg-background text-foreground antialiased">
+        <Providers>
+          {children}
+        </Providers>
+      </body>
     </html>
   )
 }
