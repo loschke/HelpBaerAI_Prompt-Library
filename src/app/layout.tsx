@@ -15,7 +15,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="de" suppressHydrationWarning>
-      <body className="min-h-screen bg-background font-ff-clan antialiased">
+      <body className="min-h-screen bg-background font-ff-clan antialiased" suppressHydrationWarning>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -23,9 +23,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Navigation />
-          <main>
-            {children}
-          </main>
+          {children}
         </ThemeProvider>
       </body>
     </html>
