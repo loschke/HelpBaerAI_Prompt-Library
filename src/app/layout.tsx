@@ -1,5 +1,11 @@
+import type { Metadata } from 'next'
+import { ThemeProvider } from "@/components/theme-provider"
 import './globals.css'
-import { Providers } from "@/components/providers"
+
+export const metadata: Metadata = {
+  title: 'HelpBaer AI Prompt Library',
+  description: 'Eine Bibliothek für KI Prompts',
+}
 
 export default function RootLayout({
   children,
@@ -8,10 +14,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="de" suppressHydrationWarning>
-      <body className="min-h-screen bg-background text-foreground antialiased">
-        <Providers>
+      <body suppressHydrationWarning className="min-h-screen bg-background font-ff-clan antialiased">
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem={false}
+          storageKey="helpbaer-theme"
+        >
           {children}
-        </Providers>
+        </ThemeProvider>
       </body>
     </html>
   )
