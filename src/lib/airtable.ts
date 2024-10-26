@@ -30,7 +30,10 @@ const minifyRecord = (record: any) => {
           small: attachment.thumbnails.small,
           large: attachment.thumbnails.large
         } : null
-      })) : []
+      })) : [],
+      free: record.fields.Free || false,
+      status: record.fields.Status || '',
+      legend: record.fields.Legende || ''
     }
   };
 };
@@ -38,7 +41,7 @@ const minifyRecord = (record: any) => {
 export async function getAirtableRecords() {
   try {
     const records = await table.select({
-      fields: ['Name', 'Referenzbild', 'Verwendung']
+      fields: ['Name', 'Referenzbild', 'Verwendung', 'Free', 'Status', 'Legende']
     }).all();
     
     const minifiedRecords = records.map(record => minifyRecord(record));

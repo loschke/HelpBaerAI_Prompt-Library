@@ -3,7 +3,8 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import { Button } from "@/components/ui/button"
-import { ChevronLeft, ChevronRight } from "lucide-react"
+import { ChevronLeft, ChevronRight, Crown, Unlock } from "lucide-react"
+import { SidePanel } from "@/components/ui/side-panel"
 
 interface ConceptSliderProps {
   title: string;
@@ -11,8 +12,15 @@ interface ConceptSliderProps {
     id: string;
     fields: {
       name: string;
+      free: boolean;
+      legend?: string;
+      status?: string;
       referenceImage: {
+        url: string;
         thumbnails: {
+          small: {
+            url: string;
+          };
           large: {
             url: string;
           };
@@ -23,9 +31,14 @@ interface ConceptSliderProps {
 }
 
 export default function ConceptSlider({ title, cards }: ConceptSliderProps) {
+  // Filter cards to only show those with status "Fertig"
+  const filteredCards = cards.filter(card => card.fields.status === "Fertig")
+  
   const [currentIndex, setCurrentIndex] = useState(0)
+  const [selectedCard, setSelectedCard] = useState<typeof cards[0] | null>(null)
+  const [isPanelOpen, setIsPanelOpen] = useState(false)
   const cardsToShow = 5
-  const totalSlides = Math.max(0, cards.length - cardsToShow + 1)
+  const totalSlides = Math.max(0, filteredCards.length - cardsToShow + 1)
 
   const nextSlide = () => {
     setCurrentIndex(current => 
@@ -37,6 +50,11 @@ export default function ConceptSlider({ title, cards }: ConceptSliderProps) {
     setCurrentIndex(current => 
       current === 0 ? totalSlides - 1 : current - 1
     )
+  }
+
+  const handleCardClick = (card: typeof cards[0]) => {
+    setSelectedCard(card)
+    setIsPanelOpen(true)
   }
 
   return (
@@ -73,12 +91,22 @@ export default function ConceptSlider({ title, cards }: ConceptSliderProps) {
                 gap: '1.5rem'
               }}
             >
-              {cards.map((card) => (
+              {filteredCards.map((card) => (
                 <div 
                   key={card.id} 
                   className="flex-none w-full sm:w-1/3 md:w-1/4 lg:w-1/5 px-2"
+                  onClick={() => handleCardClick(card)}
                 >
-                  <div className="rounded-lg overflow-hidden bg-white dark:bg-zinc-900 shadow-md dark:shadow-zinc-900/50">
+                  <div className="rounded-lg overflow-hidden bg-white dark:bg-zinc-900 shadow-md dark:shadow-zinc-900/50 relative cursor-pointer hover:scale-105 transition-transform duration-200">
+                    {/* Status Icon */}
+                    <div className="absolute top-2 right-2 z-10 bg-white dark:bg-zinc-900 rounded-full p-1.5 shadow-lg">
+                      {card.fields.free ? (
+                        <Unlock className="w-4 h-4 text-green-500" />
+                      ) : (
+                        <Crown className="w-4 h-4 text-amber-500" />
+                      )}
+                    </div>
+                    
                     {card.fields.referenceImage && card.fields.referenceImage[0] && (
                       <div className="aspect-square relative w-full">
                         <img
@@ -100,6 +128,38 @@ export default function ConceptSlider({ title, cards }: ConceptSliderProps) {
           </div>
         </div>
       </div>
+
+      {selectedCard && (
+        <SidePanel 
+          isOpen={isPanelOpen}
+          onClose={() => setIsPanelOpen(false)}
+          isFree={selectedCard.fields.free}
+        >
+          <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">
+            {selectedCard.fields.name}
+          </h2>
+          {selectedCard.fields.free ? (
+            <div className="prose dark:prose-invert max-w-none">
+              <div className="bg-gray-50 dark:bg-zinc-800 rounded-lg p-4 mb-4">
+                <h3 className="text-lg font-semibold mb-2">Legende</h3>
+                <div className="whitespace-pre-wrap font-mono text-sm">
+                  {selectedCard.fields.legend}
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="text-center py-8">
+              <Crown className="w-12 h-12 text-amber-500 mx-auto mb-4" />
+              <p className="text-gray-600 dark:text-gray-300 mb-4">
+                Dies ist eine Premium Prompt-Formel. Upgrade jetzt für den Zugriff auf alle Premium-Inhalte.
+              </p>
+              <Button className="bg-amber-500 hover:bg-amber-600 text-white">
+                Upgrade to Premium
+              </Button>
+            </div>
+          )}
+        </SidePanel>
+      )}
     </section>
   )
 }
