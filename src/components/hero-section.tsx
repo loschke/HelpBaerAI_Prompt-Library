@@ -44,7 +44,7 @@ export default function HeroSection() {
       <div className="max-w-[1536px] mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-28 items-center">
           <div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6 font-ff-clan dark:text-white text-black">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl leading-tight mb-6 font-ff-clan italic font-extrabold dark:text-white text-black">
               AI-Design <br />Prompt Bibliothek
             </h1>
             <p className="text-xl mb-8 font-ff-clan">
