@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { ThemeProvider } from "@/components/theme-provider"
+import Navigation from "@/components/navigation"
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -14,14 +15,17 @@ export default function RootLayout({
 }) {
   return (
     <html lang="de" suppressHydrationWarning>
-      <body suppressHydrationWarning className="min-h-screen bg-background font-ff-clan antialiased">
+      <body className="min-h-screen bg-background font-ff-clan antialiased">
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
-          enableSystem={false}
-          storageKey="helpbaer-theme"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
         >
-          {children}
+          <Navigation />
+          <main>
+            {children}
+          </main>
         </ThemeProvider>
       </body>
     </html>
