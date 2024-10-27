@@ -64,8 +64,8 @@ export default function HeroSection() {
             <div className="mt-12">
               <p className="text-sm text-muted-foreground mb-4">In Zusammenarbeit mit:</p>
               <div className="flex flex-wrap gap-6 items-center">
-                <Image src="/images/queonext_Logo_horiz_white.png" alt="queonext" width={100} height={35} className="opacity-70 hover:opacity-100 transition-opacity" />
-                <Image src="/images/Logo_AI-Design_Guide_full_negativ.png" alt="AI-Design-Guide" width={240} height={70} className="opacity-70 hover:opacity-100 transition-opacity" />
+                <Image src="/images/queonext_Logo_horiz_white.png" alt="queonext" width={80} height={30} className="opacity-70 hover:opacity-100 transition-opacity" />
+                <Image src="/images/Logo_AI-Design_Guide_full_negativ.png" alt="AI-Design-Guide" width={220} height={65} className="opacity-70 hover:opacity-100 transition-opacity" />
               </div>
             </div>
           </div>

@@ -15,6 +15,7 @@ interface ConceptSliderProps {
       free: boolean;
       legend?: string;
       status?: string;
+      promptFormel?: string;
       referenceImage: {
         url: string;
         thumbnails: {
@@ -55,6 +56,11 @@ export default function ConceptSlider({ title, cards }: ConceptSliderProps) {
   const handleCardClick = (card: typeof cards[0]) => {
     setSelectedCard(card)
     setIsPanelOpen(true)
+  }
+
+  // Function to process prompt formula and make placeholders bold
+  const processPromptFormula = (formula: string) => {
+    return formula.replace(/\[([^\]]+)\]/g, '**[$1]**');
   }
 
   return (
@@ -134,20 +140,9 @@ export default function ConceptSlider({ title, cards }: ConceptSliderProps) {
           isOpen={isPanelOpen}
           onClose={() => setIsPanelOpen(false)}
           isFree={selectedCard.fields.free}
+          markdownContent={selectedCard.fields.free ? `## ${selectedCard.fields.name}\n\n### Prompt-Formel\n\n${processPromptFormula(selectedCard.fields.promptFormel || '')}\n\n### Legende\n\n${selectedCard.fields.legend}` : undefined}
         >
-          <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">
-            {selectedCard.fields.name}
-          </h2>
-          {selectedCard.fields.free ? (
-            <div className="prose dark:prose-invert max-w-none">
-              <div className="bg-gray-50 dark:bg-zinc-800 rounded-lg p-4 mb-4">
-                <h3 className="text-lg font-semibold mb-2">Legende</h3>
-                <div className="whitespace-pre-wrap font-mono text-sm">
-                  {selectedCard.fields.legend}
-                </div>
-              </div>
-            </div>
-          ) : (
+          {!selectedCard.fields.free && (
             <div className="text-center py-8">
               <Crown className="w-12 h-12 text-amber-500 mx-auto mb-4" />
               <p className="text-gray-600 dark:text-gray-300 mb-4">

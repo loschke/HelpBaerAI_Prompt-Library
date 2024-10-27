@@ -1,15 +1,17 @@
 import React from 'react'
 import { cn } from "@/lib/utils"
 import { X } from "lucide-react"
+import { StyledMarkdown } from "./styled-markdown"
 
 interface SidePanelProps {
   isOpen: boolean
   onClose: () => void
   isFree: boolean
   children?: React.ReactNode
+  markdownContent?: string
 }
 
-export function SidePanel({ isOpen, onClose, isFree, children }: SidePanelProps) {
+export function SidePanel({ isOpen, onClose, isFree, children, markdownContent }: SidePanelProps) {
   return (
     <>
       {/* Overlay */}
@@ -26,7 +28,7 @@ export function SidePanel({ isOpen, onClose, isFree, children }: SidePanelProps)
           "fixed top-0 right-0 h-full bg-white dark:bg-zinc-900",
           "transform transition-transform duration-300 ease-in-out z-50",
           "w-full sm:w-[80%] md:w-[50%] lg:w-[30%]",
-          "p-6 shadow-xl",
+          "p-6 shadow-xl overflow-y-auto",
           isOpen ? "translate-x-0" : "translate-x-full"
         )}
       >
@@ -56,7 +58,11 @@ export function SidePanel({ isOpen, onClose, isFree, children }: SidePanelProps)
 
         {/* Content */}
         <div className="mt-8">
-          {children}
+          {markdownContent ? (
+            <StyledMarkdown content={markdownContent} />
+          ) : (
+            children
+          )}
         </div>
       </div>
     </>
