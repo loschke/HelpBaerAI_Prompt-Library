@@ -27,6 +27,14 @@ interface ConceptSliderProps {
           };
         };
       }[];
+      examples?: {
+        url: string;
+        filename: string;
+        thumbnails?: {
+          small: { url: string; width: number; height: number };
+          large: { url: string; width: number; height: number };
+        };
+      }[];
     };
   }[];
 }
@@ -140,6 +148,7 @@ export default function ConceptSlider({ title, cards }: ConceptSliderProps) {
           isOpen={isPanelOpen}
           onClose={() => setIsPanelOpen(false)}
           isFree={selectedCard.fields.free}
+          examples={selectedCard.fields.examples}
           markdownContent={selectedCard.fields.free ? `## ${selectedCard.fields.name}\n\n### Prompt-Formel\n\n${processPromptFormula(selectedCard.fields.promptFormel || '')}\n\n### Legende\n\n${selectedCard.fields.legend}` : undefined}
         >
           {!selectedCard.fields.free && (

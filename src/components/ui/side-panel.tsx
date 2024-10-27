@@ -9,9 +9,17 @@ interface SidePanelProps {
   isFree: boolean
   children?: React.ReactNode
   markdownContent?: string
+  examples?: Array<{
+    url: string
+    filename: string
+    thumbnails?: {
+      small: { url: string; width: number; height: number }
+      large: { url: string; width: number; height: number }
+    }
+  }>
 }
 
-export function SidePanel({ isOpen, onClose, isFree, children, markdownContent }: SidePanelProps) {
+export function SidePanel({ isOpen, onClose, isFree, children, markdownContent, examples }: SidePanelProps) {
   return (
     <>
       {/* Overlay */}
@@ -27,7 +35,7 @@ export function SidePanel({ isOpen, onClose, isFree, children, markdownContent }
         className={cn(
           "fixed top-0 right-0 h-full bg-white dark:bg-zinc-900",
           "transform transition-transform duration-300 ease-in-out z-50",
-          "w-full sm:w-[80%] md:w-[50%] lg:w-[30%]",
+          "w-full sm:w-[80%] md:w-[50%] lg:w-[36%]",
           "p-6 shadow-xl overflow-y-auto",
           isOpen ? "translate-x-0" : "translate-x-full"
         )}
@@ -64,6 +72,28 @@ export function SidePanel({ isOpen, onClose, isFree, children, markdownContent }
             children
           )}
         </div>
+
+        {/* Example Images */}
+        {examples && examples.length > 0 && (
+          <div className="mt-8">
+            <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-gray-100">
+              Beispiele
+            </h3>
+            <div className="grid grid-cols-2 gap-4">
+              {examples.map((example, index) => (
+                <div key={index} className="relative group">
+                  <img
+                    src={example.thumbnails?.large?.url || example.url}
+                    alt={example.filename}
+                    className="w-full h-auto rounded-lg shadow-md transition-transform duration-200 hover:scale-105"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-opacity duration-200 rounded-lg" />
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </>
   )
