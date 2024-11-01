@@ -6,7 +6,7 @@ const base = new Airtable({
 
 const table = base(process.env.AIRTABLE_TABLE_NAME!);
 
-// Fisher-Yates Shuffle Algorithmus
+// Fisher-Yates Shuffle Algorithm
 const shuffleArray = (array: any[]) => {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -20,7 +20,6 @@ const minifyRecord = (record: any) => {
     id: record.id,
     fields: {
       name: record.fields.Name,
-      categories: record.fields.Verwendung || [],
       referenceImage: record.fields.Referenzbild ? record.fields.Referenzbild.map((attachment: any) => ({
         url: attachment.url,
         filename: attachment.filename,
@@ -52,28 +51,13 @@ const minifyRecord = (record: any) => {
 export async function getAirtableRecords() {
   try {
     const records = await table.select({
-      fields: ['Name', 'Referenzbild', 'Verwendung', 'Free', 'Status', 'Legende', 'Prompt Formel', 'Beispiele']
+      fields: ['Name', 'Referenzbild', 'Free', 'Status', 'Legende', 'Prompt Formel', 'Beispiele']
     }).all();
     
-    const minifiedRecords = records.map(record => minifyRecord(record));
+    // Convert records to our format and shuffle them
+    const minifiedRecords = shuffleArray(records.map(record => minifyRecord(record)));
     
-    // Gruppiere Records nach Kategorien
-    const groupedByCategory = minifiedRecords.reduce((acc: any, record: any) => {
-      record.fields.categories.forEach((category: string) => {
-        if (!acc[category]) {
-          acc[category] = [];
-        }
-        acc[category].push(record);
-      });
-      return acc;
-    }, {});
-
-    // Shuffle records in each category
-    Object.keys(groupedByCategory).forEach(category => {
-      groupedByCategory[category] = shuffleArray(groupedByCategory[category]);
-    });
-
-    return { records: groupedByCategory };
+    return { records: minifiedRecords };
   } catch (error) {
     console.error('Error fetching Airtable records:', error);
     return { error: 'Failed to fetch records' };
