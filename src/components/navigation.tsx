@@ -45,11 +45,15 @@ export default function Navigation() {
             </div>
           </div>
           <div className="hidden md:block">
-            <Button variant="outline" className="mr-4">
-              Login
+            <Button variant="outline" className="mr-4" asChild>
+              <Link href="/auth/login">
+                Login
+              </Link>
             </Button>
-            <Button>
-              Kostenlos starten
+            <Button asChild>
+              <Link href="/auth/register">
+                Kostenlos starten
+              </Link>
             </Button>
           </div>
           <div className="md:hidden">
@@ -81,11 +85,15 @@ export default function Navigation() {
           </div>
           <div className="pt-4 pb-3 border-t border-border">
             <div className="px-2 space-y-1">
-              <Button variant="outline" className="w-full mb-2">
-                Login
+              <Button variant="outline" className="w-full mb-2" asChild>
+                <Link href="/auth/login">
+                  Login
+                </Link>
               </Button>
-              <Button className="w-full">
-                Kostenlos starten
+              <Button className="w-full" asChild>
+                <Link href="/auth/register">
+                  Kostenlos starten
+                </Link>
               </Button>
             </div>
           </div>
