@@ -7,18 +7,41 @@ import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Separator } from "@/components/ui/separator"
 import { Input } from "@/components/ui/input"
+import { useSession, signOut } from "next-auth/react"
+import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
 
 export default function ProfilePage() {
-  const userProfile = {
-    firstName: "Max",
-    lastName: "Mustermann",
-    email: "max.mustermann@example.com",
-    status: "Member",
-    plan: "Premium"
+  const { data: session, status } = useSession()
+  const router = useRouter()
+
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.push('/auth/login')
+    }
+  }, [status, router])
+
+  if (status === "loading") {
+    return <div>Loading...</div>
   }
 
-  const handleLogout = () => {
-    console.log("Logout")
+  if (!session?.user) {
+    return null
+  }
+
+  const userProfile = {
+    firstName: session.user.firstName || '',
+    lastName: session.user.lastName || '',
+    email: session.user.email || '',
+    status: session.user.role || 'User',
+    plan: session.user.currentPlan || 'Free'
+  }
+
+  const initials = `${userProfile.firstName?.[0] || ''}${userProfile.lastName?.[0] || ''}`
+
+  const handleLogout = async () => {
+    await signOut()
+    router.push('/auth/login')
   }
 
   return (
@@ -27,8 +50,12 @@ export default function ProfilePage() {
         <CardHeader className="space-y-4">
           <div className="flex justify-center">
             <Avatar className="h-24 w-24">
-              <AvatarImage src={`https://api.dicebear.com/7.x/initials/svg?seed=${userProfile.firstName} ${userProfile.lastName}`} />
-              <AvatarFallback className="bg-primary">{userProfile.firstName[0]}{userProfile.lastName[0]}</AvatarFallback>
+              <AvatarImage 
+                src={`https://api.dicebear.com/7.x/initials/svg?seed=${userProfile.firstName} ${userProfile.lastName}`} 
+              />
+              <AvatarFallback className="bg-primary">
+                {initials || '??'}
+              </AvatarFallback>
             </Avatar>
           </div>
           <CardTitle className="text-2xl font-bold text-center font-ff-clan">
