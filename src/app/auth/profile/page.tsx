@@ -40,8 +40,10 @@ export default function ProfilePage() {
   const initials = `${userProfile.firstName?.[0] || ''}${userProfile.lastName?.[0] || ''}`
 
   const handleLogout = async () => {
-    await signOut()
-    router.push('/auth/login')
+    await signOut({
+      callbackUrl: '/',
+      redirect: true
+    })
   }
 
   return (

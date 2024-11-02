@@ -21,8 +21,10 @@ export default function Navigation() {
   const { data: session } = useSession()
 
   const handleLogout = async () => {
-    await signOut()
-    router.push('/auth/login')
+    await signOut({
+      callbackUrl: '/',
+      redirect: true
+    })
   }
 
   return (

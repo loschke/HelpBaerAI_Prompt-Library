@@ -12,6 +12,7 @@ export const config = {
     signIn: "/auth/login",
     error: "/auth/error",
     verifyRequest: "/auth/verify-email",
+    signOut: "/"
   },
   callbacks: {
     authorized({ auth, request: { nextUrl } }) {
