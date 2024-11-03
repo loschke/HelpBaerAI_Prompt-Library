@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { ThemeProvider } from "@/components/theme-provider"
 import Navigation from "@/components/navigation"
 import { SessionProvider } from "next-auth/react"
+import PrelineScript from "@/components/PrelineScript"
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -30,6 +31,7 @@ export default function RootLayout({
             {children}
           </ThemeProvider>
         </SessionProvider>
+        <PrelineScript />
       </body>
     </html>
   )
