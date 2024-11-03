@@ -15,21 +15,15 @@ export default function VerifyEmailPage() {
             E-Mail bestätigen
           </CardTitle>
           <CardDescription className="text-center text-muted-foreground">
-            Wir haben Ihnen einen Bestätigungslink an Ihre E-Mail-Adresse gesendet.
+            Wir haben Ihnen einen Bestätigungslink an Ihre E-Mail-Adresse gesendet. Falls Sie keine E-Mail erhalten haben, überprüfen Sie bitte auch Ihren Spam-Ordner.
           </CardDescription>
         </CardHeader>
         <CardContent className="text-center space-y-4">
-          <p className="text-foreground">
-            Bitte klicken Sie auf den Link in der E-Mail, um Ihr Konto zu aktivieren.
-          </p>
           <div className="bg-muted/50 p-4 rounded-lg">
-            <p className="text-sm text-muted-foreground">
-              <strong>Wichtig:</strong> Der Bestätigungslink ist 24 Stunden gültig.
+            <p className="text-foreground">
+            Bitte klicke innerhalb von 24h auf den Link in der E-Mail, um dein Konto zu aktivieren.
             </p>
           </div>
-          <p className="text-sm text-muted-foreground">
-            Falls Sie keine E-Mail erhalten haben, überprüfen Sie bitte auch Ihren Spam-Ordner.
-          </p>
         </CardContent>
         <CardFooter className="flex flex-col space-y-2">
           <Button 

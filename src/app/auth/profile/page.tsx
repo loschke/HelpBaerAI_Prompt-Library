@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input"
 import { useSession, signOut } from "next-auth/react"
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
+import { User, Crown, Lock, LockOpen, Check, X } from "lucide-react"
 
 export default function ProfilePage() {
   const { data: session, status } = useSession()
@@ -29,12 +30,15 @@ export default function ProfilePage() {
     return null
   }
 
+  console.log('Debug session user:', session.user)
+
   const userProfile = {
     firstName: session.user.firstName || '',
     lastName: session.user.lastName || '',
     email: session.user.email || '',
     status: session.user.role || 'User',
-    plan: session.user.currentPlan || 'Free'
+    plan: session.user.currentPlan || 'Free',
+    isVerified: session.user.isVerified
   }
 
   const initials = `${userProfile.firstName?.[0] || ''}${userProfile.lastName?.[0] || ''}`
@@ -79,17 +83,47 @@ export default function ProfilePage() {
             
             <div className="flex justify-between items-center">
               <Label className="text-sm font-medium text-foreground">Status</Label>
-              <Badge variant={userProfile.status === 'Owner' ? 'default' : 
-                           userProfile.status === 'Admin' ? 'secondary' : 'outline'}>
+              <span className={`text-xs font-medium px-2.5 py-0.5 rounded inline-flex items-center gap-1 ${
+                userProfile.status === 'Admin' 
+                  ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300'
+                  : 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300'
+              }`}>
+                {userProfile.status === 'Admin' 
+                  ? <Crown className="h-3 w-3" /> 
+                  : <User className="h-3 w-3" />
+                }
                 {userProfile.status}
-              </Badge>
+              </span>
             </div>
             
             <div className="flex justify-between items-center">
               <Label className="text-sm font-medium text-foreground">Plan</Label>
-              <Badge variant={userProfile.plan === 'Premium' ? 'accent' : 'outline'}>
+              <span className={`text-xs font-medium px-2.5 py-0.5 rounded inline-flex items-center gap-1 ${
+                userProfile.plan === 'Premium' 
+                  ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300'
+                  : 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300'
+              }`}>
+                {userProfile.plan === 'Premium' 
+                  ? <Crown className="h-3 w-3" />
+                  : <LockOpen className="h-3 w-3" />
+                }
                 {userProfile.plan}
-              </Badge>
+              </span>
+            </div>
+            
+            <div className="flex justify-between items-center">
+              <Label className="text-sm font-medium text-foreground">Verifizierung</Label>
+              <span className={`text-xs font-medium px-2.5 py-0.5 rounded inline-flex items-center gap-1 ${
+                userProfile.isVerified
+                  ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300'
+                  : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300'
+              }`}>
+                {userProfile.isVerified 
+                  ? <Check className="h-3 w-3" />
+                  : <X className="h-3 w-3" />
+                }
+                {userProfile.isVerified ? 'Verifiziert' : 'Nicht verifiziert'}
+              </span>
             </div>
           </div>
         </CardContent>

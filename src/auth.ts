@@ -40,6 +40,7 @@ export const config = {
         token.lastName = user.lastName
         token.role = user.role
         token.currentPlan = user.currentPlan
+        token.isVerified = user.isVerified
       }
       return token
     },
@@ -50,6 +51,7 @@ export const config = {
         session.user.lastName = token.lastName as string
         session.user.role = token.role as string
         session.user.currentPlan = token.currentPlan as string
+        session.user.isVerified = token.isVerified as boolean
       }
       return session
     }
@@ -100,7 +102,8 @@ export const config = {
           firstName: user.firstName,
           lastName: user.lastName,
           role: user.role,
-          currentPlan: user.currentPlan
+          currentPlan: user.currentPlan,
+          isVerified: user.isVerified
         }
       }
     })

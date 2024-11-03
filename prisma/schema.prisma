@@ -32,6 +32,8 @@ enum ActivityType {
   PASSWORD_CHANGE
   SUBSCRIPTION_PURCHASE
   PROFILE_UPDATE
+  DATA_EXPORT
+  DATA_DELETION_REQUEST
 }
 
 // Hauptmodell User
@@ -61,35 +63,38 @@ model User {
   currentPlan       SubscriptionPlan  @default(FREE)
   stripeCustomerId  String?           @unique
   
+  // Referral System (MVP Version)
+  referralCode      String?
+  
   // Beziehungen
   accounts          Account[]         // Required by NextAuth
   sessions          Session[]         // Required by NextAuth
   subscriptions     Subscription[]
   activities        Activity[]
-  referredUsers     User[]           @relation("AffiliateReferral")
-  referredBy        User?            @relation("AffiliateReferral", fields: [referredById], references: [id])
-  referredById      String?
   
-  // Timestamps für DSGVO
+  // DSGVO & Privacy
   acceptedTermsAt   DateTime          @default(now())
   acceptedPrivacyAt DateTime          @default(now())
+  isDeleted         Boolean           @default(false)
+  deletedAt         DateTime?
   
   @@map("users")
   @@index([email])
   @@index([role])
   @@index([currentPlan])
+  @@index([isDeleted])
 }
 
-// NextAuth Account Model
+// NextAuth Required Models
 model Account {
-  id                 String    @id @default(cuid())
-  userId             String
-  type               String
-  provider           String
-  providerAccountId  String
-  refresh_token      String?   @db.Text
-  access_token       String?   @db.Text
-  expires_at         Int?
+  id                String    @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?   @db.Text
+  access_token      String?   @db.Text
+  expires_at        Int?
   token_type        String?
   scope             String?
   id_token          String?   @db.Text
@@ -101,7 +106,6 @@ model Account {
   @@map("accounts")
 }
 
-// NextAuth Session Model
 model Session {
   id           String   @id @default(cuid())
   sessionToken String   @unique
@@ -112,7 +116,6 @@ model Session {
   @@map("sessions")
 }
 
-// NextAuth VerificationToken Model
 model VerificationToken {
   identifier String
   token      String   @unique
@@ -122,46 +125,48 @@ model VerificationToken {
   @@map("verification_tokens")
 }
 
-// Subscription Tracking
+// Subscription Tracking (Minimale Version, Stripe als Source of Truth)
 model Subscription {
-  id              String            @id @default(cuid())
-  createdAt       DateTime          @default(now())
-  updatedAt       DateTime          @updatedAt
+  id                  String            @id @default(cuid())
+  createdAt           DateTime          @default(now())
+  updatedAt           DateTime          @updatedAt
   
   // Subscription Details
-  plan           SubscriptionPlan
-  startDate      DateTime
-  endDate        DateTime
-  isActive       Boolean           @default(true)
+  plan                SubscriptionPlan
+  startDate           DateTime
+  endDate             DateTime
+  isActive            Boolean           @default(true)
   
   // Stripe Integration
-  stripeSubscriptionId String?     @unique
-  stripePriceId       String?
+  stripeSubscriptionId String?          @unique
+  stripePriceId        String?
   
-  // Payment & Affiliate Tracking
-  purchaseAmount      Decimal       @default(0)
-  affiliateCommission Decimal?
+  // Basic Tracking
+  purchaseAmount       Decimal          @default(0)
+  affiliateCommission  Decimal?
   
-  // Beziehungen
-  user            User             @relation(fields: [userId], references: [id])
-  userId          String
-  
+  // Beziehung
+  user                User              @relation(fields: [userId], references: [id])
+  userId              String
+
   @@map("subscriptions")
+  @@index([isActive])
 }
 
-// Activity Logging
+// Activity Logging (Minimale Version)
 model Activity {
   id          String       @id @default(cuid())
   createdAt   DateTime     @default(now())
-  
   type        ActivityType
   description String?
   ipAddress   String?
   userAgent   String?
   
-  // Beziehungen
-  user        User         @relation(fields: [userId], references: [id])
+  // Beziehung
+  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String
-  
+
   @@map("activities")
+  @@index([createdAt])
+  @@index([type])
 }

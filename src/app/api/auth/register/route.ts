@@ -55,6 +55,7 @@ export async function POST(request: Request) {
         currentPlan: "FREE",
         isVerified: false,
         verificationToken,
+        referralCode: validatedData.referralCode,
         activities: {
           create: {
             type: ActivityType.REGISTRATION,

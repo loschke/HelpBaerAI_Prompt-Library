@@ -2,13 +2,14 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { registerSchema } from "@/lib/validations/auth"
 
 export default function RegisterForm() {
+  const searchParams = useSearchParams()
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -17,7 +18,8 @@ export default function RegisterForm() {
     lastName: '',
     email: '',
     password: '',
-    confirmPassword: ''
+    confirmPassword: '',
+    referralCode: searchParams.get('ea') || ''
   })
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -137,6 +139,20 @@ export default function RegisterForm() {
                 required 
                 className="bg-background border-input"
                 value={formData.confirmPassword}
+                onChange={handleChange}
+                disabled={isLoading}
+              />
+            </div>
+            <div className="space-y-2">
+              <label htmlFor="referralCode" className="text-sm font-medium text-foreground">
+                Empfehlungscode
+              </label>
+              <Input 
+                id="referralCode" 
+                type="text" 
+                required 
+                className="bg-background border-input"
+                value={formData.referralCode}
                 onChange={handleChange}
                 disabled={isLoading}
               />
