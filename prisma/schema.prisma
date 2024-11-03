@@ -1,0 +1,172 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Basis Enum Definitionen
+enum Role {
+  SUPER_ADMIN
+  ADMIN
+  PARTNER
+  USER
+}
+
+enum SubscriptionPlan {
+  FREE
+  PREMIUM
+  PARTNER_LIFETIME
+}
+
+enum ActivityType {
+  REGISTRATION
+  EMAIL_VERIFICATION
+  LOGIN
+  LOGOUT
+  PASSWORD_CHANGE
+  SUBSCRIPTION_PURCHASE
+  PROFILE_UPDATE
+  DATA_EXPORT
+  DATA_DELETION_REQUEST
+}
+
+// Hauptmodell User
+model User {
+  id                String            @id @default(cuid())
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+  
+  // Persönliche Informationen
+  email             String            @unique
+  hashedPassword    String
+  firstName         String
+  lastName          String?
+  phoneNumber       String?
+  image             String?           // Required by NextAuth
+  emailVerified     DateTime?         // Required by NextAuth
+  
+  // Auth & Status
+  role              Role              @default(USER)
+  isVerified        Boolean           @default(false)
+  verificationToken String?           @unique
+  resetToken        String?           @unique
+  resetTokenExpiry  DateTime?
+  lastLogin         DateTime?
+  
+  // Subscription Management
+  currentPlan       SubscriptionPlan  @default(FREE)
+  stripeCustomerId  String?           @unique
+  
+  // Referral System (MVP Version)
+  referralCode      String?
+  
+  // Beziehungen
+  accounts          Account[]         // Required by NextAuth
+  sessions          Session[]         // Required by NextAuth
+  subscriptions     Subscription[]
+  activities        Activity[]
+  
+  // DSGVO & Privacy
+  acceptedTermsAt   DateTime          @default(now())
+  acceptedPrivacyAt DateTime          @default(now())
+  isDeleted         Boolean           @default(false)
+  deletedAt         DateTime?
+  
+  @@map("users")
+  @@index([email])
+  @@index([role])
+  @@index([currentPlan])
+  @@index([isDeleted])
+}
+
+// NextAuth Required Models
+model Account {
+  id                String    @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?   @db.Text
+  access_token      String?   @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?   @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+// Subscription Tracking (Minimale Version, Stripe als Source of Truth)
+model Subscription {
+  id                  String            @id @default(cuid())
+  createdAt           DateTime          @default(now())
+  updatedAt           DateTime          @updatedAt
+  
+  // Subscription Details
+  plan                SubscriptionPlan
+  startDate           DateTime
+  endDate             DateTime
+  isActive            Boolean           @default(true)
+  
+  // Stripe Integration
+  stripeSubscriptionId String?          @unique
+  stripePriceId        String?
+  
+  // Basic Tracking
+  purchaseAmount       Decimal          @default(0)
+  affiliateCommission  Decimal?
+  
+  // Beziehung
+  user                User              @relation(fields: [userId], references: [id])
+  userId              String
+
+  @@map("subscriptions")
+  @@index([isActive])
+}
+
+// Activity Logging (Minimale Version)
+model Activity {
+  id          String       @id @default(cuid())
+  createdAt   DateTime     @default(now())
+  type        ActivityType
+  description String?
+  ipAddress   String?
+  userAgent   String?
+  
+  // Beziehung
+  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String
+
+  @@map("activities")
+  @@index([createdAt])
+  @@index([type])
+}

@@ -5,6 +5,8 @@ import Link from 'next/link'
 import { Button } from "@/components/ui/button"
 import { Menu, X } from 'lucide-react'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
+import { useSession, signOut } from "next-auth/react"
 
 const navItems = [
   { name: 'Prompt Formeln', href: '/library' },
@@ -15,6 +17,15 @@ const navItems = [
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
+  const router = useRouter()
+  const { data: session } = useSession()
+
+  const handleLogout = async () => {
+    await signOut({
+      callbackUrl: '/',
+      redirect: true
+    })
+  }
 
   return (
     <nav className="bg-background border-b">
@@ -45,12 +56,31 @@ export default function Navigation() {
             </div>
           </div>
           <div className="hidden md:block">
-            <Button variant="outline" className="mr-4">
-              Login
-            </Button>
-            <Button>
-              Kostenlos starten
-            </Button>
+            {session?.user ? (
+              <div className="flex items-center gap-4">
+                <Button variant="ghost" asChild>
+                  <Link href="/auth/profile">
+                    Profil
+                  </Link>
+                </Button>
+                <Button variant="outline" onClick={handleLogout}>
+                  Logout
+                </Button>
+              </div>
+            ) : (
+              <>
+                <Button variant="outline" className="mr-4" asChild>
+                  <Link href="/auth/login">
+                    Login
+                  </Link>
+                </Button>
+                <Button asChild>
+                  <Link href="/auth/register">
+                    Kostenlos starten
+                  </Link>
+                </Button>
+              </>
+            )}
           </div>
           <div className="md:hidden">
             <Button variant="ghost" size="icon" onClick={() => setIsOpen(!isOpen)}>
@@ -81,12 +111,31 @@ export default function Navigation() {
           </div>
           <div className="pt-4 pb-3 border-t border-border">
             <div className="px-2 space-y-1">
-              <Button variant="outline" className="w-full mb-2">
-                Login
-              </Button>
-              <Button className="w-full">
-                Kostenlos starten
-              </Button>
+              {session?.user ? (
+                <>
+                  <Button variant="ghost" className="w-full mb-2" asChild>
+                    <Link href="/auth/profile">
+                      Profil
+                    </Link>
+                  </Button>
+                  <Button variant="outline" className="w-full" onClick={handleLogout}>
+                    Logout
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Button variant="outline" className="w-full mb-2" asChild>
+                    <Link href="/auth/login">
+                      Login
+                    </Link>
+                  </Button>
+                  <Button className="w-full" asChild>
+                    <Link href="/auth/register">
+                      Kostenlos starten
+                    </Link>
+                  </Button>
+                </>
+              )}
             </div>
           </div>
         </div>

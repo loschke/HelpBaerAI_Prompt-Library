@@ -4,6 +4,35 @@ import { getAirtableRecords } from "@/lib/airtable"
 
 export const revalidate = 0;
 
+interface PromptCard {
+  id: string;
+  fields: {
+    name: string;
+    free: boolean;
+    legend?: string;
+    promptFormel?: string;
+    referenceImage: {
+      url: string;
+      thumbnails: {
+        small: {
+          url: string;
+        };
+        large: {
+          url: string;
+        };
+      };
+    }[];
+    examples?: {
+      url: string;
+      filename: string;
+      thumbnails?: {
+        small: { url: string; width: number; height: number };
+        large: { url: string; width: number; height: number };
+      };
+    }[];
+  };
+}
+
 export default async function Home() {
   const { records, error } = await getAirtableRecords();
 
@@ -19,6 +48,9 @@ export default async function Home() {
     );
   }
 
+  // Ensure records is always an array, even if empty
+  const promptCards: PromptCard[] = records || [];
+
   return (
     <main>
       <HeroSection />
@@ -30,13 +62,7 @@ export default async function Home() {
             </h2>
           </div>
         </div>
-        {Object.entries(records).map(([category, categoryRecords]: [string, any]) => (
-          <ConceptSlider 
-            key={category}
-            title={category}
-            cards={categoryRecords}
-          />
-        ))}
+        <ConceptSlider cards={promptCards} />
       </div>
     </main>
   )
