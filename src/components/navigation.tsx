@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation'
 import { useSession, signOut } from "next-auth/react"
 
 const navItems = [
-  { name: 'Prompt Formeln', href: '/library' },
+  { name: 'Prompt Formeln', href: '/prompt-formeln' },
   { name: 'Bilder Galerie', href: '/images' },
   { name: 'Prompt Generator', href: '/generator' },
   { name: 'Preise', href: '/pricing' },
