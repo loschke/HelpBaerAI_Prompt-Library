@@ -4,7 +4,6 @@ import Workflow from "@/components/workflow"
 import FullWidthImageStrip from "@/components/full-width-image-strip"
 import FeaturesTabs from "@/components/features-tabs"
 import FeaturesGrid from "@/components/features-grid"
-import HeroSection from "@/components/hero-section"
 
 export default function Home() {
   return (
@@ -12,10 +11,9 @@ export default function Home() {
       <HeroEmojiCta />
       <FullWidthImageStrip />      
       <StatisticsGrid />
-      <FeaturesTabs />
       <FeaturesGrid />
       <Workflow />
-      <HeroSection />
+      <FeaturesTabs />     
     </main>
   )
 }

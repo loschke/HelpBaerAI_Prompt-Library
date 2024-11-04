@@ -60,13 +60,13 @@ const Persona = ({ icon, title, description }: PersonaProps) => (
 
 export default function WorkflowAndPersonas() {
   return (
-    <div className="bg-[#0A0A0A] py-12">
+    <div className="bg-[#0A0A0A] py-48">
       <div className="max-w-[85rem] mx-auto px-4">
         <div className="mb-12">
           <h2 className="text-4xl md:text-5xl font-black italic text-neutral-200 mb-6 text-center">
             Dein Workflow. Nur schneller und besser.
           </h2>
-          <p className="text-xl text-neutral-400 max-w-3xl text-center">
+          <p className="text-xl text-neutral-400 text-center">
             Von der ersten Idee bis zum finalen Asset – optimiere jeden Schritt deines kreativen Prozesses.
           </p>
         </div>
@@ -97,7 +97,7 @@ export default function WorkflowAndPersonas() {
             title="Optimierung & Skalierung"
             description="Perfektioniere deine Ergebnisse und skaliere erfolgreiche Ansätze"
             items={[
-              "Erfolgreiche Prompts dokumentieren & wiederverwenden",
+              "Erfolgreiche Prompts wiederverwenden",
               "Workflow-Templates für Teams erstellen",
               "Projekte effizient skalieren"
             ]}

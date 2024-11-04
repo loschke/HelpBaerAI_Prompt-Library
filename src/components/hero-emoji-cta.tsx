@@ -9,7 +9,7 @@ export default function HeroEmojiCta() {
         <div className="max-w-5xl mx-auto space-y-8 text-center">
           {/* Tag */}
           <Badge variant="outline" className="border-neutral-500 text-2xl text-neutral-400 hover:bg-accent/10">
-            Prompt Bibliothek
+            AI-Design | Prompt Bibliothek
           </Badge>
 
           {/* Heading */}
@@ -19,7 +19,7 @@ export default function HeroEmojiCta() {
 
           {/* Description */}
           <p className="text-xl text-foreground leading-relaxed ">
-            Tschüss Trial & Error, hallo Durchblick! Mit unserer Prompt-Bibliothek verwandelst du deine  Gedanken in kristallklare Prompts. Mit unseren 75 erprobten Promptformeln und 1.000+ Beispielen kriegst du genau die Bilder, die du dir vorstellst. Und das Beste? Du musst nicht erst drei Semester "Fortgeschrittenes Prompten" studieren.
+            Tschüss Trial & Error, hallo Durchblick! Mit unserer Prompt-Bibliothek verwandelst du deine  Gedanken in kristallklare Prompts. Mit unseren 80+ erprobten Promptformeln und 1.000+ Beispielen kriegst du genau die Bilder, die du dir vorstellst. Und das Beste? Du musst nicht erst drei Semester "Fortgeschrittenes Prompten" studieren.
           </p>
 
           {/* Emoji Progress */}
