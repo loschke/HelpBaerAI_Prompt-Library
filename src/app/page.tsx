@@ -4,6 +4,8 @@ import Workflow from "@/components/workflow"
 import FullWidthImageStrip from "@/components/full-width-image-strip"
 import FeaturesTabs from "@/components/features-tabs"
 import FeaturesGrid from "@/components/features-grid"
+import AIToolsCompatibility from "@/components/ai-tools-compatibility"
+import CollaborationTeam from "@/components/collaboration-team"
 
 export default function Home() {
   return (
@@ -12,8 +14,10 @@ export default function Home() {
       <FullWidthImageStrip />      
       <StatisticsGrid />
       <FeaturesGrid />
+      <AIToolsCompatibility />
+      <FeaturesTabs />  
       <Workflow />
-      <FeaturesTabs />     
+      <CollaborationTeam />
     </main>
   )
 }

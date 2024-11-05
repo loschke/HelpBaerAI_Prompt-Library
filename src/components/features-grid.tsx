@@ -24,44 +24,44 @@ export default function FeaturesGrid() {
             <div className="grid sm:grid-cols-2 gap-8">
               {/* Designer Card */}
               <div className="flex flex-col">
-                <span role="img" aria-label="Artist palette" className="text-4xl mb-4">🎨</span>
-                <h3 className="text-xl font-semibold text-gray-800 dark:text-neutral-200">
+                <span role="img" aria-label="Artist palette" className="text-5xl mb-4">🎨</span>
+                <h3 className="text-2xl font-semibold text-gray-800 dark:text-neutral-200">
                   Designer
                 </h3>
-                <p className="mt-2 text-gray-600 dark:text-neutral-400">
+                <p className="mt-2 text-lg text-gray-600 dark:text-neutral-400">
                   Schnelle Mockups und Konzeptvisualisierungen für Kunden. Überzeugende Visualisierungen in Minuten erstellen.
                 </p>
               </div>
 
               {/* Marketing-Teams Card */}
               <div className="flex flex-col">
-                <span role="img" aria-label="Mobile phone" className="text-4xl mb-4">📱</span>
-                <h3 className="text-xl font-semibold text-gray-800 dark:text-neutral-200">
+                <span role="img" aria-label="Mobile phone" className="text-5xl mb-4">📱</span>
+                <h3 className="text-2xl font-semibold text-gray-800 dark:text-neutral-200">
                   Marketing-Teams
                 </h3>
-                <p className="mt-2 text-gray-600 dark:text-neutral-400">
+                <p className="mt-2 text-lg text-gray-600 dark:text-neutral-400">
                   Konsistente Bildsprache über alle Kanale. Einheitliche visuelle Identität auf allen Plattformen sicherstellen.
                 </p>
               </div>
 
               {/* Agenturen Card */}
               <div className="flex flex-col">
-                <span role="img" aria-label="Office building" className="text-4xl mb-4">🏢</span>
-                <h3 className="text-xl font-semibold text-gray-800 dark:text-neutral-200">
+                <span role="img" aria-label="Office building" className="text-5xl mb-4">🏢</span>
+                <h3 className="text-2xl font-semibold text-gray-800 dark:text-neutral-200">
                   Agenturen
                 </h3>
-                <p className="mt-2 text-gray-600 dark:text-neutral-400">
+                <p className="mt-2 text-lg text-gray-600 dark:text-neutral-400">
                   Effiziente Asset-Produktion für verschiedene Kunden. Optimierter Workflow für maßgeschneiderte Kundenlösungen.
                 </p>
               </div>
 
               {/* Freelancer Card */}
               <div className="flex flex-col">
-                <span role="img" aria-label="Briefcase" className="text-4xl mb-4">💼</span>
-                <h3 className="text-xl font-semibold text-gray-800 dark:text-neutral-200">
+                <span role="img" aria-label="Briefcase" className="text-5xl mb-4">💼</span>
+                <h3 className="text-2xl font-semibold text-gray-800 dark:text-neutral-200">
                   Freelancer
                 </h3>
-                <p className="mt-2 text-gray-600 dark:text-neutral-400">
+                <p className="mt-2 text-lg text-gray-600 dark:text-neutral-400">
                   Professionelle Ergebnisse auch bei kleinem Budget. Hochwertige Designs ohne teure Ressourcen erstellen.
                 </p>
               </div>

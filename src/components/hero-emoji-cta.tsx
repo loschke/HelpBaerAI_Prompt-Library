@@ -18,12 +18,12 @@ export default function HeroEmojiCta() {
           </h1>      
 
           {/* Description */}
-          <p className="text-xl text-foreground leading-relaxed ">
+          <p className="text-2xl text-foreground leading-relaxed">
             Tschüss Trial & Error, hallo Durchblick! Mit unserer Prompt-Bibliothek verwandelst du deine  Gedanken in kristallklare Prompts. Mit unseren 80+ erprobten Promptformeln und 1.000+ Beispielen kriegst du genau die Bilder, die du dir vorstellst. Und das Beste? Du musst nicht erst drei Semester "Fortgeschrittenes Prompten" studieren.
           </p>
 
           {/* Emoji Progress */}
-          <div className="flex items-center justify-center gap-2 text-2xl md:text-3xl">
+          <div className="flex items-center justify-center gap-2 text-3xl md:text-4xl">
             <span role="img" aria-label="Confused face">😕</span>
             <ArrowRight className="w-4 h-4 text-muted-foreground" />
             <span role="img" aria-label="Thinking face">🤔</span>
@@ -34,12 +34,10 @@ export default function HeroEmojiCta() {
           </div>             
 
           {/* CTA Button */}
-          <Button size="lg" className="px-8 py-6 text-lg">
+          <Button size="lg" className="px-8 py-6 text-xl">
             <Wand2 className="mr-2 h-5 w-5" />
             Starte kostenlos mit 15 Prompt-Formeln
           </Button>
-
-          
         </div>
       </div>
     </div>
