@@ -15,8 +15,8 @@ export default function Home() {
       <StatisticsGrid />
       <FeaturesGrid />
       <AIToolsCompatibility />
+      <Workflow />     
       <FeaturesTabs />  
-      <Workflow />
       <CollaborationTeam />
     </main>
   )

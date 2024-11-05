@@ -1,5 +1,7 @@
 "use client"
 
+import { Button } from "@/components/ui/button"
+import Link from 'next/link'
 import React from 'react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
@@ -30,7 +32,7 @@ const Expert = ({ name, title, company, description, linkedIn, imagePath }: Expe
         className="transition-transform duration-300 hover:scale-105"
       />
     </div>
-    <div className="p-6 bg-[#0A0A0A]">
+    <div className="p-6">
       <h3 className="text-2xl text-neutral-200 mb-2">{name}</h3>
       <div className="text-white font-bold mb-2">{title} bei {company}</div>
       <p className="text-xl text-neutral-400 mb-4">
@@ -58,24 +60,23 @@ interface BenefitProps {
 }
 
 const Benefit = ({ icon, title, description }: BenefitProps) => (
-  <div className="bg-gray-50/50 dark:bg-gray-800/30 border border-neutral-800 p-6 rounded-xl text-center">
+  <div className="bg-background border border-neutral-800 p-6 rounded-xl text-center">
     <div className="text-4xl mb-4">{icon}</div>
     <h4 className="text-neutral-200 text-lg font-semibold mb-2">{title}</h4>
-    <p className="text-xl text-neutral-400">{description}</p>
+    <p className="text-neutral-400">{description}</p>
   </div>
 )
 
 export default function CollaborationTeam() {
   return (
-    <div className="bg-background py-48 px-4">
+    <div className="bg-[#0A0A0A] py-48 px-4">
       <div className="max-w-[85rem] mx-auto">
         <div className="rounded-xl overflow-hidden p-12">
           <h2 className="text-4xl md:text-5xl font-black italic text-center mb-6 text-neutral-200">
-            Aus der Agenturpraxis für die Agenturpraxis
+            Experten-Know-how aus der Kreativbranche
           </h2>
-          <p className="text-blue-500 text-xl text-center max-w-3xl mx-auto mb-12 leading-relaxed">
-            Diese Prompt-Bibliothek ist das Ergebnis von über 10.000 Stunden praktischer Erfahrung mit KI-gestützter Bildgenerierung in Agenturen. 
-            Was als interne Lösung begann, teilen wir jetzt mit dir.
+          <p className="text-2xl text-neutral-400 text-center max-w-5xl mx-auto mb-12 leading-relaxed">
+            Mehr als 100.000 generierte Bilder sprechen für sich: Diese Prompt-Bibliothek vereint unser gesammeltes Know-how aus der täglichen Arbeit mit KI-Tools. Entstanden aus der Praxis von Marketing, Design und Agenturalltag, entwickelt für alle, die professionelle Ergebnisse benötigen – ohne langwieriges Experimentieren.
           </p>
 
           <div className="grid md:grid-cols-2 gap-8 mb-12">
@@ -96,30 +97,23 @@ export default function CollaborationTeam() {
               imagePath="/images/hans_piechatzek_move-elevator.jpg"
             />
           </div>
-
-          <div className="grid md:grid-cols-3 gap-6 mb-12">
-            <Benefit
-              icon="⚡️"
-              title="Praxiserprobt"
-              description="In vielen Kundenprojekten getestet und optimiert"
-            />
-            <Benefit
-              icon="🎯"
-              title="Agentur-optimiert"
-              description="Perfekt für schnelle Iterationen und enge Deadlines"
-            />
-            <Benefit
-              icon="💎"
-              title="Qualitätsgeprüft"
-              description="Entspricht höchsten Agenturansprüchen"
-            />
-          </div>
-
-          <p className="text-2xl text-neutral-400 text-center max-w-3xl mx-auto leading-relaxed">
-            Was uns von anderen unterscheidet? Wir nutzen diese Prompts jeden Tag selbst in unseren Agenturen. 
-            Sie sind nicht nur Theorie, sondern durch und durch Praxis.
-          </p>
         </div>
+
+        <motion.div 
+          className="text-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+        >
+          <Link href="/prompt-formeln">
+            <Button 
+              size="lg" 
+              className="bg-primary font-bold text-lg px-12 py-6 h-auto"
+            >
+              Fragen? Sprich mit uns! 🎯
+            </Button>
+          </Link>
+        </motion.div>
       </div>
     </div>
   )
