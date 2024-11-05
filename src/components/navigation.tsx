@@ -33,14 +33,8 @@ export default function Navigation() {
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
             <Link href="/" className="flex-shrink-0">
-              <Image
-                src="/images/queonext_signum_white.png"
-                alt="Logo"
-                width={140}
-                height={40}
-                className="h-8 w-auto"
-              />
-            </Link> <span className='pl-4'>AI Labs</span>
+              <span className='pl-4 text-white font-bold text-2xl'>🐻 HelpBärAI</span>
+            </Link> 
           </div>
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-4">
@@ -48,7 +42,7 @@ export default function Navigation() {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="text-foreground hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                  className="text-foreground hover:text-primary px-3 py-2 rounded-md text-lg transition-colors"
                 >
                   {item.name}
                 </Link>
