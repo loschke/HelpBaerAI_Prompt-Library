@@ -6,11 +6,13 @@ import { Button } from "@/components/ui/button"
 
 const images = [
   "/images/landscapes.png",
-  "/images/illustrations.png",
-  "/images/foodporn.png",
-  "/images/mockups.jpg",
-  "/images/gradients.png",
-  "/images/texteffekte.jpg"
+  "/images/affe.jpg",
+  "/images/background.jpg",
+  "/images/loewe.jpg",
+  "/images/makro.jpg",
+  "/images/messe.png",
+  "/images/office.png",
+  "/images/paar.jpg",
 ]
 
 export default function FullWidthImageStrip() {
