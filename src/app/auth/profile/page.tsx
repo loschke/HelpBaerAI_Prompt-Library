@@ -11,6 +11,7 @@ import { useSession, signOut } from "next-auth/react"
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 import { User, Crown, Lock, LockOpen, Check, X } from "lucide-react"
+import { Role, SubscriptionPlan } from "@prisma/client"
 
 export default function ProfilePage() {
   const { data: session, status } = useSession()
@@ -36,8 +37,8 @@ export default function ProfilePage() {
     firstName: session.user.firstName || '',
     lastName: session.user.lastName || '',
     email: session.user.email || '',
-    status: session.user.role || 'User',
-    plan: session.user.currentPlan || 'Free',
+    status: session.user.role || Role.USER,
+    plan: session.user.currentPlan || SubscriptionPlan.FREE,
     isVerified: session.user.isVerified
   }
 
@@ -84,11 +85,11 @@ export default function ProfilePage() {
             <div className="flex justify-between items-center">
               <Label className="text-sm font-medium text-foreground">Status</Label>
               <span className={`text-xs font-medium px-2.5 py-0.5 rounded inline-flex items-center gap-1 ${
-                userProfile.status === 'Admin' 
+                userProfile.status === Role.ADMIN || userProfile.status === Role.SUPER_ADMIN
                   ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300'
                   : 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300'
               }`}>
-                {userProfile.status === 'Admin' 
+                {(userProfile.status === Role.ADMIN || userProfile.status === Role.SUPER_ADMIN)
                   ? <Crown className="h-3 w-3" /> 
                   : <User className="h-3 w-3" />
                 }
@@ -99,11 +100,11 @@ export default function ProfilePage() {
             <div className="flex justify-between items-center">
               <Label className="text-sm font-medium text-foreground">Plan</Label>
               <span className={`text-xs font-medium px-2.5 py-0.5 rounded inline-flex items-center gap-1 ${
-                userProfile.plan === 'Premium' 
+                userProfile.plan === SubscriptionPlan.PREMIUM || userProfile.plan === SubscriptionPlan.PARTNER_LIFETIME
                   ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300'
                   : 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300'
               }`}>
-                {userProfile.plan === 'Premium' 
+                {(userProfile.plan === SubscriptionPlan.PREMIUM || userProfile.plan === SubscriptionPlan.PARTNER_LIFETIME)
                   ? <Crown className="h-3 w-3" />
                   : <LockOpen className="h-3 w-3" />
                 }

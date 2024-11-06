@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
-import { ThemeProvider } from "@/components/theme-provider"
-import Navigation from "@/components/navigation"
+import { ThemeProvider } from '@/components/theme-provider'
+import Navigation from '@/components/navigation'
 import { SessionProvider } from "next-auth/react"
-import PrelineScript from "@/components/PrelineScript"
+import PrelineScript from '@/components/PrelineScript'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -12,15 +12,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-  pageProps = { session: null },
 }: {
   children: React.ReactNode
-  pageProps?: { session: any }
 }) {
   return (
     <html lang="de" suppressHydrationWarning>
       <body className="min-h-screen bg-background font-ff-clan antialiased" suppressHydrationWarning>
-        <SessionProvider session={pageProps.session}>
+        <SessionProvider>
           <ThemeProvider
             attribute="class"
             defaultTheme="system"

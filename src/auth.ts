@@ -1,13 +1,27 @@
 import NextAuth from "next-auth"
 import { PrismaAdapter } from "@auth/prisma-adapter"
 import type { NextAuthConfig } from "next-auth"
+import type { JWT } from "next-auth/jwt"
 import CredentialsProvider from "next-auth/providers/credentials"
 import { prisma } from "@/lib/prisma"
 import bcrypt from "bcryptjs"
+import { Role, SubscriptionPlan, User } from "@prisma/client"
+
+interface ExtendedJWT extends JWT {
+  id: string
+  firstName: string
+  lastName?: string | null
+  role: Role
+  currentPlan: SubscriptionPlan
+  isVerified: boolean
+}
 
 export const config = {
-  adapter: PrismaAdapter(prisma),
-  session: { strategy: "jwt" },
+  adapter: PrismaAdapter(prisma) as any,
+  session: { 
+    strategy: "jwt",
+    maxAge: 30 * 24 * 60 * 60, // 30 days
+  },
   pages: {
     signIn: "/auth/login",
     error: "/auth/error",
@@ -20,7 +34,6 @@ export const config = {
         "/",
         "/auth/login", 
         "/auth/register", 
-        "/auth/password-reset",
         "/auth/verify-email",
         "/auth/verify-email/success"
       ]
@@ -33,25 +46,31 @@ export const config = {
 
       return !!auth
     },
-    async jwt({ token, user }) {
+    async jwt({ token, user }): Promise<ExtendedJWT> {
       if (user) {
-        token.id = user.id
-        token.firstName = user.firstName
-        token.lastName = user.lastName
-        token.role = user.role
-        token.currentPlan = user.currentPlan
-        token.isVerified = user.isVerified
+        const typedUser = user as User
+        return {
+          ...token,
+          id: typedUser.id,
+          firstName: typedUser.firstName,
+          lastName: typedUser.lastName,
+          role: typedUser.role,
+          currentPlan: typedUser.currentPlan,
+          isVerified: typedUser.isVerified
+        }
       }
-      return token
+      return token as ExtendedJWT
     },
     async session({ session, token }) {
+      const extendedToken = token as ExtendedJWT
+      
       if (session?.user) {
-        session.user.id = token.id as string
-        session.user.firstName = token.firstName as string
-        session.user.lastName = token.lastName as string
-        session.user.role = token.role as string
-        session.user.currentPlan = token.currentPlan as string
-        session.user.isVerified = token.isVerified as boolean
+        session.user.id = extendedToken.id
+        session.user.firstName = extendedToken.firstName
+        session.user.lastName = extendedToken.lastName
+        session.user.role = extendedToken.role
+        session.user.currentPlan = extendedToken.currentPlan
+        session.user.isVerified = extendedToken.isVerified
       }
       return session
     }
@@ -63,11 +82,8 @@ export const config = {
           return null
         }
 
-        // Debug-Log
-        console.log("Searching for user:", credentials.email)
-
         const user = await prisma.user.findUnique({
-          where: { email: credentials.email },
+          where: { email: credentials.email as string },
           select: {
             id: true,
             email: true,
@@ -80,15 +96,12 @@ export const config = {
           }
         })
 
-        // Debug-Log
-        console.log("Found user:", user)
-
         if (!user || !user.hashedPassword) {
           return null
         }
 
         const isPasswordValid = await bcrypt.compare(
-          credentials.password,
+          credentials.password as string,
           user.hashedPassword
         )
 
@@ -108,6 +121,7 @@ export const config = {
       }
     })
   ],
+  secret: process.env.NEXTAUTH_SECRET
 } satisfies NextAuthConfig
 
-export const { handlers, auth, signIn, signOut } = NextAuth(config) 
+export const { handlers, auth, signIn, signOut } = NextAuth(config)

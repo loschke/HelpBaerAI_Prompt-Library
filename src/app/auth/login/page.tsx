@@ -89,11 +89,6 @@ export default function LoginForm() {
               Jetzt registrieren
             </Link>
           </p>
-          <p>
-            <Link href="/auth/password-reset" className="text-accent hover:text-accent/90 hover:underline">
-              Passwort vergessen?
-            </Link>
-          </p>
         </CardFooter>
       </Card>
     </div>
