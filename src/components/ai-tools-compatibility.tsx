@@ -23,7 +23,7 @@ const tools = [
   {
     name: "DALL-E",
     icon: Zap,
-    description: "Vollständig kompatibel mit DALL-E 2 & 3",
+    description: "Vollständig kompatibel mit DALL-E 3",
     bgColor: "bg-green-500/20",
     iconColor: "text-green-500"
   },
@@ -42,7 +42,7 @@ const tools = [
     iconColor: "text-purple-500"
   },
   {
-    name: "Imagine AI",
+    name: "InvokeAI",
     icon: Stars,
     description: "Maximale Feature-Unterstützung",
     bgColor: "bg-pink-500/20",
@@ -63,14 +63,14 @@ const tools = [
     iconColor: "text-teal-500"
   },
   {
-    name: "Bing Image Creator",
+    name: "Flux Pro",
     icon: Cloud,
     description: "Konsistente Qualitätsergebnisse",
     bgColor: "bg-cyan-500/20",
     iconColor: "text-cyan-500"
   },
   {
-    name: "Microsoft Designer",
+    name: "Recraft",
     icon: Laptop,
     description: "Professionelle Design-Outputs",
     bgColor: "bg-sky-500/20",
