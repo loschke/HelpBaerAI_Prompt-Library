@@ -2,6 +2,7 @@ import React from 'react'
 import { cn } from "@/lib/utils"
 import { X } from "lucide-react"
 import { StyledMarkdown } from "./styled-markdown"
+import Link from 'next/link'
 
 interface SidePanelProps {
   isOpen: boolean
@@ -9,6 +10,7 @@ interface SidePanelProps {
   isFree: boolean
   children?: React.ReactNode
   markdownContent?: string
+  session: any // Session type from next-auth
   examples?: Array<{
     url: string
     filename: string
@@ -19,7 +21,7 @@ interface SidePanelProps {
   }>
 }
 
-export function SidePanel({ isOpen, onClose, isFree, children, markdownContent, examples }: SidePanelProps) {
+export function SidePanel({ isOpen, onClose, isFree, children, markdownContent, examples, session }: SidePanelProps) {
   return (
     <>
       {/* Overlay */}
@@ -66,10 +68,85 @@ export function SidePanel({ isOpen, onClose, isFree, children, markdownContent, 
 
         {/* Content */}
         <div className="mt-8">
-          {markdownContent ? (
-            <StyledMarkdown content={markdownContent} />
+          {isFree ? (
+            session ? (
+              // Show content for logged-in users
+              markdownContent ? (
+                <StyledMarkdown content={markdownContent} />
+              ) : (
+                children
+              )
+            ) : (
+              // Show registration prompt for non-logged-in users
+              <div className="space-y-6">
+                <div className="p-6 bg-gradient-to-br from-green-500 to-green-600 rounded-lg text-white">
+                  <h3 className="text-2xl font-bold mb-4">
+                    Kostenlose Prompt-Formeln freischalten
+                  </h3>
+                  <ul className="space-y-3 mb-6">
+                    <li className="flex items-start">
+                      <svg className="w-6 h-6 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span>Sofortiger Zugriff auf 16 kostenlose Prompt-Formeln</span>
+                    </li>
+                    <li className="flex items-start">
+                      <svg className="w-6 h-6 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span>Verbessere deine AI-Bildgenerierung</span>
+                    </li>
+                    <li className="flex items-start">
+                      <svg className="w-6 h-6 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span>Kostenlos und ohne versteckte Kosten</span>
+                    </li>
+                  </ul>
+                  <Link 
+                    href="/auth/register"
+                    className="block w-full text-center px-6 py-3 bg-white text-green-600 rounded-lg hover:bg-gray-100 transition-colors font-semibold"
+                  >
+                    Jetzt kostenlos registrieren
+                  </Link>
+                </div>
+              </div>
+            )
           ) : (
-            children
+            // Premium content with gold gradient
+            <div className="space-y-6">
+              <div className="p-6 bg-gradient-to-br from-amber-500 to-amber-600 rounded-lg text-white">
+                <h3 className="text-2xl font-bold mb-4">
+                  Premium Prompt-Formeln freischalten
+                </h3>
+                <ul className="space-y-3 mb-6">
+                  <li className="flex items-start">
+                    <svg className="w-6 h-6 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>Zugriff auf alle Premium Prompt-Formeln</span>
+                  </li>
+                  <li className="flex items-start">
+                    <svg className="w-6 h-6 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>Professionelle Prompt-Formeln für fortgeschrittene Anwendungen</span>
+                  </li>
+                  <li className="flex items-start">
+                    <svg className="w-6 h-6 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>Regelmäßige Updates mit neuen Formeln</span>
+                  </li>
+                </ul>
+                <Link 
+                  href="/premium"
+                  className="block w-full text-center px-6 py-3 bg-white text-amber-600 rounded-lg hover:bg-gray-100 transition-colors font-semibold"
+                >
+                  Jetzt Premium werden
+                </Link>
+              </div>
+            </div>
           )}
         </div>
 

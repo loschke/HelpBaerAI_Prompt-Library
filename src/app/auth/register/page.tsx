@@ -2,6 +2,7 @@
 
 import { useState, Suspense } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -35,10 +36,7 @@ function RegisterFormContent() {
     setIsLoading(true)
 
     try {
-      // Validate form data
       const validatedData = registerSchema.parse(formData)
-
-      // Send request to registration endpoint
       const response = await fetch('/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -51,7 +49,6 @@ function RegisterFormContent() {
         throw new Error(data.error || 'Ein Fehler ist aufgetreten')
       }
 
-      // Redirect to verification page on success
       router.push('/auth/verify-email')
     } catch (error) {
       setError(error instanceof Error ? error.message : 'Ein Fehler ist aufgetreten')
@@ -62,11 +59,60 @@ function RegisterFormContent() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-background/30">
-      <Card className="w-full max-w-md border-border/50 bg-secondary">
-        <CardHeader>
-          <CardTitle className="text-2xl font-bold text-center font-ff-clan">Registrieren</CardTitle>
-        </CardHeader>
-        <CardContent>
+      <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-2">
+        {/* Left Column - Benefits */}
+        <div className="hidden md:flex md:flex-col bg-gradient-to-br from-green-500 to-green-600 text-white rounded-l-lg overflow-hidden">
+          {/* Image Container */}
+          <div className="relative w-full" style={{ paddingTop: '56.25%' }}> {/* 16:9 aspect ratio */}
+            <Image
+              src="/images/promptbaer.png"
+              alt="HelpBaer AI"
+              fill
+              className="object-cover"
+              priority
+            />
+          </div>
+          
+          {/* Content Container */}
+          <div className="p-8 flex-1">
+            <h2 className="text-3xl font-bold mb-8 font-ff-clan">Willkommen bei HelpBaer AI</h2>
+            <div className="space-y-6">
+              <div className="flex items-start space-x-4">
+                <svg className="w-6 h-6 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                <div>
+                  <h3 className="font-semibold text-xl mb-2">16 Kostenlose Prompt-Formeln</h3>
+                  <p className="text-white/90">Starte sofort mit professionellen Prompt-Formeln für deine AI-Bildgenerierung</p>
+                </div>
+              </div>
+              <div className="flex items-start space-x-4">
+                <svg className="w-6 h-6 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                <div>
+                  <h3 className="font-semibold text-xl mb-2">Verbesserte Bildqualität</h3>
+                  <p className="text-white/90">Erstelle hochwertige AI-Bilder mit optimierten Prompt-Formeln</p>
+                </div>
+              </div>
+              <div className="flex items-start space-x-4">
+                <svg className="w-6 h-6 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                <div>
+                  <h3 className="font-semibold text-xl mb-2">Kostenlos starten</h3>
+                  <p className="text-white/90">Keine versteckten Kosten oder Verpflichtungen</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Right Column - Registration Form */}
+        <div className="bg-secondary p-8 rounded-r-lg">
+          <div className="mb-6">
+            <h2 className="text-2xl font-bold text-center font-ff-clan">Registrieren</h2>
+          </div>
           <form onSubmit={onSubmit} className="space-y-4">
             {error && (
               <div className="text-sm text-destructive text-center">
@@ -159,22 +205,20 @@ function RegisterFormContent() {
             </div>
             <Button 
               type="submit" 
-              className="w-full bg-primary hover:bg-primary/90"
+              className="w-full bg-green-600 hover:bg-green-700"
               disabled={isLoading}
             >
               {isLoading ? 'Wird registriert...' : 'Registrieren'}
             </Button>
+            <div className="text-center text-sm text-muted-foreground">
+              Bereits registriert?{' '}
+              <Link href="/auth/login" className="text-accent hover:text-accent/90 hover:underline">
+                Jetzt anmelden
+              </Link>
+            </div>
           </form>
-        </CardContent>
-        <CardFooter className="flex flex-col space-y-2 text-center text-sm">
-          <p className="text-muted-foreground">
-            Bereits registriert?{' '}
-            <Link href="/auth/login" className="text-accent hover:text-accent/90 hover:underline">
-              Jetzt anmelden
-            </Link>
-          </p>
-        </CardFooter>
-      </Card>
+        </div>
+      </div>
     </div>
   )
 }
