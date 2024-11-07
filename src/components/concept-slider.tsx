@@ -36,9 +36,10 @@ interface PromptCard {
 
 interface ConceptSliderProps {
   cards: PromptCard[];
+  session: any;
 }
 
-export default function ConceptSlider({ cards = [] }: ConceptSliderProps) {
+export default function ConceptSlider({ cards = [], session }: ConceptSliderProps) {
   const [selectedCard, setSelectedCard] = useState<PromptCard | null>(null)
   const [isPanelOpen, setIsPanelOpen] = useState(false)
   const [showOnlyFree, setShowOnlyFree] = useState(false)
@@ -119,6 +120,7 @@ export default function ConceptSlider({ cards = [] }: ConceptSliderProps) {
           onClose={() => setIsPanelOpen(false)}
           isFree={selectedCard.fields.free}
           examples={selectedCard.fields.examples}
+          session={session}
           markdownContent={selectedCard.fields.free ? `## ${selectedCard.fields.name}\n\n### Prompt-Formel\n\n${processPromptFormula(selectedCard.fields.promptFormel || '')}\n\n### Legende\n\n${selectedCard.fields.legend}` : undefined}
         >
           {!selectedCard.fields.free && (

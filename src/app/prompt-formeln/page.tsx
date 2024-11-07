@@ -1,7 +1,8 @@
-import { getAirtableRecords } from "@/lib/airtable"
-import ConceptSlider from "@/components/concept-slider"
+'use client'
 
-export const revalidate = 0;
+import { useSession } from "next-auth/react"
+import { useEffect, useState } from "react"
+import ConceptSlider from "@/components/concept-slider"
 
 interface PromptCard {
   id: string;
@@ -32,20 +33,39 @@ interface PromptCard {
   };
 }
 
-export default async function PromptFormeln() {
-  const { records, error } = await getAirtableRecords();
+export default function PromptFormeln() {
+  const { data: session, status } = useSession()
+  const [promptCards, setPromptCards] = useState<PromptCard[]>([])
+  const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('/api/airtable');
+        const data = await response.json();
+        
+        if (data.error) {
+          setError('Failed to load content. Please try again later.');
+          console.error('Error fetching Airtable records:', data.error);
+        } else {
+          setPromptCards(data.records || []);
+        }
+      } catch (err) {
+        setError('Failed to load content. Please try again later.');
+        console.error('Error fetching Airtable records:', err);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   if (error) {
-    console.error('Error fetching Airtable records:', error);
     return (
       <div className="p-8 text-red-500">
-        Failed to load content. Please try again later.
+        {error}
       </div>
     );
   }
-
-  // Ensure records is always an array, even if empty
-  const promptCards: PromptCard[] = records || [];
 
   return (
     <main>
@@ -57,7 +77,7 @@ export default async function PromptFormeln() {
             </h2>
           </div>
         </div>
-        <ConceptSlider cards={promptCards} />
+        <ConceptSlider cards={promptCards} session={session} />
       </div>
     </main>
   )
