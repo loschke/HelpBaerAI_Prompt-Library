@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Separator } from "@/components/ui/separator"
 import { Input } from "@/components/ui/input"
+import { StripePortalButton } from "@/components/ui/stripe-portal-button"
 import { useSession, signOut } from "next-auth/react"
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
@@ -129,7 +130,9 @@ export default function ProfilePage() {
           </div>
         </CardContent>
         <Separator className="bg-border/50" />
-        <CardFooter className="flex justify-center">
+        <CardFooter className="flex flex-col gap-2">
+          {/* Stripe Portal Button */}
+          <StripePortalButton className="w-full" />
           <Button onClick={handleLogout} className="w-full bg-primary hover:bg-primary/90">
             Ausloggen
           </Button>
