@@ -131,8 +131,6 @@ export default function ProfilePage() {
         </CardContent>
         <Separator className="bg-border/50" />
         <CardFooter className="flex flex-col gap-2">
-          {/* Stripe Portal Button */}
-          <StripePortalButton className="w-full" />
           <Button onClick={handleLogout} className="w-full bg-primary hover:bg-primary/90">
             Ausloggen
           </Button>

@@ -18,10 +18,11 @@ enum Role {
   USER
 }
 
-enum SubscriptionPlan {
+enum SubscriptionTier {
   FREE
   PREMIUM
-  PARTNER_LIFETIME
+  PARTNER
+  TEAM
 }
 
 enum ActivityType {
@@ -30,7 +31,6 @@ enum ActivityType {
   LOGIN
   LOGOUT
   PASSWORD_CHANGE
-  SUBSCRIPTION_PURCHASE
   PROFILE_UPDATE
   DATA_EXPORT
   DATA_DELETION_REQUEST
@@ -58,7 +58,8 @@ model User {
   lastLogin         DateTime?
   
   // Subscription Management
-  currentPlan       SubscriptionPlan  @default(FREE)
+  subscriptionTier  SubscriptionTier  @default(FREE)
+  subscriptionEndDate DateTime?       // Only used for PREMIUM
   stripeCustomerId  String?           @unique
   
   // Referral System (MVP Version)
@@ -67,7 +68,6 @@ model User {
   // Beziehungen
   accounts          Account[]         // Required by NextAuth
   sessions          Session[]         // Required by NextAuth
-  subscriptions     Subscription[]
   activities        Activity[]
   
   // DSGVO & Privacy
@@ -79,7 +79,7 @@ model User {
   @@map("users")
   @@index([email])
   @@index([role])
-  @@index([currentPlan])
+  @@index([subscriptionTier])
   @@index([isDeleted])
 }
 
@@ -121,34 +121,6 @@ model VerificationToken {
 
   @@unique([identifier, token])
   @@map("verification_tokens")
-}
-
-// Subscription Tracking (Minimale Version, Stripe als Source of Truth)
-model Subscription {
-  id                  String            @id @default(cuid())
-  createdAt           DateTime          @default(now())
-  updatedAt           DateTime          @updatedAt
-  
-  // Subscription Details
-  plan                SubscriptionPlan
-  startDate           DateTime
-  endDate             DateTime
-  isActive            Boolean           @default(true)
-  
-  // Stripe Integration
-  stripeSubscriptionId String?          @unique
-  stripePriceId        String?
-  
-  // Basic Tracking
-  purchaseAmount       Decimal          @default(0)
-  affiliateCommission  Decimal?
-  
-  // Beziehung
-  user                User              @relation(fields: [userId], references: [id])
-  userId              String
-
-  @@map("subscriptions")
-  @@index([isActive])
 }
 
 // Activity Logging (Minimale Version)
