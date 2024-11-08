@@ -52,7 +52,7 @@ export async function POST(request: Request) {
         firstName: validatedData.firstName,
         lastName: validatedData.lastName || null,
         role: "USER",
-        currentPlan: "FREE",
+        subscriptionTier: "FREE",
         isVerified: false,
         verificationToken,
         referralCode: validatedData.referralCode,

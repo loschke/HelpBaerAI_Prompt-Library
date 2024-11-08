@@ -7,12 +7,12 @@ import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Separator } from "@/components/ui/separator"
 import { Input } from "@/components/ui/input"
-import { StripePortalButton } from "@/components/ui/stripe-portal-button"
 import { useSession, signOut } from "next-auth/react"
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 import { User, Crown, Lock, LockOpen, Check, X } from "lucide-react"
-import { Role, SubscriptionPlan } from "@prisma/client"
+import { Role, SubscriptionTier } from "@prisma/client"
+import { SubscriptionButton } from "@/components/ui/subscription-button"
 
 export default function ProfilePage() {
   const { data: session, status } = useSession()
@@ -39,7 +39,7 @@ export default function ProfilePage() {
     lastName: session.user.lastName || '',
     email: session.user.email || '',
     status: session.user.role || Role.USER,
-    plan: session.user.currentPlan || SubscriptionPlan.FREE,
+    plan: session.user.subscriptionTier || SubscriptionTier.FREE,
     isVerified: session.user.isVerified
   }
 
@@ -101,11 +101,11 @@ export default function ProfilePage() {
             <div className="flex justify-between items-center">
               <Label className="text-sm font-medium text-foreground">Plan</Label>
               <span className={`text-xs font-medium px-2.5 py-0.5 rounded inline-flex items-center gap-1 ${
-                userProfile.plan === SubscriptionPlan.PREMIUM || userProfile.plan === SubscriptionPlan.PARTNER_LIFETIME
+                userProfile.plan === SubscriptionTier.PREMIUM || userProfile.plan === SubscriptionTier.PARTNER
                   ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300'
                   : 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300'
               }`}>
-                {(userProfile.plan === SubscriptionPlan.PREMIUM || userProfile.plan === SubscriptionPlan.PARTNER_LIFETIME)
+                {(userProfile.plan === SubscriptionTier.PREMIUM || userProfile.plan === SubscriptionTier.PARTNER)
                   ? <Crown className="h-3 w-3" />
                   : <LockOpen className="h-3 w-3" />
                 }
@@ -131,6 +131,7 @@ export default function ProfilePage() {
         </CardContent>
         <Separator className="bg-border/50" />
         <CardFooter className="flex flex-col gap-2">
+          <SubscriptionButton session={session} />
           <Button onClick={handleLogout} className="w-full bg-primary hover:bg-primary/90">
             Ausloggen
           </Button>

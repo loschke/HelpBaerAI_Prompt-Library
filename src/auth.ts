@@ -1,18 +1,32 @@
-import NextAuth from "next-auth"
+import NextAuth, { DefaultSession } from "next-auth"
 import { PrismaAdapter } from "@auth/prisma-adapter"
 import type { NextAuthConfig } from "next-auth"
 import type { JWT } from "next-auth/jwt"
 import CredentialsProvider from "next-auth/providers/credentials"
 import { prisma } from "@/lib/prisma"
 import bcrypt from "bcryptjs"
-import { Role, SubscriptionPlan, User } from "@prisma/client"
+import { Role, SubscriptionTier, User } from "@prisma/client"
+
+// Erweitere den DefaultSession User
+declare module "next-auth" {
+  interface Session extends DefaultSession {
+    user: {
+      id: string
+      firstName: string
+      lastName?: string | null
+      role: Role
+      subscriptionTier: SubscriptionTier
+      isVerified: boolean
+    } & DefaultSession["user"]
+  }
+}
 
 interface ExtendedJWT extends JWT {
   id: string
   firstName: string
   lastName?: string | null
   role: Role
-  currentPlan: SubscriptionPlan
+  subscriptionTier: SubscriptionTier
   isVerified: boolean
 }
 
@@ -55,7 +69,7 @@ export const config = {
           firstName: typedUser.firstName,
           lastName: typedUser.lastName,
           role: typedUser.role,
-          currentPlan: typedUser.currentPlan,
+          subscriptionTier: typedUser.subscriptionTier,
           isVerified: typedUser.isVerified
         }
       }
@@ -69,7 +83,7 @@ export const config = {
         session.user.firstName = extendedToken.firstName
         session.user.lastName = extendedToken.lastName
         session.user.role = extendedToken.role
-        session.user.currentPlan = extendedToken.currentPlan
+        session.user.subscriptionTier = extendedToken.subscriptionTier
         session.user.isVerified = extendedToken.isVerified
       }
       return session
@@ -91,7 +105,7 @@ export const config = {
             lastName: true,
             hashedPassword: true,
             role: true,
-            currentPlan: true,
+            subscriptionTier: true,
             isVerified: true
           }
         })
@@ -115,7 +129,7 @@ export const config = {
           firstName: user.firstName,
           lastName: user.lastName,
           role: user.role,
-          currentPlan: user.currentPlan,
+          subscriptionTier: user.subscriptionTier,
           isVerified: user.isVerified
         }
       }
