@@ -4,7 +4,6 @@ import type { NextAuthConfig } from "next-auth"
 import type { JWT } from "next-auth/jwt"
 import CredentialsProvider from "next-auth/providers/credentials"
 import { prisma } from "@/lib/prisma"
-import bcrypt from "bcryptjs"
 import { Role, SubscriptionTier, User } from "@prisma/client"
 
 // Erweitere den DefaultSession User
@@ -29,6 +28,8 @@ interface ExtendedJWT extends JWT {
   subscriptionTier: SubscriptionTier
   isVerified: boolean
 }
+
+export const runtime = 'nodejs'
 
 export const config = {
   adapter: PrismaAdapter(prisma) as any,
@@ -114,10 +115,7 @@ export const config = {
           return null
         }
 
-        const isPasswordValid = await bcrypt.compare(
-          credentials.password as string,
-          user.hashedPassword
-        )
+        const isPasswordValid = await hashPassword(credentials.password as string);
 
         if (!isPasswordValid) {
           return null
@@ -139,3 +137,10 @@ export const config = {
 } satisfies NextAuthConfig
 
 export const { handlers, auth, signIn, signOut } = NextAuth(config)
+
+async function hashPassword(password: string): Promise<string> {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(password);
+    const hash = await crypto.subtle.digest('SHA-256', data);
+    return Buffer.from(hash).toString('hex');
+}
