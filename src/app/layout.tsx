@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { ThemeProvider } from '@/components/theme-provider'
 import Navigation from '@/components/navigation'
+import { Footer } from '@/components/ui/footer'
 import { SessionProvider } from "next-auth/react"
 import PrelineScript from '@/components/PrelineScript'
 import './globals.css'
@@ -17,7 +18,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="de" suppressHydrationWarning>
-      <body className="min-h-screen bg-background font-ff-clan antialiased" suppressHydrationWarning>
+      <body className="min-h-screen bg-background font-ff-clan antialiased flex flex-col" suppressHydrationWarning>
         <SessionProvider>
           <ThemeProvider
             attribute="class"
@@ -26,7 +27,10 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <Navigation />
-            {children}
+            <main className="flex-1">
+              {children}
+            </main>
+            <Footer />
           </ThemeProvider>
         </SessionProvider>
         <PrelineScript />
