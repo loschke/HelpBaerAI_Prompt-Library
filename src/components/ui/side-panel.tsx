@@ -75,7 +75,11 @@ export function SidePanel({ isOpen, onClose, isFree, children, markdownContent, 
               children={children}
             />
           ) : (
-            <PremiumPanelContent />
+            <PremiumPanelContent 
+              session={session}
+              markdownContent={markdownContent}
+              children={children}
+            />
           )}
         </div>
 

@@ -1,6 +1,23 @@
 import Link from 'next/link'
+import { StyledMarkdown } from "./styled-markdown"
 
-export function PremiumPanelContent() {
+interface PremiumPanelContentProps {
+  session: any
+  markdownContent?: string
+  children?: React.ReactNode
+}
+
+export function PremiumPanelContent({ session, markdownContent, children }: PremiumPanelContentProps) {
+  // If user is logged in and has premium/partner/team subscription, show content
+  if (session?.user?.subscriptionTier && session.user.subscriptionTier !== 'FREE') {
+    return markdownContent ? (
+      <StyledMarkdown content={markdownContent} />
+    ) : (
+      children
+    )
+  }
+
+  // Premium promotion panel (shown for both non-logged in and free users)
   return (
     <div className="space-y-6">
       <div className="p-6 bg-gradient-to-br from-amber-500 to-amber-600 rounded-lg text-white">
@@ -28,10 +45,10 @@ export function PremiumPanelContent() {
           </li>
         </ul>
         <Link 
-          href="/premium"
+          href={session ? "/premium" : "/auth/register"}
           className="block w-full text-center px-6 py-3 bg-white text-amber-600 rounded-lg hover:bg-gray-100 transition-colors font-semibold"
         >
-          Jetzt Premium werden
+          {session ? "Jetzt Premium werden" : "Jetzt registrieren"}
         </Link>
       </div>
     </div>

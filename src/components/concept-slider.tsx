@@ -121,19 +121,11 @@ export default function ConceptSlider({ cards = [], session }: ConceptSliderProp
           isFree={selectedCard.fields.free}
           examples={selectedCard.fields.examples}
           session={session}
-          markdownContent={selectedCard.fields.free ? `## ${selectedCard.fields.name}\n\n### Prompt-Formel\n\n${processPromptFormula(selectedCard.fields.promptFormel || '')}\n\n### Legende\n\n${selectedCard.fields.legend}` : undefined}
+          markdownContent={
+            `## ${selectedCard.fields.name}\n\n### Prompt-Formel\n\n${processPromptFormula(selectedCard.fields.promptFormel || '')}\n\n### Legende\n\n${selectedCard.fields.legend}`
+          }
         >
-          {!selectedCard.fields.free && (
-            <div className="text-center py-8">
-              <Crown className="w-12 h-12 text-amber-500 mx-auto mb-4" />
-              <p className="text-gray-600 dark:text-gray-300 mb-4">
-                Dies ist eine Premium Prompt-Formel. Upgrade jetzt für den Zugriff auf alle Premium-Inhalte.
-              </p>
-              <Button className="bg-amber-500 hover:bg-amber-600 text-white">
-                Upgrade to Premium
-              </Button>
-            </div>
-          )}
+          {/* This section is no longer needed as the markdownContent will handle the premium content */}
         </SidePanel>
       )}
     </div>
