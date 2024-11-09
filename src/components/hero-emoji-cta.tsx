@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { ArrowRight, Wand2 } from "lucide-react"
+import Link from "next/link"
 
 export default function HeroEmojiCta() {
   return (
@@ -33,11 +34,15 @@ export default function HeroEmojiCta() {
             <span role="img" aria-label="Star-struck face">🤩</span>
           </div>             
 
-          {/* CTA Button */}
-          <Button size="lg" className="px-8 py-6 text-xl">
-            <Wand2 className="mr-2 h-5 w-5" />
-            Starte kostenlos mit 15 Prompt-Formeln
-          </Button>
+          {/* CTA Button with Link */}
+          <div className="block">
+            <Link href="/auth/register" className="inline-block">
+              <Button size="lg" className="px-8 py-6 text-xl">
+                <Wand2 className="mr-2 h-5 w-5" />
+                Starte kostenlos mit 15 Prompt-Formeln
+              </Button>
+            </Link>
+          </div>
         </div>
       </div>
     </div>
