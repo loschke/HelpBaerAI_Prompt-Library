@@ -1,88 +1,71 @@
 # Stripe Integration Implementation Plan
 
-## Completed Implementation ✓
+## Current Implementation Status
 
-### Phase 1: Basic Setup & TypeScript Conversion ✓
-- Created new route structure
-  - `/app/premium/page.tsx` for the checkout page ✓
-  - `/app/api/stripe/checkout/route.ts` for the checkout session API ✓
-  - `/app/api/stripe/success/route.ts` for handling success redirects ✓
-- Converted template to TypeScript ✓
-- Set up Stripe configuration ✓
+### Database Schema Updates Needed
+1. Add new fields to User model in Prisma schema:
+```prisma
+model User {
+  // ... existing fields ...
+  stripeCustomerId    String?   // To link Stripe customer with our user
+  subscriptionEndDate DateTime? // To track when subscription expires
+}
+```
 
-### Phase 2: Authentication Integration ✓
-- Added authentication middleware protection ✓
-- Added session checks in API routes ✓
-- Added user context to Stripe checkout ✓
-- Implemented redirect for unauthenticated users ✓
+### API Updates Required
+1. Update `/app/api/stripe/checkout/route.ts`:
+   - Store Stripe Customer ID during checkout session creation
+   - Pass customer ID to session metadata
 
-### Phase 3: Database Integration ✓
-- Using existing Prisma schema with subscriptionTier field ✓
-- Implemented subscription status update on successful payment ✓
+2. Update `/app/api/stripe/success/route.ts`:
+   - Extract subscription end date from Stripe response
+   - Store both customer ID and subscription end date in database
+   - Update user record with new fields
 
-### Phase 4: Checkout Flow Implementation ✓
-- Created premium page UI with loading states ✓
-- Implemented checkout session creation ✓
-- Added success/cancel URL handling ✓
-- Added error handling ✓
+### Implementation Steps
+1. Database Migration
+   - Create new Prisma migration for additional fields
+   - Apply migration to database
+   - Update TypeScript types
 
-## Testing Required
+2. Stripe Integration Enhancement
+   - Modify checkout session creation to include customer data
+   - Update success handler to capture additional fields
+   - Implement customer ID storage logic
+   - Add subscription end date calculation
 
-1. Authentication Flow
-   - [ ] Test accessing premium page when logged out
-   - [ ] Test accessing premium page when logged in
-   - [ ] Test accessing premium page as premium user
+3. Testing Requirements
+   - Verify customer ID is correctly stored
+   - Verify subscription end date is accurate
+   - Test subscription renewal impact
+   - Validate customer ID linking
 
-2. Checkout Process
-   - [ ] Test initiating checkout
-   - [ ] Test Stripe checkout form appears
-   - [ ] Test payment with test card
-   - [ ] Test payment cancellation
+## Important Notes
 
-3. Post-Payment Flow
-   - [ ] Test successful payment updates user status
-   - [ ] Test redirect after successful payment
-   - [ ] Test error handling
-   - [ ] Test database update confirmation
+### Session Handling
+- After successful payment, users need to log out and log back in to see their premium status
+- A dedicated payment success page guides users through this process
+- This approach ensures system stability and session consistency
 
-## Testing Instructions
-
-1. Test Authentication:
-   - Log out and try to access /premium
-   - Log in and access /premium
-   - Update a user to premium and verify redirect
-
-2. Test Checkout:
-   - Use Stripe test card: 4242 4242 4242 4242
-   - Expiry: Any future date
-   - CVC: Any 3 digits
-   - ZIP: Any 5 digits
-
-3. Test Success Flow:
-   - Complete payment with test card
-   - Verify redirect to profile
-   - Check database for subscription update
-   - Verify premium features are accessible
-
-4. Test Error Handling:
-   - Cancel payment
-   - Use invalid test card
-   - Check error messages display
-
-## Environment Variables Required
+### Environment Variables Required
 ```
 STRIPE_SECRET_KEY=sk_test_...
 STRIPE_PRICE_ID=price_...
 NEXTAUTH_URL=http://localhost:3000
 ```
 
-## Security Notes
-- All routes are protected with authentication ✓
-- User verification is done server-side ✓
+### Security Notes
+- All routes are protected with authentication
+- User verification is done server-side
 - Stripe webhook signatures should be verified (future enhancement)
-- Payment intents are tied to specific users ✓
+- Payment intents are tied to specific users
 
-## Future Enhancements
+### Known Limitations
+1. No webhook verification yet
+2. Basic error handling
+3. Session requires re-login to reflect premium status
+
+### Future Enhancements
 1. Add Stripe webhook handling for better payment verification
 2. Add subscription management UI
 3. Implement usage tracking
@@ -90,17 +73,17 @@ NEXTAUTH_URL=http://localhost:3000
 5. Add automatic renewal handling
 6. Add subscription tiers
 7. Implement subscription cancellation
+8. Implement real-time session updates for premium status
+9. Add subscription status checking using stored customer ID
+10. Implement automatic subscription end date updates
 
-## Known Limitations
-1. No webhook verification yet
-2. Single payment flow (no recurring)
-3. Basic error handling
-4. No subscription management UI
-
-## Troubleshooting
+### Troubleshooting
 If you encounter issues:
 1. Verify all environment variables are set
 2. Check Stripe dashboard for payment status
 3. Verify user session is active
 4. Check browser console for errors
 5. Verify database connection
+6. If premium status isn't visible, try logging out and back in
+7. Verify Stripe customer ID matches between systems
+8. Check subscription end date calculation accuracy

@@ -27,7 +27,33 @@ export async function POST() {
       return new NextResponse("Already subscribed", { status: 400 });
     }
 
+    // Create or retrieve a Stripe customer
+    let customer;
+    if (session.user.stripeCustomerId) {
+      // Retrieve existing customer
+      customer = await stripe.customers.retrieve(session.user.stripeCustomerId);
+      
+      // If customer was deleted on Stripe, create a new one
+      if ((customer as any).deleted) {
+        customer = await stripe.customers.create({
+          email: session.user.email || undefined,
+          metadata: {
+            userId: session.user.id
+          }
+        });
+      }
+    } else {
+      // Create new customer
+      customer = await stripe.customers.create({
+        email: session.user.email || undefined,
+        metadata: {
+          userId: session.user.id
+        }
+      });
+    }
+
     const checkoutSession = await stripe.checkout.sessions.create({
+      customer: customer.id,
       mode: "subscription",
       payment_method_types: ["card"],
       line_items: [
@@ -40,6 +66,7 @@ export async function POST() {
       cancel_url: `${process.env.NEXTAUTH_URL}/premium?canceled=true`,
       metadata: {
         userId: session.user.id,
+        customerId: customer.id
       },
     });
 

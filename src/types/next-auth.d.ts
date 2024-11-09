@@ -1,5 +1,5 @@
 import { DefaultSession } from "next-auth"
-import { Role, SubscriptionPlan } from "@prisma/client"
+import { Role, SubscriptionTier } from "@prisma/client"
 
 declare module "next-auth" {
   interface User {
@@ -8,8 +8,10 @@ declare module "next-auth" {
     firstName: string
     lastName?: string | null
     role: Role
-    currentPlan: SubscriptionPlan
+    subscriptionTier: SubscriptionTier
     isVerified: boolean
+    stripeCustomerId?: string | null
+    subscriptionEndDate?: Date | null
   }
 
   interface Session extends DefaultSession {
@@ -23,7 +25,9 @@ declare module "next-auth/jwt" {
     firstName: string
     lastName?: string | null
     role: Role
-    currentPlan: SubscriptionPlan
+    subscriptionTier: SubscriptionTier
     isVerified: boolean
+    stripeCustomerId?: string | null
+    subscriptionEndDate?: Date | null
   }
 }

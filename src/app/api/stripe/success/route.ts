@@ -21,6 +21,9 @@ export async function POST(request: Request) {
       case 'checkout.session.completed':
         const session = event.data.object;
         
+        // Get subscription details
+        const subscription = await stripe.subscriptions.retrieve(session.subscription);
+        
         // Update user's subscription status
         await prisma.user.update({
           where: {
@@ -28,6 +31,8 @@ export async function POST(request: Request) {
           },
           data: {
             subscriptionTier: "PREMIUM",
+            stripeCustomerId: session.metadata.customerId,
+            subscriptionEndDate: new Date(subscription.current_period_end * 1000), // Convert Unix timestamp to Date
           },
         });
         break;
@@ -72,7 +77,9 @@ export async function GET(request: Request) {
     }
 
     // Retrieve the checkout session to verify payment status
-    const checkoutSession = await stripe.checkout.sessions.retrieve(sessionId);
+    const checkoutSession = await stripe.checkout.sessions.retrieve(sessionId, {
+      expand: ['subscription']
+    });
 
     if (checkoutSession.payment_status !== "paid") {
       return new NextResponse("Payment not completed", { status: 400 });
@@ -83,13 +90,17 @@ export async function GET(request: Request) {
       return new NextResponse("Invalid user", { status: 400 });
     }
 
-    // Update user's subscription status
+    // Update user's subscription status with Stripe data
     await prisma.user.update({
       where: {
         id: session.user.id,
       },
       data: {
         subscriptionTier: "PREMIUM",
+        stripeCustomerId: checkoutSession.metadata.customerId,
+        subscriptionEndDate: checkoutSession.subscription 
+          ? new Date((checkoutSession.subscription as Stripe.Subscription).current_period_end * 1000)
+          : undefined,
       },
     });
 
