@@ -46,7 +46,7 @@ export default function PremiumPage() {
           {/* Image Container */}
           <div className="relative w-full" style={{ paddingTop: '56.25%' }}> {/* 16:9 aspect ratio */}
             <Image
-              src="/images/promptbaer.png"
+              src="/images/promptbaer_premium_king_16_9.png"
               alt="HelpBaer AI"
               fill
               className="object-cover"
