@@ -9,7 +9,7 @@ export async function GET(request: Request) {
     const token = searchParams.get("token")
     
     // Get the base URL from environment, fallback to the request origin
-    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://promptbaer.kvix.cloud'
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://promptbaer.de'
 
     if (!token) {
       return NextResponse.redirect(`${baseUrl}/auth/error`)
@@ -43,7 +43,7 @@ export async function GET(request: Request) {
     return NextResponse.redirect(`${baseUrl}/auth/verify-email/success`)
   } catch (error) {
     console.error("Email verification error:", error)
-    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://promptbaer.kvix.cloud'
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://promptbaer.de'
     return NextResponse.redirect(`${baseUrl}/auth/error`)
   }
 }

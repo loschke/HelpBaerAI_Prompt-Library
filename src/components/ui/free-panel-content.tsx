@@ -18,7 +18,7 @@ export function FreePanelContent({ session, markdownContent, children }: FreePan
 
   return (
     <div className="space-y-6">
-      <div className="p-6 bg-gradient-to-br from-green-500 to-green-600 rounded-lg text-white">
+      <div className="p-6 bg-gradient-to-br from-fuchsia-700 to-fuchsia-900 rounded-lg text-white">
         <h3 className="text-2xl font-bold mb-4">
           Kostenlose Prompt-Formeln freischalten
         </h3>
@@ -44,7 +44,7 @@ export function FreePanelContent({ session, markdownContent, children }: FreePan
         </ul>
         <Link 
           href="/auth/register"
-          className="block w-full text-center px-6 py-3 bg-white text-green-600 rounded-lg hover:bg-gray-100 transition-colors font-semibold"
+          className="block w-full text-center px-6 py-3 bg-white text-fuchsia-700 rounded-lg hover:bg-gray-100 transition-colors font-semibold"
         >
           Jetzt kostenlos registrieren
         </Link>

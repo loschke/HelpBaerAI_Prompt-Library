@@ -15,10 +15,13 @@ export default function StylesReferencesPage() {
               Kreative Inspiration
             </Badge>
 
-            {/* Heading */}
+            {/* Heading 
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white">
               Bildstile & Referenzen
-            </h1>      
+            </h1>             
+            
+            */}
+     
 
             {/* Description 
             <p className="text-2xl text-foreground leading-relaxed">
@@ -53,12 +56,13 @@ export default function StylesReferencesPage() {
 
             {/* Progress Indicator */}
             <div className="w-full max-w-md space-y-3">
+              <p className="text-xl text-white">
+                Wir sind fast fertig! 🚀
+              </p>
               <div className="h-2 w-full bg-neutral-800 rounded-full overflow-hidden">
                 <div className="h-full bg-primary w-3/4 animate-[progress_2s_ease-in-out_infinite]"></div>
               </div>
-              <p className="text-sm text-foreground/60">
-                Fortschritt: Wir sind fast fertig! 🚀
-              </p>
+
             </div>
           </div>
         </div>
