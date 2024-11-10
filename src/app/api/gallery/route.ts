@@ -9,7 +9,7 @@ export async function GET() {
   try {
     const records = await base(process.env.AIRTABLE_TABLE_IMAGES!)
       .select({
-        maxRecords: 20
+        maxRecords: 100
       })
       .firstPage();
 

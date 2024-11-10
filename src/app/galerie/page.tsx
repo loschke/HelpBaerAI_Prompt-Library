@@ -14,8 +14,8 @@ interface ImageData {
       width?: number;
       height?: number;
     }>;
-    "Name (from Prompt-Formeln)"?: string[];
-    "Free (from Prompt-Formeln)"?: boolean[];
+    Free?: string[];
+    Kategorie?: string[];
   };
 }
 
@@ -54,7 +54,7 @@ export default function Gallery() {
           <div key={item.id} className="group relative border border-zinc-800 rounded-lg overflow-hidden bg-zinc-950">
             {/* Status Badge - jetzt absolut positioniert */}
             <div className="absolute top-2 right-2 z-10">
-              {item.fields?.["Free (from Prompt-Formeln)"]?.[0] === true ? (
+              {item.fields?.Free?.[0] === "true" ? (
                 <div className="w-8 h-8 rounded-full bg-zinc-900/80 backdrop-blur-sm flex items-center justify-center">
                   <LockOpen className="w-4 h-4 text-emerald-400" />
                 </div>
@@ -81,7 +81,7 @@ export default function Gallery() {
             {/* Unterer Bereich */}
             <div className="p-3 space-y-2">
               <Badge variant="outline" className="text-xs text-zinc-400 border-zinc-700">
-                {item.fields?.["Name (from Prompt-Formeln)"]?.[0] || 
+                {item.fields?.Kategorie?.[0] || 
                  `Prompt ${item.fields?.["Prompt ID"] || 'Unknown'}`}
               </Badge>
               <p className="text-xs text-zinc-300 line-clamp-3">
