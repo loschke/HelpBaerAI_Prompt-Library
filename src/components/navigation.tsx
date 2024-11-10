@@ -7,17 +7,21 @@ import { Menu, X } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useSession, signOut } from "next-auth/react"
 
-const navItems = [
+const baseNavItems = [
   { name: 'Prompt Formeln', href: '/prompt-formeln' },
-  { name: 'Bilder Galerie', href: '/images' },
+  { name: 'Bilder Galerie', href: '/galerie' },
   { name: 'Bildstile & Referenzen', href: '/stile-referenzen' },
-  { name: 'Preise', href: '/pricing' },
 ]
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
   const router = useRouter()
   const { data: session } = useSession()
+
+  const navItems = [
+    ...baseNavItems,
+    { name: 'Preise', href: session?.user ? '/premium' : '/pricing' },
+  ]
 
   const handleLogout = async () => {
     await signOut({
