@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { LockOpen, Crown } from "lucide-react";
+import { GallerySidePanel } from "@/components/ui/gallery-side-panel";
 
 interface ImageRecord {
   id: string;
@@ -32,6 +33,8 @@ export default function TestGallery() {
   const [nextOffset, setNextOffset] = useState<string | null>(null);
   const [hasMore, setHasMore] = useState(false);
   const [loadingMore, setLoadingMore] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<ImageRecord | null>(null);
+  const [isSidePanelOpen, setIsSidePanelOpen] = useState(false);
 
   useEffect(() => {
     fetchImages();
@@ -75,6 +78,16 @@ export default function TestGallery() {
     }
   };
 
+  const handleImageClick = (image: ImageRecord) => {
+    setSelectedImage(image);
+    setIsSidePanelOpen(true);
+  };
+
+  const handleCloseSidePanel = () => {
+    setIsSidePanelOpen(false);
+    setSelectedImage(null);
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen p-8">
@@ -102,7 +115,11 @@ export default function TestGallery() {
     <div className="p-4 space-y-8">
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
         {images.map((item) => (
-          <div key={item.id} className="group relative border border-zinc-800 rounded-lg overflow-hidden bg-zinc-950">
+          <div 
+            key={item.id} 
+            className="group relative border border-zinc-800 rounded-lg overflow-hidden bg-zinc-950 cursor-pointer"
+            onClick={() => handleImageClick(item)}
+          >
             {/* Status Badge */}
             <div className="absolute top-2 right-2 z-10">
               {item.fields?.Free?.[0] === "true" ? (
@@ -124,7 +141,7 @@ export default function TestGallery() {
                   alt={item.fields?.Prompt || 'Prompt preview'}
                   width={640}
                   height={640}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover transition-transform duration-200 group-hover:scale-105"
                 />
               </div>
             )}
@@ -165,6 +182,13 @@ export default function TestGallery() {
           ))}
         </div>
       )}
+
+      {/* Side Panel */}
+      <GallerySidePanel
+        isOpen={isSidePanelOpen}
+        onClose={handleCloseSidePanel}
+        imageData={selectedImage || undefined}
+      />
 
       {/* Debug Output */}
       <div className="mt-8 p-4 bg-zinc-900 rounded-lg">
