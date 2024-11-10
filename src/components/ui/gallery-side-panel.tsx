@@ -3,6 +3,8 @@ import { cn } from "@/lib/utils"
 import { X, LockOpen, Crown } from "lucide-react"
 import { useSession } from "next-auth/react"
 import Link from 'next/link'
+import { FreePanelContent } from "./free-panel-content"
+import { PremiumPanelContent } from "./premium-panel-content"
 
 interface GallerySidePanelProps {
   isOpen: boolean
@@ -31,45 +33,8 @@ export function GallerySidePanel({ isOpen, onClose, imageData }: GallerySidePane
   const isFree = imageData.fields?.Free?.[0] === true
 
   const renderContent = () => {
-    if (!session) {
-      return (
-        <div className="space-y-6">
-          <div className="p-6 bg-gradient-to-br from-green-500 to-green-600 rounded-lg text-white">
-            <h3 className="text-2xl font-bold mb-4">
-              Prompt-Details freischalten
-            </h3>
-            <ul className="space-y-3 mb-6">
-              <li className="flex items-start">
-                <svg className="w-6 h-6 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-                <span>Zugriff auf alle kostenlosen Prompts</span>
-              </li>
-              <li className="flex items-start">
-                <svg className="w-6 h-6 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-                <span>Verbessere deine AI-Bildgenerierung</span>
-              </li>
-              <li className="flex items-start">
-                <svg className="w-6 h-6 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-                <span>Kostenlos und ohne versteckte Kosten</span>
-              </li>
-            </ul>
-            <Link 
-              href="/auth/register"
-              className="block w-full text-center px-6 py-3 bg-white text-green-600 rounded-lg hover:bg-gray-100 transition-colors font-semibold"
-            >
-              Jetzt kostenlos registrieren
-            </Link>
-          </div>
-        </div>
-      )
-    }
-
-    return (
+    // Wrap the content that should be protected
+    const protectedContent = (
       <>
         {/* Category */}
         {imageData.fields?.Kategorie?.[0] && (
@@ -102,6 +67,19 @@ export function GallerySidePanel({ isOpen, onClose, imageData }: GallerySidePane
           </div>
         )}
       </>
+    )
+
+    // Use either FreePanelContent or PremiumPanelContent based on the image type
+    return isFree ? (
+      <FreePanelContent 
+        session={session}
+        children={protectedContent}
+      />
+    ) : (
+      <PremiumPanelContent 
+        session={session}
+        children={protectedContent}
+      />
     )
   }
 
