@@ -7,6 +7,7 @@
 # testing
 /coverage
 /preMade
+/docs
 
 # next.js
 /.next/
