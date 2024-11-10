@@ -1,6 +1,8 @@
 import React from 'react'
 import { cn } from "@/lib/utils"
 import { X, LockOpen, Crown } from "lucide-react"
+import { useSession } from "next-auth/react"
+import Link from 'next/link'
 
 interface GallerySidePanelProps {
   isOpen: boolean
@@ -22,9 +24,86 @@ interface GallerySidePanelProps {
 }
 
 export function GallerySidePanel({ isOpen, onClose, imageData }: GallerySidePanelProps) {
+  const { data: session } = useSession()
+  
   if (!imageData) return null
 
   const isFree = imageData.fields?.Free?.[0] === true
+
+  const renderContent = () => {
+    if (!session) {
+      return (
+        <div className="space-y-6">
+          <div className="p-6 bg-gradient-to-br from-green-500 to-green-600 rounded-lg text-white">
+            <h3 className="text-2xl font-bold mb-4">
+              Prompt-Details freischalten
+            </h3>
+            <ul className="space-y-3 mb-6">
+              <li className="flex items-start">
+                <svg className="w-6 h-6 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                <span>Zugriff auf alle kostenlosen Prompts</span>
+              </li>
+              <li className="flex items-start">
+                <svg className="w-6 h-6 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                <span>Verbessere deine AI-Bildgenerierung</span>
+              </li>
+              <li className="flex items-start">
+                <svg className="w-6 h-6 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                <span>Kostenlos und ohne versteckte Kosten</span>
+              </li>
+            </ul>
+            <Link 
+              href="/auth/register"
+              className="block w-full text-center px-6 py-3 bg-white text-green-600 rounded-lg hover:bg-gray-100 transition-colors font-semibold"
+            >
+              Jetzt kostenlos registrieren
+            </Link>
+          </div>
+        </div>
+      )
+    }
+
+    return (
+      <>
+        {/* Category */}
+        {imageData.fields?.Kategorie?.[0] && (
+          <div>
+            <h3 className="text-lg font-semibold mb-3 text-zinc-100">
+              Prompt Formel
+            </h3>
+            <div className="flex flex-wrap gap-2">
+              {imageData.fields.Kategorie.map((category, index) => (
+                <span
+                  key={index}
+                  className="px-3 py-1 bg-zinc-800/80 text-zinc-400 rounded-full text-sm"
+                >
+                  {category}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Prompt */}
+        {imageData.fields?.Prompt && (
+          <div>
+            <h3 className="text-lg font-semibold mb-3 text-zinc-100">
+              Prompt
+            </h3>
+            <p className="text-zinc-300 whitespace-pre-wrap leading-relaxed">
+              {imageData.fields.Prompt}
+            </p>
+          </div>
+        )}
+      </>
+    )
+  }
 
   return (
     <>
@@ -73,36 +152,7 @@ export function GallerySidePanel({ isOpen, onClose, imageData }: GallerySidePane
 
         {/* Content */}
         <div className="space-y-6">
-          {/* Category */}
-          {imageData.fields?.Kategorie?.[0] && (
-            <div>
-              <h3 className="text-lg font-semibold mb-3 text-zinc-100">
-                Prompt Formel
-              </h3>
-              <div className="flex flex-wrap gap-2">
-                {imageData.fields.Kategorie.map((category, index) => (
-                  <span
-                    key={index}
-                    className="px-3 py-1 bg-zinc-800/80 text-zinc-400 rounded-full text-sm"
-                  >
-                    {category}
-                  </span>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Prompt */}
-          {imageData.fields?.Prompt && (
-            <div>
-              <h3 className="text-lg font-semibold mb-3 text-zinc-100">
-                Prompt
-              </h3>
-              <p className="text-zinc-300 whitespace-pre-wrap leading-relaxed">
-                {imageData.fields.Prompt}
-              </p>
-            </div>
-          )}
+          {renderContent()}
 
           {/* Main Image */}
           {imageData.fields?.Promptvorschau?.[0]?.url && (
@@ -114,7 +164,6 @@ export function GallerySidePanel({ isOpen, onClose, imageData }: GallerySidePane
               />
             </div>
           )}
-
         </div>
       </div>
     </>
