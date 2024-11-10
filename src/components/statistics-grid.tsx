@@ -7,6 +7,15 @@ const StatisticsGrid = () => {
   return (
     <div className="w-full bg-[#0A0A0A] py-24">
       <div className="container mx-auto px-4">
+        <div className="mb-12">
+          <h2 className="text-4xl md:text-5xl font-black italic text-neutral-200 mb-6 text-center">
+            Zahlen, die für sich sprechen.
+          </h2>
+          <p className="text-2xl text-neutral-400 text-center max-w-5xl mx-auto">
+            Die unendliche Prompt-Bibliothek für dein nächstes Projekt. Fehlt dir etwas? Kein Problem, wir haben es oder wir generieren es.
+          </p>
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* First Stat */}
           <div className="text-center p-6 bg-background rounded-lg border border-[#2A2A2A]">
@@ -39,7 +48,7 @@ const StatisticsGrid = () => {
 
         {/* Logos Section */}
         <div className="mt-16 text-center">
-          <p className="text-base text-muted-foreground mb-4">In Zusammenarbeit mit:</p>
+          <p className="text-base text-muted-foreground mb-4">Eine Kollaboration von:</p>
           <div className="flex flex-wrap justify-center gap-6 items-center">
             <Image 
               src="/images/logos/queonext_logo_2.svg" 
