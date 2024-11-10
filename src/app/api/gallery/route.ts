@@ -1,21 +1,35 @@
 import { NextResponse } from 'next/server';
-import Airtable from 'airtable';
+import { NextRequest } from 'next/server';
 
-const base = new Airtable({
-  apiKey: process.env.AIRTABLE_API_KEY
-}).base(process.env.AIRTABLE_BASE_ID!);
-
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
-    const records = await base(process.env.AIRTABLE_TABLE_IMAGES!)
-      .select({
-        maxRecords: 100
-      })
-      .firstPage();
+    const searchParams = request.nextUrl.searchParams;
+    const offset = searchParams.get('offset');
+
+    // Construct the Airtable API URL
+    const baseUrl = `https://api.airtable.com/v0/${process.env.AIRTABLE_BASE_ID}/${process.env.AIRTABLE_TABLE_IMAGES}`;
+    const url = offset 
+      ? `${baseUrl}?offset=${offset}`
+      : baseUrl;
+
+    // Fetch data from Airtable API
+    const response = await fetch(url, {
+      headers: {
+        'Authorization': `Bearer ${process.env.AIRTABLE_API_KEY}`
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error(`Airtable API responded with status: ${response.status}`);
+    }
+
+    const result = await response.json();
 
     return NextResponse.json({ 
       success: true, 
-      data: records
+      data: result.records,
+      hasMore: !!result.offset,
+      nextOffset: result.offset
     });
 
   } catch (error) {
