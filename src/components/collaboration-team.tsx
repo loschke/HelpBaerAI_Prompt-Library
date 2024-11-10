@@ -105,10 +105,10 @@ export default function CollaborationTeam() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}
         >
-          <Link href="/prompt-formeln">
-            <Button 
-              size="lg" 
-              className="bg-primary font-bold text-lg px-12 py-6 h-auto"
+          <Link href="/contact">
+            <Button
+            size="lg" 
+            className="bg-primary font-bold text-lg px-12 py-6 h-auto"
             >
               Fragen? Sprich mit uns! 🎯
             </Button>

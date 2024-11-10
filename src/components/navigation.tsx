@@ -4,19 +4,20 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { Button } from "@/components/ui/button"
 import { Menu, X } from 'lucide-react'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 import { useSession, signOut } from "next-auth/react"
 
 const baseNavItems = [
   { name: 'Prompt Formeln', href: '/prompt-formeln' },
   { name: 'Bilder Galerie', href: '/bilder-galerie' },
-  { name: 'Bildstile & Referenzen', href: '/stile-referenzen' },
+  { name: 'Style & Referenzen', href: '/stile-referenzen' },
 ]
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
   const router = useRouter()
   const { data: session } = useSession()
+  const pathname = usePathname()
 
   const navItems = [
     ...baseNavItems,
@@ -37,7 +38,12 @@ export default function Navigation() {
           <div className="flex items-center">
             <Link href="/" className="flex-shrink-0 flex items-center gap-2">
               <span className="text-4xl">🐻</span>
-              <span className='text-white font-black italic text-2xl'>PromptBär</span>
+              <span className='text-white font-black italic text-2xl'>
+                PromptBär
+                <span className="ml-2 inline-flex items-center rounded-full bg-gray-700 px-2 py-0.5 text-xs font-medium text-gray-200">
+                  Beta
+                </span>
+              </span>
             </Link> 
           </div>
           <div className="hidden md:block">
@@ -46,7 +52,9 @@ export default function Navigation() {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="text-foreground hover:text-primary hover:text-white px-3 py-2 rounded-md text-lg transition-colors"
+                  className={`text-foreground hover:text-primary hover:text-white px-3 py-2 rounded-md text-lg transition-colors ${
+                    pathname === item.href ? 'text-white font-bold' : ''
+                  }`}
                 >
                   {item.name}
                 </Link>

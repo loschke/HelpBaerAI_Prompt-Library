@@ -37,6 +37,7 @@ export default function TestGallery() {
   const [loadingMore, setLoadingMore] = useState(false);
   const [selectedImage, setSelectedImage] = useState<ImageRecord | null>(null);
   const [isSidePanelOpen, setIsSidePanelOpen] = useState(false);
+  const [showOnlyFree, setShowOnlyFree] = useState(false);
 
   useEffect(() => {
     fetchImages();
@@ -90,6 +91,10 @@ export default function TestGallery() {
     setSelectedImage(null);
   };
 
+  const filteredImages = showOnlyFree 
+    ? images.filter(image => image.fields?.Free?.[0] === true)
+    : images;
+
   if (loading) {
     return <LoadingBear message="Lade Bilder-Galerie..." />;
   }
@@ -129,9 +134,33 @@ export default function TestGallery() {
       {/* Content Section */}
       <div className="bg-gray-50 dark:bg-zinc-950">
         <div className="w-full mx-auto py-8">
+          {/* Filter Toggle Button */}
+          <div className="w-full px-4 mb-6">
+            <div className="flex items-center space-x-2">
+              <button
+                type="button"
+                aria-label={`${showOnlyFree ? 'Hide' : 'Show'} only free images`}
+                onClick={() => setShowOnlyFree(!showOnlyFree)}
+                className={`
+                  relative inline-flex h-6 w-11 items-center rounded-full
+                  ${showOnlyFree ? 'bg-emerald-500' : 'bg-zinc-700'}
+                  transition-colors focus:outline-none
+                `}
+              >
+                <span
+                  className={`
+                    ${showOnlyFree ? 'translate-x-6' : 'translate-x-1'}
+                    inline-block h-4 w-4 transform rounded-full bg-white transition
+                  `}
+                />
+              </button>
+              <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">Nur FREE Bilder anzeigen</span>
+            </div>
+          </div>
+
           {/* Gallery Grid */}
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 2xl:grid-cols-6 gap-4">
-            {images.map((item) => (
+            {filteredImages.map((item) => (
               <div 
                 key={item.id} 
                 className="group relative border border-zinc-800 rounded-lg overflow-hidden bg-zinc-950 cursor-pointer"
