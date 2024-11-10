@@ -6,15 +6,17 @@ import FeaturesTabs from "@/components/features-tabs"
 import FeaturesGrid from "@/components/features-grid"
 import AIToolsCompatibility from "@/components/ai-tools-compatibility"
 import CollaborationTeam from "@/components/collaboration-team"
+import PromptFormulaIntro from "@/components/prompt-formula-intro"
 
 export default function Home() {
   return (
     <main>
       <HeroEmojiCta />
-      <FullWidthImageStrip />      
-      <StatisticsGrid />
-      <FeaturesGrid />
+      <FullWidthImageStrip />
+      <PromptFormulaIntro />   
+      <StatisticsGrid /> 
       <AIToolsCompatibility />
+      <FeaturesGrid />
       <Workflow />     
       <FeaturesTabs />  
       <CollaborationTeam />

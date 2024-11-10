@@ -3,7 +3,7 @@ export default function FeaturesGrid() {
     <div className="bg-background">
       <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-48 mx-auto">
         {/* Hero Image */}
-        <div className="aspect-w-16 aspect-h-7 mb-16">
+        <div className="aspect-w-16 aspect-h-7 mb-28">
           <img 
             className="w-full object-cover rounded-xl" 
             src="/images/zielgruppe-team.png" 

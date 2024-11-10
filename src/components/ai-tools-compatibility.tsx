@@ -60,7 +60,7 @@ const tools = [
 export default function AIToolsCompatibility() {
   return (
     <div className="bg-background">
-      <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+      <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:pt-40 mx-auto">
         <div className="max-w-5xl mx-auto text-center mb-12">
           <motion.h2 
             className="text-4xl md:text-5xl font-black italic text-gray-800 dark:text-neutral-200 mb-4"
@@ -71,7 +71,7 @@ export default function AIToolsCompatibility() {
             Universell einsetzbar mit allen KI-Tools
           </motion.h2>
           <motion.p 
-            className="max-w-3xl mx-auto text-lg text-gray-600 dark:text-neutral-400"
+            className="max-w-3xl mx-auto text-2xl text-neutral-400 text-center"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
@@ -109,6 +109,7 @@ export default function AIToolsCompatibility() {
           ))}
         </motion.div>
 
+        {/* Pro Tipp 
         <motion.div
           className="max-w-6xl mx-auto"
           initial={{ opacity: 0, y: 20 }}
@@ -140,6 +141,8 @@ export default function AIToolsCompatibility() {
             </CardContent>
           </Card>
         </motion.div>
+        
+        */}
       </div>
     </div>
   )
