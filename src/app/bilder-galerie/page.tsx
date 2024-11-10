@@ -16,7 +16,7 @@ interface ImageRecord {
       width?: number;
       height?: number;
     }>;
-    Free?: string[];
+    Free?: Array<boolean | null>;
     Kategorie?: string[];
   };
 }
