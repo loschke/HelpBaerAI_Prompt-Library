@@ -44,7 +44,18 @@ export default function HeroSection() {
       <div className="max-w-[1536px] mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-28 items-center">
           <div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl leading-tight mb-6 font-ff-clan italic font-extrabold dark:text-white text-black">
+            <h1 className="relative text-4xl sm:text-5xl lg:text-6xl leading-tight mb-6 font-ff-clan italic font-extrabold overflow-hidden
+              before:absolute before:inset-0 before:opacity-80
+              before:bg-[linear-gradient(110deg,transparent,hsl(var(--primary)),transparent)]
+              after:absolute after:inset-0 after:opacity-80
+              after:bg-[linear-gradient(290deg,transparent,hsl(var(--accent)),transparent)]
+              bg-[linear-gradient(200deg,transparent,rgb(162_28_175),transparent)]
+              before:mix-blend-soft-light after:mix-blend-soft-light
+              before:animate-shimmer-1 after:animate-shimmer-2
+              before:bg-[length:200%_100%] after:bg-[length:200%_100%] bg-[length:200%_100%]
+              hover:before:opacity-100 hover:after:opacity-100
+              before:transition-opacity after:transition-opacity transition-all duration-500
+              bg-clip-text text-transparent">
               AI-Design <br />Prompt Bibliothek
             </h1>
             <p className="text-xl mb-8 font-ff-clan">

@@ -8,7 +8,20 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/90",
+        default: `
+          relative overflow-hidden text-primary-foreground
+          before:absolute before:inset-0 before:opacity-75
+          before:bg-[linear-gradient(110deg,transparent,hsl(var(--primary)),transparent)]
+          after:absolute after:inset-0 after:opacity-75
+          after:bg-[linear-gradient(290deg,transparent,rgb(162_28_175),transparent)]
+          bg-gradient-to-r from-primary to-fuchsia-700
+          before:mix-blend-soft-light after:mix-blend-soft-light
+          before:animate-shimmer-2 after:animate-shimmer-1
+          before:bg-[length:200%_100%] after:bg-[length:200%_100%]
+          hover:before:opacity-90 hover:after:opacity-90
+          before:transition-opacity after:transition-opacity transition-all duration-500
+          shadow-[0_0_20px_rgba(0,0,0,0.2)] hover:shadow-[0_0_25px_rgba(0,0,0,0.3)]
+        `,
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         outline:

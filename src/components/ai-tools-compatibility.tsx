@@ -3,78 +3,57 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import { Card, CardContent } from "@/components/ui/card"
-import { Palette, Flame, Zap, Sparkles, Wand2, Stars, Brain, Laptop, Cloud, Shapes, Lightbulb } from 'lucide-react'
 
 const tools = [
   {
     name: "Midjourney",
-    icon: Palette,
-    description: "Optimiert für alle Versionen, inkl. MJ v6",
-    bgColor: "bg-violet-500/20",
-    iconColor: "text-violet-500"
+    emoji: "🌟",
+    description: "Optimiert für alle Versionen, inkl. MJ v6"
   },
   {
     name: "Adobe Firefly",
-    icon: Flame,
-    description: "Professionelle Ergebnisse für kommerzielle Projekte",
-    bgColor: "bg-orange-500/20",
-    iconColor: "text-orange-500"
+    emoji: "🔥",
+    description: "Professionelle Ergebnisse für kommerzielle Projekte"
   },
   {
     name: "DALL-E",
-    icon: Zap,
-    description: "Vollständig kompatibel mit DALL-E 3",
-    bgColor: "bg-green-500/20",
-    iconColor: "text-green-500"
+    emoji: "⚡",
+    description: "Vollständig kompatibel mit DALL-E 3"
   },
   {
     name: "Stable Diffusion",
-    icon: Sparkles,
-    description: "Optimiert für alle SD Modelle",
-    bgColor: "bg-blue-500/20",
-    iconColor: "text-blue-500"
+    emoji: "☁️",
+    description: "Optimiert für alle SD Modelle"
   },
   {
     name: "Leonardo AI",
-    icon: Wand2,
-    description: "Perfekt für kreative Workflows",
-    bgColor: "bg-purple-500/20",
-    iconColor: "text-purple-500"
+    emoji: "🖼️",
+    description: "Perfekt für kreative Workflows"
   },
   {
     name: "InvokeAI",
-    icon: Stars,
-    description: "Maximale Feature-Unterstützung",
-    bgColor: "bg-pink-500/20",
-    iconColor: "text-pink-500"
+    emoji: "💻",
+    description: "Maximale Feature-Unterstützung"
   },
   {
     name: "Ideogram",
-    icon: Brain,
-    description: "Präzise abgestimmte Prompts",
-    bgColor: "bg-indigo-500/20",
-    iconColor: "text-indigo-500"
+    emoji: "🧠",
+    description: "Präzise abgestimmte Prompts"
   },
   {
-    name: "Canva AI",
-    icon: Shapes,
-    description: "Nahtlose Design-Integration",
-    bgColor: "bg-teal-500/20",
-    iconColor: "text-teal-500"
+    name: "Canva",
+    emoji: "🎯",
+    description: "Nahtlose Design-Integration"
   },
   {
     name: "Flux Pro",
-    icon: Cloud,
-    description: "Konsistente Qualitätsergebnisse",
-    bgColor: "bg-cyan-500/20",
-    iconColor: "text-cyan-500"
+    emoji: "✨",
+    description: "Konsistente Qualitätsergebnisse"
   },
   {
     name: "Recraft",
-    icon: Laptop,
-    description: "Professionelle Design-Outputs",
-    bgColor: "bg-sky-500/20",
-    iconColor: "text-sky-500"
+    emoji: "🎨",
+    description: "Professionelle Design-Outputs"
   }
 ]
 
@@ -119,8 +98,8 @@ export default function AIToolsCompatibility() {
             >
               <Card className="h-full border-0 shadow-lg bg-gray-50 dark:bg-[#0A0A0A] ">
                 <CardContent className="p-6">
-                  <div className={`w-12 h-12 rounded-lg ${tool.bgColor} flex items-center justify-center mb-4`}>
-                    <tool.icon className={`w-6 h-6 ${tool.iconColor}`} />
+                  <div className="mb-4">
+                    <span className="text-3xl">{tool.emoji}</span>
                   </div>
                   <h3 className="text-xl font-semibold text-gray-800 dark:text-neutral-200 mb-2">{tool.name}</h3>
                   <p className="text-gray-600 dark:text-neutral-400">{tool.description}</p>
@@ -140,15 +119,13 @@ export default function AIToolsCompatibility() {
             <CardContent className="p-6">
               <div className="flex items-start gap-4">
                 <div className="flex-shrink-0">
-                  <div className="w-10 h-10 rounded-full bg-gray-200/50 dark:bg-gray-700/50 flex items-center justify-center">
-                    <Lightbulb className="w-5 h-5 text-gray-600 dark:text-gray-300" />
-                  </div>
+                  <span className="text-2xl">💡</span>
                 </div>
                 
                 <div className="space-y-4">
                   <div className="flex items-center gap-2">
                     <h3 className="font-semibold text-lg text-gray-800 dark:text-neutral-200">Pro-Tipp: Das Beste aus beiden Welten</h3>
-                    <Sparkles className="w-4 h-4 text-gray-600 dark:text-gray-300" />
+                    <span className="text-lg">✨</span>
                   </div>
                   
                   <p className="text-gray-600 dark:text-gray-300">

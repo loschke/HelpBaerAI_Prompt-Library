@@ -61,11 +61,11 @@ function RegisterFormContent() {
     <div className="min-h-screen flex items-center justify-center bg-background/30">
       <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-2">
         {/* Left Column - Benefits */}
-        <div className="hidden md:flex md:flex-col bg-gradient-to-br from-green-500 to-green-600 text-white rounded-l-lg overflow-hidden">
+        <div className="hidden md:flex md:flex-col bg-gradient-to-bl from-fuchsia-700 to-fuchsia-900 text-white rounded-l-lg overflow-hidden">
           {/* Image Container */}
           <div className="relative w-full" style={{ paddingTop: '56.25%' }}> {/* 16:9 aspect ratio */}
             <Image
-              src="/images/promptbaer.png"
+              src="/images/promptbaer_action_16-9.png"
               alt="HelpBaer AI"
               fill
               className="object-cover"
@@ -75,7 +75,7 @@ function RegisterFormContent() {
           
           {/* Content Container */}
           <div className="p-8 flex-1">
-            <h2 className="text-3xl font-bold mb-8 font-ff-clan">Willkommen bei HelpBaer AI</h2>
+            <h2 className="text-3xl font-bold mb-8 font-ff-clan">Sofort starten mit PromptBär</h2>
             <div className="space-y-6">
               <div className="flex items-start space-x-4">
                 <svg className="w-6 h-6 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -205,14 +205,14 @@ function RegisterFormContent() {
             </div>
             <Button 
               type="submit" 
-              className="w-full bg-green-600 hover:bg-green-700"
+              className="w-full bg-fuchsia-800 hover:bg-fuchsia-900"
               disabled={isLoading}
             >
               {isLoading ? 'Wird registriert...' : 'Registrieren'}
             </Button>
             <div className="text-center text-sm text-muted-foreground">
               Bereits registriert?{' '}
-              <Link href="/auth/login" className="text-accent hover:text-accent/90 hover:underline">
+              <Link href="/auth/login" className="text-white hover:text-primary">
                 Jetzt anmelden
               </Link>
             </div>

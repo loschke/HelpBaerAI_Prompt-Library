@@ -81,3 +81,46 @@
     @apply bg-background text-foreground font-ff-clan;
   }
 }
+
+@layer utilities {
+  .animate-gradient {
+    animation: gradient 8s linear infinite;
+  }
+  
+  /* Heading animation - slower */
+  .animate-shimmer-1 {
+    animation: shimmer1 10s linear infinite;
+  }
+
+  /* Button animation - faster */
+  .animate-shimmer-2 {
+    animation: shimmer2 6s linear infinite;
+  }
+  
+  @keyframes gradient {
+    0% {
+      background-position: 0% 0%;
+    }
+    100% {
+      background-position: 100% 100%;
+    }
+  }
+
+  @keyframes shimmer1 {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(100%);
+    }
+  }
+
+  @keyframes shimmer2 {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(-100%);
+    }
+  }
+}

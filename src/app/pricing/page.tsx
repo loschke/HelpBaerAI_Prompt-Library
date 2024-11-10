@@ -3,8 +3,9 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Image from 'next/image';
-import { Rocket, Check, Clock, Users, Zap, Video, RefreshCw } from "lucide-react";
+import { Check } from "lucide-react";
 import Link from 'next/link';
+import FullWidthImageStrip from "@/components/full-width-image-strip";
 
 export default function PricingPage() {
   return (
@@ -87,18 +88,18 @@ export default function PricingPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div className="bg-background rounded-lg p-8">
               <div className="flex items-center gap-4 mb-4">
-                <Users className="w-6 h-6 text-amber-600" />
+                <span className="text-4xl">🖼️</span>
                 <h3 className="text-xl font-bold">Von Experten entwickelt</h3>
               </div>
               <p className="text-muted-foreground">
-                2 Jahre Erfahrung, 23.487 Stunden Testing, 100.000+ generierte Bilder
+                Erfahrung und Expertise aus 100.000+ generierten Bildern
               </p>
             </div>
 
             <div className="bg-background rounded-lg p-8">
               <div className="flex items-center gap-4 mb-4">
-                <Zap className="w-6 h-6 text-amber-600" />
-                <h3 className="text-xl font-bold">Praxiserprobt</h3>
+                <span className="text-4xl">🎯</span>
+                <h3 className="text-xl font-bold">Praxiserprobt im Agentur-Alltag</h3>
               </div>
               <p className="text-muted-foreground">
                 Entwickelt in echten Projekten, optimiert durch reales Feedback
@@ -107,16 +108,19 @@ export default function PricingPage() {
 
             <div className="bg-background rounded-lg p-8">
               <div className="flex items-center gap-4 mb-4">
-                <Video className="w-6 h-6 text-amber-600" />
-                <h3 className="text-xl font-bold">Video-KI Ready</h3>
+                <span className="text-4xl">🎬</span>
+                <h3 className="text-xl font-bold">Wächst mit der KI und neuen Tools</h3>
               </div>
               <p className="text-muted-foreground">
-                Sei bereit für die Video-Revolution
+                Vorbereitet für die nächste KI-Welle - Text to Video Prompting
               </p>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Added FullWidthImageStrip as the last module */}
+      <FullWidthImageStrip />
     </div>
   );
 }

@@ -5,8 +5,8 @@ import Link from "next/link"
 
 export default function HeroEmojiCta() {
   return (
-    <div className="bg-background">
-      <div className="container mx-auto px-4 py-16 md:py-24">
+    <div className="relative bg-background before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_50%_0%,rgba(0,0,0,0.3),transparent_70%)]">
+      <div className="container relative mx-auto px-4 py-16 md:py-24">
         <div className="max-w-5xl mx-auto space-y-8 text-center">
           {/* Tag */}
           <Badge variant="outline" className="border-neutral-500 text-2xl text-neutral-400 hover:bg-accent/10">
@@ -14,8 +14,12 @@ export default function HeroEmojiCta() {
           </Badge>
 
           {/* Heading */}
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white">
-            <span className="text-primary">Von</span> "Wie formuliere ich das?" <span className="text-primary"> zu</span>  "Wow, genau das Bild wollte ich!"
+          <h1 className="relative text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight
+              bg-[linear-gradient(110deg,hsl(var(--primary)),rgb(162_28_175),hsl(var(--primary)))]
+              animate-shimmer-1
+              bg-[length:200%_100%]
+              bg-clip-text text-transparent">
+            <span>Von</span> "Wie formuliere ich das?" <span>zu</span> "Wow, genau das Bild wollte ich!"
           </h1>      
 
           {/* Description */}

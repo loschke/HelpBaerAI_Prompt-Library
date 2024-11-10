@@ -69,7 +69,21 @@ const config: Config = {
             }
           }
         }
-      }
+      },
+      animation: {
+        'shimmer-1': 'shimmer1 8s ease-in-out infinite',
+        'shimmer-2': 'shimmer2 8s ease-in-out infinite',
+      },
+      keyframes: {
+        shimmer1: {
+          '0%, 100%': { backgroundPosition: '200% 0' },
+          '50%': { backgroundPosition: '-200% 0' },
+        },
+        shimmer2: {
+          '0%, 100%': { backgroundPosition: '-200% 0' },
+          '50%': { backgroundPosition: '200% 0' },
+        }
+      },
     }
   },
   plugins: [

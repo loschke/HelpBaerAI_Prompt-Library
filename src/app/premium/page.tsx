@@ -69,7 +69,7 @@ export default function PremiumPage() {
                 <Check className="w-6 h-6 mt-1 flex-shrink-0" />
                 <div>
                   <h3 className="font-semibold text-xl mb-2">Exklusive Updates</h3>
-                  <p className="text-white/90">Erhalte neue Prompt-Formeln direkt wenn sie verfügbar sind</p>
+                  <p className="text-white/90">Erhalte neue Prompt-Formeln direkt wenn sie verfügbar sind und starte sofort mit der Erstellung</p>
                 </div>
               </div>
               <div className="flex items-start space-x-4">
@@ -112,10 +112,6 @@ export default function PremiumPage() {
               <div className="text-4xl font-bold text-amber-600">499,- €</div>
               <div className="text-sm text-muted-foreground mt-1">für 12 Monate</div>
             </div>
-            <div className="text-center text-sm text-muted-foreground">
-              <p className="mb-2">✓ Einmalzahlung</p>
-              <p>✓ 40% Rabatt bei Verlängerung</p>
-            </div>
           </div>
 
           <form onSubmit={handleSubmit}>
@@ -135,6 +131,7 @@ export default function PremiumPage() {
           <p className="text-sm text-muted-foreground mt-4 text-center">
             Sichere Zahlung über Stripe
           </p>
+          <p className="text-sm text-muted-foreground mt-4 text-center">✓ 40% Rabatt bei Verlängerung</p>
         </div>
       </div>
     </div>
