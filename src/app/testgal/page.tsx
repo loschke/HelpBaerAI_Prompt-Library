@@ -146,15 +146,12 @@ export default function TestGallery() {
               </div>
             )}
 
-            {/* Content */}
-            <div className="p-3 space-y-2">
-              <div className="inline-block px-2 py-1 text-xs text-zinc-400 border border-zinc-700 rounded-full">
+            {/* Category Badge */}
+            <div className="absolute bottom-2 left-2">
+              <div className="px-2 py-1 text-xs bg-zinc-800/80 text-zinc-400 rounded-full">
                 {item.fields?.Kategorie?.[0] || 
                  `Prompt ${item.fields?.["Prompt ID"] || 'Unknown'}`}
               </div>
-              <p className="text-xs text-zinc-300 line-clamp-3">
-                {item.fields?.Prompt || 'No prompt description available'}
-              </p>
             </div>
           </div>
         ))}
