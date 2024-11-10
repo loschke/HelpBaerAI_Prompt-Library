@@ -4,6 +4,7 @@ import { useSession } from "next-auth/react"
 import { useEffect, useState } from "react"
 import ConceptSlider from "@/components/concept-slider"
 import { Badge } from "@/components/ui/badge"
+import { LoadingBear } from "@/components/ui/loading-bear"
 
 interface PromptCard {
   id: string;
@@ -73,14 +74,7 @@ export default function PromptFormeln() {
   }
 
   if (isLoading) {
-    return (
-      <div className="min-h-screen bg-gray-50 dark:bg-zinc-950 flex items-center justify-center">
-        <div className="flex flex-col items-center space-y-4">
-          <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-          <p className="text-lg text-gray-600 dark:text-gray-300">Lade Prompt Formeln...</p>
-        </div>
-      </div>
-    );
+    return <LoadingBear message="Lade Prompt Formeln..." />;
   }
 
   return (

@@ -19,7 +19,7 @@ interface GallerySidePanelProps {
         width?: number
         height?: number
       }>
-      Free?: string[]
+      Free?: string[] 
       Kategorie?: string[]
     }
   }

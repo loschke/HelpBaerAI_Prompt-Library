@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { LockOpen, Crown } from "lucide-react";
 import { GallerySidePanel } from "@/components/ui/gallery-side-panel";
 import { Badge } from "@/components/ui/badge";
+import { LoadingBear } from "@/components/ui/loading-bear";
 
 interface ImageRecord {
   id: string;
@@ -90,18 +91,7 @@ export default function TestGallery() {
   };
 
   if (loading) {
-    return (
-      <div className="min-h-screen p-8">
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
-          {[...Array(12)].map((_, i) => (
-            <div 
-              key={i} 
-              className="aspect-square bg-zinc-800 animate-pulse rounded-lg"
-            />
-          ))}
-        </div>
-      </div>
-    );
+    return <LoadingBear message="Lade Bilder-Galerie..." />;
   }
 
   if (error) {
