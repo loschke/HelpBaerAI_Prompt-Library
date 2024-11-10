@@ -1,6 +1,6 @@
 import React from 'react'
 import { cn } from "@/lib/utils"
-import { X } from "lucide-react"
+import { X, LockOpen, Crown } from "lucide-react"
 
 interface GallerySidePanelProps {
   isOpen: boolean
@@ -24,7 +24,7 @@ interface GallerySidePanelProps {
 export function GallerySidePanel({ isOpen, onClose, imageData }: GallerySidePanelProps) {
   if (!imageData) return null
 
-  const isFree = imageData.fields?.Free?.[0] === "true"
+  const isFree = imageData.fields?.Free?.[0] === true
 
   return (
     <>
@@ -39,10 +39,10 @@ export function GallerySidePanel({ isOpen, onClose, imageData }: GallerySidePane
       {/* Side Panel */}
       <div
         className={cn(
-          "fixed top-0 right-0 h-full bg-zinc-950",
+          "fixed top-0 right-0 h-full bg-zinc-900",
           "transform transition-transform duration-300 ease-in-out z-50",
           "w-full sm:w-[80%] md:w-[50%] lg:w-[36%]",
-          "p-6 pb-16 shadow-xl overflow-y-auto",
+          "p-6 shadow-xl overflow-y-auto",
           isOpen ? "translate-x-0" : "translate-x-full"
         )}
       >
@@ -77,7 +77,7 @@ export function GallerySidePanel({ isOpen, onClose, imageData }: GallerySidePane
           {imageData.fields?.Kategorie?.[0] && (
             <div>
               <h3 className="text-lg font-semibold mb-3 text-zinc-100">
-                Kategorie
+                Prompt Formel
               </h3>
               <div className="flex flex-wrap gap-2">
                 {imageData.fields.Kategorie.map((category, index) => (
@@ -114,6 +114,7 @@ export function GallerySidePanel({ isOpen, onClose, imageData }: GallerySidePane
               />
             </div>
           )}
+
         </div>
       </div>
     </>
