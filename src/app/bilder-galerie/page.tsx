@@ -135,7 +135,7 @@ export default function TestGallery() {
       <div className="bg-gray-50 dark:bg-zinc-950">
         <div className="w-full mx-auto py-8">
           {/* Filter Toggle Button */}
-          <div className="w-full px-4 mb-6">
+          <div className="w-full px-4 mb-6 relative">
             <div className="flex items-center space-x-2">
               <button
                 type="button"

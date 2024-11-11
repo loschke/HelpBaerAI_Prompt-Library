@@ -59,7 +59,7 @@ export default function ConceptSlider({ cards = [], session }: ConceptSliderProp
   return (
     <div className="w-full">
       {/* Controls - Fixed at top */}
-      <div className="sticky top-8 z-10 py-8 px-4 sm:px-6 lg:px-8 ">
+      <div className="top-8 z-10 py-8 px-4 sm:px-6 lg:px-8 ">
         <div className="max-w-[1536px] mx-auto">
           <label className="relative inline-flex items-center cursor-pointer">
             <input 
