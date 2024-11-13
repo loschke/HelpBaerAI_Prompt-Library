@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from 'react';
+import { useSession } from "next-auth/react";
 import { Badge } from "@/components/ui/badge";
 import { LoadingBear } from "@/components/ui/loading-bear";
 import { StyleSidePanel } from "@/components/ui/style-side-panel";
@@ -63,6 +64,7 @@ const getPlatformColor = (platform?: string) => {
 };
 
 export default function StylesReferencesPage() {
+  const { data: session } = useSession();
   const [styles, setStyles] = useState<StyleRecord[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -277,6 +279,7 @@ export default function StylesReferencesPage() {
         isOpen={isPanelOpen}
         onClose={handlePanelClose}
         styleData={selectedStyle || undefined}
+        session={session}
       />
     </main>
   );
