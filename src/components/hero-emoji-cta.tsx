@@ -43,7 +43,7 @@ export default function HeroEmojiCta() {
             <Link href="/auth/register" className="inline-block">
               <Button size="lg" className="px-8 py-6 text-xl">
                 <Wand2 className="mr-2 h-5 w-5" />
-                Starte kostenlos mit 15 Prompt-Formeln
+                Starte mit kostenlosen Prompt-Formeln
               </Button>
             </Link>
           </div>
