@@ -5,7 +5,6 @@ import { useSession } from "next-auth/react";
 import { Badge } from "@/components/ui/badge";
 import { LoadingBear } from "@/components/ui/loading-bear";
 import { StyleSidePanel } from "@/components/ui/style-side-panel";
-import { FileText, Image, Code } from 'lucide-react'
 import { Card, CardContent } from "@/components/ui/card"
 
 interface StyleRecord {
@@ -164,15 +163,15 @@ export default function StylesReferencesPage() {
       {/* Hero Section */}
       <div className="bg-background">
         <div className="container mx-auto px-4 py-16">
-          <div className="max-w-5xl mx-auto space-y-8 text-center">
+          <div className="max-w-7xl mx-auto space-y-8 text-center">
             {/* Tag */}
             <Badge variant="outline" className="border-neutral-500 text-2xl text-neutral-400 hover:bg-accent/10">
-              Kreative Inspiration
+            Kreative Inspiration
             </Badge>
 
             {/* New Content */}
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white">
-              Die Macht der Styles in KI-Bildgenerierung
+              Bilder mit Stil!
             </h2>
             <p className="text-2xl text-foreground leading-relaxed">
               Styles sind der Schlüssel für konsistente und hochwertige KI-Bilder. Sie definieren das visuelle
@@ -182,31 +181,31 @@ export default function StylesReferencesPage() {
             <div className="grid gap-6 md:grid-cols-3">
               <Card className="bg-black/30 border-0">
                 <CardContent className="flex flex-col items-center p-6">
-                  <div className="mb-4 rounded-full bg-yellow-200/20 p-3">
-                    <FileText className="h-6 w-6 text-yellow-200" />
+                  <div className="mb-4 text-4xl">
+                    ✍️
                   </div>
-                  <h3 className="mb-2 text-lg font-semibold text-white">Text-Style-Referenzen</h3>
-                  <p className="text-sm text-slate-300">Vorgefertigte Stilbeschreibungen für präzise Prompts</p>
+                  <h3 className="mb-2 text-lg font-semibold text-white">Text-Styles</h3>
+                  <p className="text-sm text-slate-300">Wiederverwendbare Stilbeschreibungen, die an den Motivprompt angehängt werden, um einen konsistenten visuellen Stil zu erzeugen.</p>
                 </CardContent>
               </Card>
 
               <Card className="bg-black/30 border-0">
                 <CardContent className="flex flex-col items-center p-6">
-                  <div className="mb-4 rounded-full bg-pink-200/20 p-3">
-                    <Image className="h-6 w-6 text-pink-200" />
+                  <div className="mb-4 text-4xl">
+                    🎨
                   </div>
-                  <h3 className="mb-2 text-lg font-semibold text-white">Bild-Style-Referenzen</h3>
-                  <p className="text-sm text-slate-300">Visuelle Vorlagen für komplexe Stilübertragungen</p>
+                  <h3 className="mb-2 text-lg font-semibold text-white">Bild-Styles</h3>
+                  <p className="text-sm text-slate-300">Visuelle Vorlagen für komplexe Stilübertragungen, die als Referenz für das gewünschte künstlerische Erscheinungsbild dienen.</p>
                 </CardContent>
               </Card>
 
               <Card className="bg-black/30 border-0">
                 <CardContent className="flex flex-col items-center p-6">
-                  <div className="mb-4 rounded-full bg-blue-200/20 p-3">
-                    <Code className="h-6 w-6 text-blue-200" />
+                  <div className="mb-4 text-4xl">
+                    ⚡
                   </div>
                   <h3 className="mb-2 text-lg font-semibold text-white">Style-Codes</h3>
-                  <p className="text-sm text-slate-300">Kuratierte Codes für konsistente Midjourney-Stile</p>
+                  <p className="text-sm text-slate-300">Spezifische Parameter-Codes für Midjourney, die am Ende des Prompts eingefügt werden und kreative Bildstile erzeugen.</p>
                 </CardContent>
               </Card>
             </div>
