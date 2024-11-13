@@ -5,6 +5,8 @@ import { useSession } from "next-auth/react";
 import { Badge } from "@/components/ui/badge";
 import { LoadingBear } from "@/components/ui/loading-bear";
 import { StyleSidePanel } from "@/components/ui/style-side-panel";
+import { FileText, Image, Code } from 'lucide-react'
+import { Card, CardContent } from "@/components/ui/card"
 
 interface StyleRecord {
   id: string;
@@ -168,15 +170,47 @@ export default function StylesReferencesPage() {
               Kreative Inspiration
             </Badge>
 
-            {/* Heading */}
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white">
-              Bildstile & Referenzen
-            </h1>      
-
-            {/* Description */}
+            {/* New Content */}
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white">
+              Die Macht der Styles in KI-Bildgenerierung
+            </h2>
             <p className="text-2xl text-foreground leading-relaxed">
-              Von klassischen Kunstrichtungen bis hin zu modernen Designstilen - finde die perfekte Inspiration für deine kreativen Projekte.
+              Styles sind der Schlüssel für konsistente und hochwertige KI-Bilder. Sie definieren das visuelle
+              Erscheinungsbild und die Ästhetik eurer kreativen Projekte.
             </p>
+
+            <div className="grid gap-6 md:grid-cols-3">
+              <Card className="bg-black/30 border-0">
+                <CardContent className="flex flex-col items-center p-6">
+                  <div className="mb-4 rounded-full bg-yellow-200/20 p-3">
+                    <FileText className="h-6 w-6 text-yellow-200" />
+                  </div>
+                  <h3 className="mb-2 text-lg font-semibold text-white">Text-Style-Referenzen</h3>
+                  <p className="text-sm text-slate-300">Vorgefertigte Stilbeschreibungen für präzise Prompts</p>
+                </CardContent>
+              </Card>
+
+              <Card className="bg-black/30 border-0">
+                <CardContent className="flex flex-col items-center p-6">
+                  <div className="mb-4 rounded-full bg-pink-200/20 p-3">
+                    <Image className="h-6 w-6 text-pink-200" />
+                  </div>
+                  <h3 className="mb-2 text-lg font-semibold text-white">Bild-Style-Referenzen</h3>
+                  <p className="text-sm text-slate-300">Visuelle Vorlagen für komplexe Stilübertragungen</p>
+                </CardContent>
+              </Card>
+
+              <Card className="bg-black/30 border-0">
+                <CardContent className="flex flex-col items-center p-6">
+                  <div className="mb-4 rounded-full bg-blue-200/20 p-3">
+                    <Code className="h-6 w-6 text-blue-200" />
+                  </div>
+                  <h3 className="mb-2 text-lg font-semibold text-white">Style-Codes</h3>
+                  <p className="text-sm text-slate-300">Kuratierte Codes für konsistente Midjourney-Stile</p>
+                </CardContent>
+              </Card>
+            </div>
+
           </div>
         </div>
       </div>
