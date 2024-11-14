@@ -6,7 +6,28 @@ import { ActivityType } from "@prisma/client"
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url)
-    const token = searchParams.get("token")
+    
+    // Get all URL parameters and find the token
+    // This handles both direct token parameter and potentially modified URLs from Outlook
+    let token: string | null = null
+    
+    // Convert searchParams to array for TypeScript compatibility
+    const params = Array.from(searchParams.entries())
+    for (const [key, value] of params) {
+      // Check if this parameter contains our verification token
+      if (key === "token") {
+        token = value
+        break
+      }
+      // Handle Outlook's URL rewriting where token might be embedded in another parameter
+      if (value && value.length >= 64) { // Our tokens are 64 chars long (32 bytes hex)
+        const possibleToken = value.match(/[a-fA-F0-9]{64}/)?.[0]
+        if (possibleToken) {
+          token = possibleToken
+          break
+        }
+      }
+    }
     
     const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://promptbaer.de'
 
@@ -22,6 +43,19 @@ export async function GET(request: Request) {
     })
 
     if (!user) {
+      // Check if user is already verified
+      const verifiedUser = await prisma.user.findFirst({
+        where: {
+          isVerified: true,
+          verificationToken: token
+        }
+      })
+
+      if (verifiedUser) {
+        // User is already verified, redirect to success page
+        return NextResponse.redirect(`${baseUrl}/auth/email-verified`)
+      }
+
       return NextResponse.redirect(`${baseUrl}/auth/error`)
     }
 

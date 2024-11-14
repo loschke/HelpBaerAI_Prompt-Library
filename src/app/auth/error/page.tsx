@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 
@@ -15,6 +15,12 @@ export default function AuthErrorPage() {
           </CardDescription>
         </CardHeader>
         <CardContent className="text-center space-y-4">
+          <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-4">
+            <p className="text-sm text-yellow-800">
+              <strong>Tipp für Outlook-Nutzer:</strong> Wenn Sie den Link direkt in Outlook angeklickt haben, 
+              versuchen Sie stattdessen den Link zu kopieren und direkt in Ihren Browser einzufügen.
+            </p>
+          </div>
           <p className="text-foreground">
             Mögliche Gründe für diesen Fehler:
           </p>
@@ -35,7 +41,7 @@ export default function AuthErrorPage() {
             </Link>
           </Button>
           <p className="text-sm text-muted-foreground">
-            Benötigen Sie Hilfe?{' '}
+            Benötigen Sie Hilfe?{" "}
             <Link href="/contact" className="text-accent hover:text-accent/90 hover:underline">
               Kontaktieren Sie uns
             </Link>
