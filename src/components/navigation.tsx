@@ -9,8 +9,8 @@ import { useSession, signOut } from "next-auth/react"
 
 const baseNavItems = [
   { name: 'Prompt Formeln', href: '/prompt-formeln' },
-  { name: 'Bilder Galerie', href: '/bilder-galerie' },
-  { name: 'Style & Referenzen', href: '/stile-referenzen' },
+  { name: 'Beispielbilder', href: '/bilder-galerie' },
+  { name: 'Styles', href: '/stile-referenzen' },
 ]
 
 export default function Navigation() {

@@ -35,8 +35,8 @@ export async function sendContactEmail(formData: {
   message: string
 }) {
   const contactMap = {
-    queonext: "ai@kvix.de", //r.loschke@queo-group.com
-    moveelevator: "rico@kvix.de", // h.piechatzek@move-elevator.de
+    queonext: "r.loschke@queo-group.com", 
+    moveelevator: "hp@move-elevator.de", 
     general: process.env.REPLY_TO_EMAIL
   }
 

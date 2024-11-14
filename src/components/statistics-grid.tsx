@@ -53,8 +53,8 @@ const StatisticsGrid = () => {
             <Image 
               src="/images/logos/queonext_logo_2.svg" 
               alt="queonext" 
-              width={100} 
-              height={40} 
+              width={120} 
+              height={48} 
               className="opacity-80 hover:opacity-100 transition-all filter grayscale hover:grayscale-0" 
             />
             <Image 
@@ -65,10 +65,10 @@ const StatisticsGrid = () => {
               className="opacity-80 hover:opacity-100 transition-all filter grayscale hover:grayscale-0" 
             />
             <Image 
-              src="/images/logos/branding.svg" 
+              src="/images/logos/move_elevator_logo_neu.svg" 
               alt="Move Elevator" 
-              width={220} 
-              height={65} 
+              width={180} 
+              height={55} 
               className="opacity-80 hover:opacity-100 transition-all filter grayscale hover:grayscale-0" 
             />
           </div>

@@ -6,8 +6,8 @@ export function Footer() {
         <div className="container mx-auto px-4 py-8">
             <div className="flex flex-col md:flex-row justify-between items-center">
                 <div className="mb-4 md:mb-0">
-                    <span className="text-lg font-bold">HelpBärAI by queonext</span>
-                    <p className="text-sm">© 2024 Alle Rechte vorbehalten.</p>
+                    <span className="text-lg font-bold">PromptBär - AI-Design Bibliothek</span>
+                    <p className="text-sm">Eine Kollaboration von <strong>queonext</strong> und <strong>Move:Elevator</strong></p>
                 </div>
                 <div className="flex space-x-4">
                     <Link 

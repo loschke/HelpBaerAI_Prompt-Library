@@ -36,10 +36,11 @@ export default function PricingPage() {
         {/* Pricing Section */}
         <div className="max-w-2xl mx-auto bg-[#0A0A0A] rounded-lg p-8 mb-16">
           <div className="text-center mb-8">
+            {/*
             <div className="text-sm text-muted-foreground mb-1">Regulärer Preis</div>
-            <div className="text-3xl font-bold line-through text-muted-foreground">699,- €</div>
-            <div className="text-sm text-amber-600 font-semibold mt-4 mb-1">Early Bird Beta Preis</div>
-            <div className="text-4xl font-bold text-amber-600">499,- €</div>
+            <div className="text-3xl font-bold line-through text-muted-foreground">899,- €</div>*/}
+            <div className="text-l text-amber-600 font-semibold mt-4 mb-1">Early Bird Beta Preis</div>
+            <div className="text-5xl font-bold text-amber-600">699,- €</div>
             <div className="text-sm text-muted-foreground mt-1">für 12 Monate</div>
           </div>
 
