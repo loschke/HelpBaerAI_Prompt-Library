@@ -9,7 +9,7 @@ interface SubscriptionButtonProps {
 }
 
 export function SubscriptionButton({ session }: SubscriptionButtonProps) {
-  const customerPortalUrl = "https://billing.stripe.com/p/login/test_28o5nB8Xz7Hy2cg288" // Replace with your actual portal URL
+  const customerPortalUrl = process.env.NEXT_PUBLIC_STRIPE_CUSTOMER_PORTAL_URL
   
   // If user is premium, show subscription info and portal link
   if (session?.user?.subscriptionTier === SubscriptionTier.PREMIUM || 
