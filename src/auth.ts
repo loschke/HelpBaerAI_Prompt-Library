@@ -50,7 +50,8 @@ export const config = {
         "/auth/login", 
         "/auth/register", 
         "/auth/verify-email",
-        "/auth/verify-email/success"
+        "/auth/verify-email/success",
+        "/auth/email-verified"  // Neuer Pfad hinzugefügt
       ]
       
       const isPublicRoute = publicRoutes.some(route => 

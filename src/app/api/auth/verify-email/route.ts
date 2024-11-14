@@ -11,25 +11,7 @@ export async function GET(request: Request) {
     const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://promptbaer.de'
 
     if (!token) {
-      // Return HTML response with meta refresh
-      return new Response(
-        `<!DOCTYPE html>
-        <html>
-          <head>
-            <meta http-equiv="refresh" content="0;url=${baseUrl}/auth/error">
-          </head>
-          <body>
-            <p>Redirecting to error page...</p>
-            <script>window.location.href = "${baseUrl}/auth/error";</script>
-          </body>
-        </html>`,
-        {
-          headers: {
-            'Content-Type': 'text/html',
-            'Cache-Control': 'no-store, max-age=0',
-          },
-        }
-      )
+      return NextResponse.redirect(`${baseUrl}/auth/error`)
     }
 
     const user = await prisma.user.findFirst({
@@ -40,25 +22,7 @@ export async function GET(request: Request) {
     })
 
     if (!user) {
-      // Return HTML response with meta refresh
-      return new Response(
-        `<!DOCTYPE html>
-        <html>
-          <head>
-            <meta http-equiv="refresh" content="0;url=${baseUrl}/auth/error">
-          </head>
-          <body>
-            <p>Redirecting to error page...</p>
-            <script>window.location.href = "${baseUrl}/auth/error";</script>
-          </body>
-        </html>`,
-        {
-          headers: {
-            'Content-Type': 'text/html',
-            'Cache-Control': 'no-store, max-age=0',
-          },
-        }
-      )
+      return NextResponse.redirect(`${baseUrl}/auth/error`)
     }
 
     // Update user verification status
@@ -74,47 +38,11 @@ export async function GET(request: Request) {
     // Log verification activity
     await createActivity(user.id, ActivityType.EMAIL_VERIFICATION, "Email verified")
 
-    // Return HTML response with meta refresh
-    return new Response(
-      `<!DOCTYPE html>
-      <html>
-        <head>
-          <meta http-equiv="refresh" content="0;url=${baseUrl}/auth/verify-email/success">
-        </head>
-        <body>
-          <p>Redirecting to success page...</p>
-          <script>window.location.href = "${baseUrl}/auth/verify-email/success";</script>
-        </body>
-      </html>`,
-      {
-        headers: {
-          'Content-Type': 'text/html',
-          'Cache-Control': 'no-store, max-age=0',
-        },
-      }
-    )
+    // Redirect to success page using a different path to avoid NextAuth conflict
+    return NextResponse.redirect(`${baseUrl}/auth/email-verified`)
   } catch (error) {
     console.error("Email verification error:", error)
     const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://promptbaer.de'
-    
-    // Return HTML response with meta refresh
-    return new Response(
-      `<!DOCTYPE html>
-      <html>
-        <head>
-          <meta http-equiv="refresh" content="0;url=${baseUrl}/auth/error">
-        </head>
-        <body>
-          <p>Redirecting to error page...</p>
-          <script>window.location.href = "${baseUrl}/auth/error";</script>
-        </body>
-      </html>`,
-      {
-        headers: {
-          'Content-Type': 'text/html',
-          'Cache-Control': 'no-store, max-age=0',
-        },
-      }
-    )
+    return NextResponse.redirect(`${baseUrl}/auth/error`)
   }
 }
