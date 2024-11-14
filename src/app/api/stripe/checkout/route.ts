@@ -68,6 +68,14 @@ export async function POST() {
         userId: session.user.id,
         customerId: customer.id
       },
+      allow_promotion_codes: true,
+      billing_address_collection: 'required',
+      automatic_tax: {
+        enabled: true
+      },
+      customer_update: {
+        address: 'auto'
+      }
     });
 
     return NextResponse.json({ url: checkoutSession.url });
