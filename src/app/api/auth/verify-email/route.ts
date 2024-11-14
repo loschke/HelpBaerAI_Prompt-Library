@@ -8,7 +8,6 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url)
     const token = searchParams.get("token")
     
-    // Get the base URL from environment, fallback to the request origin
     const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://promptbaer.de'
 
     if (!token) {
@@ -39,8 +38,8 @@ export async function GET(request: Request) {
     // Log verification activity
     await createActivity(user.id, ActivityType.EMAIL_VERIFICATION, "Email verified")
 
-    // Redirect directly to login with a success message
-    return NextResponse.redirect(`${baseUrl}/auth/login?verified=true`)
+    // Redirect to static success page
+    return NextResponse.redirect(`${baseUrl}/auth/verify-email/success`)
   } catch (error) {
     console.error("Email verification error:", error)
     const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://promptbaer.de'

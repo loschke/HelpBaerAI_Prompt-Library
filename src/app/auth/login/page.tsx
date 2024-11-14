@@ -4,29 +4,19 @@ import Link from 'next/link'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { useState, useEffect, Suspense } from 'react'
+import { useState } from 'react'
 import { signIn } from 'next-auth/react'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 
-// Separate component for the login form to handle search params
-function LoginFormContent() {
+export default function LoginForm() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const router = useRouter()
-  const searchParams = useSearchParams()
   const [error, setError] = useState<string | null>(null)
-  const [success, setSuccess] = useState<string | null>(null)
-
-  useEffect(() => {
-    if (searchParams?.get('verified') === 'true') {
-      setSuccess('Email erfolgreich verifiziert! Sie können sich jetzt einloggen.')
-    }
-  }, [searchParams])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError(null)
-    setSuccess(null)
     
     const result = await signIn('credentials', {
       email,
@@ -55,11 +45,6 @@ function LoginFormContent() {
           {error && (
             <p className="text-sm text-destructive text-center mt-2">
               {error}
-            </p>
-          )}
-          {success && (
-            <p className="text-sm text-green-500 text-center mt-2">
-              {success}
             </p>
           )}
         </CardHeader>
@@ -107,18 +92,5 @@ function LoginFormContent() {
         </CardFooter>
       </Card>
     </div>
-  )
-}
-
-// Main component wrapped with Suspense
-export default function LoginForm() {
-  return (
-    <Suspense fallback={
-      <div className="min-h-screen flex items-center justify-center bg-background/30">
-        <p>Laden...</p>
-      </div>
-    }>
-      <LoginFormContent />
-    </Suspense>
   )
 }
