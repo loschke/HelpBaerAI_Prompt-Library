@@ -17,9 +17,9 @@ export async function sendVerificationEmail(email: string, token: string) {
     from: `"${process.env.FROM_NAME}" <${process.env.FROM_EMAIL}>`,
     replyTo: process.env.REPLY_TO_EMAIL,
     to: email,
-    subject: "E-Mail-Adresse bestätigen",
+    subject: "PromptBärAI - E-Mail-Adresse bestätigen",
     html: `
-      <p>Bitte bestätigen Sie Ihre E-Mail-Adresse durch Klicken auf den folgenden Link:</p>
+      <p>Bitte bestätige deine E-Mail-Adresse durch Klicken auf den folgenden Link:</p>
       <p><a href="${verificationUrl}">${verificationUrl}</a></p>
       <p>Der Link ist 24 Stunden gültig.</p>
     `,
