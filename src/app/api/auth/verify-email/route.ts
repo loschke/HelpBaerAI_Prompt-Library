@@ -9,10 +9,10 @@ export async function GET(request: Request) {
     const token = searchParams.get("token")
     
     // Get the base URL from environment, fallback to the request origin
-    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://promptbaer.de'
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || request.headers.get("origin") || 'https://promptbaer.de'
 
     if (!token) {
-      return NextResponse.redirect(`${baseUrl}/auth/error`)
+      return NextResponse.redirect(`${baseUrl}/auth/error`, { status: 308 })
     }
 
     const user = await prisma.user.findFirst({
@@ -23,7 +23,7 @@ export async function GET(request: Request) {
     })
 
     if (!user) {
-      return NextResponse.redirect(`${baseUrl}/auth/error`)
+      return NextResponse.redirect(`${baseUrl}/auth/error`, { status: 308 })
     }
 
     // Update user verification status
@@ -39,11 +39,11 @@ export async function GET(request: Request) {
     // Log verification activity
     await createActivity(user.id, ActivityType.EMAIL_VERIFICATION, "Email verified")
 
-    // Redirect to success page using the correct base URL
-    return NextResponse.redirect(`${baseUrl}/auth/verify-email/success`)
+    // Redirect to success page using permanent redirect
+    return NextResponse.redirect(`${baseUrl}/auth/verify-email/success`, { status: 308 })
   } catch (error) {
     console.error("Email verification error:", error)
-    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://promptbaer.de'
-    return NextResponse.redirect(`${baseUrl}/auth/error`)
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || request.headers.get("origin") || 'https://promptbaer.de'
+    return NextResponse.redirect(`${baseUrl}/auth/error`, { status: 308 })
   }
 }
