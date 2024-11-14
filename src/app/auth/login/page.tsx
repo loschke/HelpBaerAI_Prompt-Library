@@ -4,19 +4,29 @@ import Link from 'next/link'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { signIn } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 export default function LoginForm() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const router = useRouter()
+  const searchParams = useSearchParams()
   const [error, setError] = useState<string | null>(null)
+  const [success, setSuccess] = useState<string | null>(null)
+
+  useEffect(() => {
+    // Check if user was redirected from email verification
+    if (searchParams?.get('verified') === 'true') {
+      setSuccess('Email erfolgreich verifiziert! Sie können sich jetzt einloggen.')
+    }
+  }, [searchParams])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError(null)
+    setSuccess(null)
     
     const result = await signIn('credentials', {
       email,
@@ -45,6 +55,11 @@ export default function LoginForm() {
           {error && (
             <p className="text-sm text-destructive text-center mt-2">
               {error}
+            </p>
+          )}
+          {success && (
+            <p className="text-sm text-green-500 text-center mt-2">
+              {success}
             </p>
           )}
         </CardHeader>
