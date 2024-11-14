@@ -4,11 +4,12 @@ import Link from 'next/link'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { signIn } from 'next-auth/react'
 import { useRouter, useSearchParams } from 'next/navigation'
 
-export default function LoginForm() {
+// Separate component for the login form to handle search params
+function LoginFormContent() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const router = useRouter()
@@ -17,7 +18,6 @@ export default function LoginForm() {
   const [success, setSuccess] = useState<string | null>(null)
 
   useEffect(() => {
-    // Check if user was redirected from email verification
     if (searchParams?.get('verified') === 'true') {
       setSuccess('Email erfolgreich verifiziert! Sie können sich jetzt einloggen.')
     }
@@ -107,5 +107,18 @@ export default function LoginForm() {
         </CardFooter>
       </Card>
     </div>
+  )
+}
+
+// Main component wrapped with Suspense
+export default function LoginForm() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-background/30">
+        <p>Laden...</p>
+      </div>
+    }>
+      <LoginFormContent />
+    </Suspense>
   )
 }
