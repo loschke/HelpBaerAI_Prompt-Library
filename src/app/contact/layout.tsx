@@ -2,12 +2,12 @@ import { Metadata } from 'next'
 
 // SEO Metadata
 export const metadata: Metadata = {
-  title: 'Kontakt - Promptbaer',
-  description: 'Kontaktiere uns für Fragen zu unserer KI-Design Prompt Bibliothek. Persönliche Betreuung und schnelle Antwort garantiert. Wir helfen dir bei deinen AI-Design Anforderungen.',
-  keywords: 'Promptbaer Kontakt, KI Design Beratung, AI Prompt Support, Kontaktformular, KI Tools Hilfe',
+  title: 'PromptBär | Kontakt & Support für deine KI-Design Fragen',
+  description: 'Fragen zur KI-Design Bibliothek? Unser Experten-Team hilft dir gerne weiter. Persönliche Beratung für Teams & Agenturen verfügbar.',
+  keywords: 'promptbär kontakt, ki-design support, prompt beratung, ai tools hilfe, expertenberatung',
   openGraph: {
-    title: 'Kontakt - Promptbaer',
-    description: 'Kontaktiere uns für Fragen zu unserer KI-Design Prompt Bibliothek. Persönliche Betreuung und schnelle Antwort garantiert.',
+    title: 'PromptBär | Kontakt & Support für deine KI-Design Fragen',
+    description: 'Fragen zur KI-Design Bibliothek? Unser Experten-Team hilft dir gerne weiter. Persönliche Beratung für Teams & Agenturen verfügbar.',
     images: ['/images/promptbaer_contact_16-9.webp'],
   }
 }

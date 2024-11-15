@@ -8,6 +8,7 @@ interface SEOProps {
   ogImage?: string
   noindex?: boolean
   children?: React.ReactNode
+  path?: string
 }
 
 export const generateMetadata = ({
@@ -16,18 +17,25 @@ export const generateMetadata = ({
   keywords,
   ogImage,
   noindex,
+  path = '',
 }: SEOProps): Metadata => {
-  const defaultTitle = 'Promptbaer - KI Prompt Engineering Guide'
-  const defaultDescription = 'Entdecken Sie die Kunst des Prompt Engineerings mit Promptbaer. Lernen Sie, wie Sie KI-Tools effektiv nutzen können.'
-  const defaultKeywords = 'Prompt Engineering, KI, Künstliche Intelligenz, AI Guide, Prompting'
+  const defaultTitle = 'PromptBär - Führende AI-Design Prompt Bibliothek für Marketing und Agenturen'
+  const defaultDescription = '1000+ Beispiel-Prompts für Midjourney, Firefly & Co. Spare Zeit bei KI-Bildern. Von Experten entwickelt für Designer & Marketing-Teams.'
+  const defaultKeywords = 'ki-design, prompt bibliothek, midjourney, prompt formeln, adobe firefly, stable diffusion, leonardo ai, ki-marketing, ai design workflow, ki bilder erstellen'
   const defaultOgImage = '/images/promptbaer.png'
+  const baseUrl = 'https://promptbaer.de'
+  const currentUrl = `${baseUrl}${path}`
 
   return {
-    title: title ? `${title} | Promptbaer` : defaultTitle,
+    title: title ? `${title} | PromptBär` : defaultTitle,
     description: description || defaultDescription,
     keywords: keywords || defaultKeywords,
+    authors: [{ name: 'Rico Loschke', url: 'https://kvix.de' }],
+    alternates: {
+      canonical: currentUrl,
+    },
     openGraph: {
-      title: title ? `${title} | Promptbaer` : defaultTitle,
+      title: title ? `${title} | PromptBär` : defaultTitle,
       description: description || defaultDescription,
       images: [{
         url: ogImage || defaultOgImage,
@@ -35,13 +43,14 @@ export const generateMetadata = ({
         height: 630,
         alt: title || defaultTitle,
       }],
-      siteName: 'Promptbaer',
+      siteName: 'PromptBär',
       locale: 'de_DE',
       type: 'website',
+      url: currentUrl,
     },
     twitter: {
       card: 'summary_large_image',
-      title: title ? `${title} | Promptbaer` : defaultTitle,
+      title: title ? `${title} | PromptBär` : defaultTitle,
       description: description || defaultDescription,
       images: [ogImage || defaultOgImage],
     },
@@ -49,7 +58,7 @@ export const generateMetadata = ({
       index: !noindex,
       follow: !noindex,
     },
-    metadataBase: new URL('https://promptbaer.de'),
+    metadataBase: new URL(baseUrl),
   }
 }
 

@@ -5,9 +5,9 @@ import { Badge } from "@/components/ui/badge"
 
 // SEO Metadata
 export const metadata: Metadata = {
-  title: 'Stile & Referenzen | KI-Design Vorlagen',
-  description: 'Entdecke eine Sammlung von Styles für konsistente und hochwertige KI-Bilder. Sie definieren das visuelle Erscheinungsbild und die Ästhetik eurer kreativen Projekte.',
-  keywords: 'KI Styles, AI Art Styles, Midjourney Styles, DALL-E Styles, Stable Diffusion Styles',
+  title: 'PromptBär | 300+ KI-Bildstile & Design-Referenzen für konsistente Ergebnisse',
+  description: 'Umfangreiche Sammlung von KI-Bildstilen und Design-Referenzen. Erstelle konsistente Bildserien mit Midjourney, DALL-E & Firefly. Mit Style-Prompts.',
+  keywords: 'ki bildstile, ai artstyles, midjourney styles, design referenzen, visual styles, ki-design stile, prompt styles, style guide',
 }
 
 // Fetch data at build time with revalidation

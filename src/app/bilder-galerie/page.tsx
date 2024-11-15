@@ -3,9 +3,9 @@ import { GalleryGrid } from "@/components/gallery-grid"
 
 // SEO Metadata
 export const metadata: Metadata = {
-  title: 'Bilder Galerie | KI-generierte Bilder',
-  description: 'Entdecke eine kuratierte Sammlung von KI-generierten Bildern, die mit unseren Promptformeln erstellt wurden.',
-  keywords: 'KI Bilder, AI Art, Midjourney, DALL-E, Stable Diffusion, Promptformeln',
+  title: 'PromptBär | 1000+ KI-Beispielbilder mit kompletten Prompts',
+  description: 'Große Galerie mit KI-generierten Beispielbildern inkl. der verwendeten Prompts. Direkt nachnutzbar für Midjourney, DALL-E, Firefly & Co.',
+  keywords: 'ki beispielbilder, midjourney beispiele, ai bildgalerie, prompt beispiele, ki-design vorlagen, beispielprompts, reference images',
 }
 
 // Fetch initial data at build time

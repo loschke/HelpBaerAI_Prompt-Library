@@ -1,4 +1,4 @@
-import { Metadata } from 'next'
+import { Metadata, Viewport } from 'next'
 import { ThemeProvider } from '@/components/theme-provider'
 import Navigation from '@/components/navigation'
 import { Footer } from '@/components/ui/footer'
@@ -10,10 +10,18 @@ import GoogleAnalytics from '@/components/google-analytics'
 import MauticTracking from '@/components/mautic-tracking'
 import './globals.css'
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  minimumScale: 1,
+  viewportFit: 'cover',
+}
+
 export const metadata: Metadata = generateMetadata({
-  title: 'Promptbaer',
-  description: 'Entdecken Sie die Kunst des Prompt Engineerings mit Promptbaer. Lernen Sie, wie Sie KI-Tools effektiv nutzen können.',
+  title: 'PromptBär | KI-Design Prompt Bibliothek für Profis & Agenturen',
+  description: '1000+ Beispiel-Prompts für Midjourney, Firefly & Co. Spare Zeit bei KI-Bildern. Von Experten entwickelt für Designer & Marketing-Teams.',
   keywords: 'Prompt Engineering, KI, Künstliche Intelligenz, AI Guide, Prompting, AI Tools',
+  path: '/',
 })
 
 interface RootLayoutProps {

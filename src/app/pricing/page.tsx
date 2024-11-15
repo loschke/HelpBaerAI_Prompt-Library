@@ -9,9 +9,9 @@ import FullWidthImageStrip from "@/components/full-width-image-strip";
 
 // SEO Metadata
 export const metadata: Metadata = generateMetadata({
-  title: 'Preise & Pakete',
-  description: 'Investiere in deine KI-Design Zukunft mit Promptbaer. Early Bird Beta Preis von 699,- € für 12 Monate Zugang zu unserer Premium Prompt-Bibliothek.',
-  keywords: 'KI Design Preise, Prompt Engineering Kosten, AI Design Pakete, Promptbaer Preise, KI Tools Preise',
+  title: 'PromptBär | Early Bird Zugang zur Premium KI-Design Bibliothek',
+  description: 'Sichere dir jetzt Zugang zu 80+ Prompt-Formeln, 1000+ Beispielbildern und 300+ Bildstilen. Early Bird Preis: 699€/Jahr. Von Experten entwickelt.',
+  keywords: 'ki-design bibliothek, prompt sammlung, premium prompts, midjourney vorlagen, ai design tools, ki bildgenerierung, prompt engineering, early bird',
   ogImage: '/images/promptbaer_premium_king_16_9.png'
 })
 

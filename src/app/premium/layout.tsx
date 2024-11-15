@@ -4,12 +4,12 @@ import { redirect } from "next/navigation"
 
 // SEO Metadata
 export const metadata: Metadata = {
-  title: 'Premium Mitgliedschaft - Promptbaer',
-  description: 'Werde Premium Mitglied bei Promptbaer und erhalte Zugriff auf alle Prompt-Formeln, exklusive Updates und 40% Renewal Rabatt. Early Bird Beta Preis von nur 499,- € für 12 Monate.',
-  keywords: 'Promptbaer Premium, KI Design Premium, AI Prompt Bibliothek, Premium Mitgliedschaft, KI Tools Premium Zugang',
+  title: 'PromptBär Premium | Profi-Features für KI-Design & Marketing',
+  description: 'Entdecke alle Premium-Vorteile: Zugriff auf 80+ Profi-Formeln, 1000+ Beispiele, Style-Guides & regelmäßige Updates. Optimiert für Teams.',
+  keywords: 'premium prompts, ki-design profi, prompt bibliothek komplett, ai tools premium, design automation',
   openGraph: {
-    title: 'Premium Mitgliedschaft - Promptbaer',
-    description: 'Werde Premium Mitglied bei Promptbaer und erhalte Zugriff auf alle Prompt-Formeln, exklusive Updates und 40% Renewal Rabatt.',
+    title: 'PromptBär Premium',
+    description: 'Entdecke alle Premium-Vorteile: Zugriff auf 80+ Profi-Formeln, 1000+ Beispiele, Style-Guides & regelmäßige Updates. Optimiert für Teams.',
     images: ['/images/promptbaer_premium_king_16_9.webp'],
   }
 }

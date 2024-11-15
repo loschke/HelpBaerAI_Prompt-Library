@@ -5,9 +5,9 @@ import { Badge } from "@/components/ui/badge"
 
 // SEO Metadata
 export const metadata: Metadata = generateMetadata({
-  title: 'Prompt Formeln | KI-Design Vorlagen',
-  description: 'Entdecken Sie unsere bewährten Prompt Formeln für konsistente und hochwertige Ergebnisse mit KI-Tools. Von Profis entwickelt für perfekte KI-generierte Designs.',
-  keywords: 'Prompt Engineering, KI Prompts, AI Design Vorlagen, Midjourney Prompts, DALL-E Prompts, Stable Diffusion',
+  title: 'PromptBär | 80+ KI-Prompt-Formeln für professionelle Bildgenerierung',
+  description: 'Entdecke unsere erprobten KI-Prompt-Formeln für Midjourney, DALL-E & Co. Modular aufgebaut, sofort einsetzbar, mit Profi-Tipps für perfekte Ergebnisse.',
+  keywords: 'prompt formeln, ki prompts, midjourney formeln, prompt vorlagen, ai prompt templates, prompt engineering, dall-e prompts, ki bildgenerierung',
   ogImage: '/images/promptformel_code-1.png'
 })
 
