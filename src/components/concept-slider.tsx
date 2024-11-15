@@ -1,9 +1,10 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Button } from "@/components/ui/button"
 import { Crown, Unlock } from "lucide-react"
 import { SidePanel } from "@/components/ui/side-panel"
+import { useSession } from "next-auth/react"
 
 interface PromptCard {
   id: string;
@@ -35,14 +36,39 @@ interface PromptCard {
 }
 
 interface ConceptSliderProps {
-  cards: PromptCard[];
-  session: any;
+  initialCards: PromptCard[];
 }
 
-export default function ConceptSlider({ cards = [], session }: ConceptSliderProps) {
+export default function ConceptSlider({ initialCards }: ConceptSliderProps) {
+  const { data: session } = useSession()
+  const [cards, setCards] = useState<PromptCard[]>(initialCards)
   const [selectedCard, setSelectedCard] = useState<PromptCard | null>(null)
   const [isPanelOpen, setIsPanelOpen] = useState(false)
   const [showOnlyFree, setShowOnlyFree] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+
+  // Effect to fetch fresh data client-side
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setIsLoading(true)
+        const response = await fetch('/api/airtable');
+        const data = await response.json();
+        
+        if (data.records) {
+          setCards(data.records);
+        }
+      } catch (err) {
+        console.error('Error fetching Airtable records:', err);
+        // Fallback to initial cards if fetch fails
+        setCards(initialCards);
+      } finally {
+        setIsLoading(false)
+      }
+    };
+
+    fetchData();
+  }, [initialCards]);
 
   // Filter cards based on free status
   const displayedCards = showOnlyFree ? cards.filter(card => card.fields.free) : cards;
@@ -124,9 +150,7 @@ export default function ConceptSlider({ cards = [], session }: ConceptSliderProp
           markdownContent={
             `## ${selectedCard.fields.name}\n\n### Prompt-Formel\n\n${processPromptFormula(selectedCard.fields.promptFormel || '')}\n\n### Legende\n\n${selectedCard.fields.legend}`
           }
-        >
-          {/* This section is no longer needed as the markdownContent will handle the premium content */}
-        </SidePanel>
+        />
       )}
     </div>
   )

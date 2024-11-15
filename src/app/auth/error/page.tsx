@@ -10,26 +10,23 @@ export default function AuthErrorPage() {
           <CardTitle className="text-2xl font-bold text-center font-ff-clan text-destructive">
             Authentifizierungsfehler
           </CardTitle>
-          <CardDescription className="text-center text-muted-foreground">
-            Bei der Authentifizierung ist ein Fehler aufgetreten.
-          </CardDescription>
         </CardHeader>
         <CardContent className="text-center space-y-4">
-          <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-4">
-            <p className="text-sm text-yellow-800">
-              <strong>Tipp für Outlook-Nutzer:</strong> Wenn Sie den Link direkt in Outlook angeklickt haben, 
-              versuchen Sie stattdessen den Link zu kopieren und direkt in Ihren Browser einzufügen.
-            </p>
-          </div>
-          <p className="text-foreground">
+
+          <p className="text-foreground font-bold">
             Mögliche Gründe für diesen Fehler:
           </p>
-          <ul className="text-sm text-muted-foreground list-disc list-inside space-y-1">
+          <ul className="text-m text-gray-200 list-disc list-inside space-y-1">
             <li>Der Link ist abgelaufen</li>
             <li>Der Link wurde bereits verwendet</li>
             <li>Die Sitzung ist abgelaufen</li>
             <li>Ungültige Anmeldedaten</li>
           </ul>
+          <div className="bg-background rounded-lg p-4 mb-4">
+            <p className="text-sm text-muted-foreground">
+              <strong>Hinweis:</strong> In Einzelfällen kann es hier zu einer falschen Anzeige kommen, logge dich ein und überprüfe ob deine Email bestätigt ist. Wir sind dran, das zu verbessern.
+            </p>
+          </div>
         </CardContent>
         <CardFooter className="flex flex-col space-y-2 text-center">
           <Button 

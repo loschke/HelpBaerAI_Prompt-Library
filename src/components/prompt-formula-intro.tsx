@@ -34,14 +34,14 @@ export default function PromptFormulaIntro() {
           transition={{ duration: 0.5, delay: 0.3 }}
         >
           {/* Large Formula Display */}
-          <div className="mb-16">
-            <div className="text-xl md:text-2xl lg:text-3xl text-white font-mono leading-[4] text-center">
-              <span className="inline-block">A photo of </span>
-              <span className="inline-block bg-amber-200 text-black px-2 py-2 rounded"> [Hauptobjekt]</span>
-              <span className="inline-block bg-fuchsia-200 text-black px-2 py-2 rounded ml-2">[Objektdetails]</span>,
-              <span className="inline-block py-2">isolated against a </span> 
-              <span className="inline-block bg-accent/75 text-white px-2 py-2 rounded">[Hintergrundart]</span> 
-              <span className="inline-block py-2"> background.</span>
+          <div className="mb-16 max-w-2xl mx-auto">
+            <div className="text-xl md:text-2xl lg:text-3xl text-gray-300 font-mono leading-[6] text-center">
+              <span className="py-2">A photo of </span>
+              <span className="text-pink-400 font-medium bg-pink-300 bg-opacity-20 px-1">[Hauptobjekt]</span>&nbsp;
+              <span className="text-amber-500 font-medium bg-amber-200 bg-opacity-20 px-1">[Objektdetails]</span>
+              <span className="py-2"> isolated against a </span>
+              <span className="text-accent font-medium mb-1 bg-accent/30 bg-opacity-20 px-1 my-2">[Hintergrundart]</span>&nbsp;
+              <span className="inline-block py-2">background.</span>
             </div>
           </div>
 
@@ -52,7 +52,7 @@ export default function PromptFormulaIntro() {
                 <span className="text-3xl">📷</span>
               </div>
               <div>
-                <h3 className="text-amber-200 font-medium mb-1">[Hauptobjekt]</h3>
+                <h3 className="text-pink-400 font-medium mb-1">[Hauptobjekt]</h3>
                 <p className="text-white text-m">z.B. vintage camera, fresh apple</p>
               </div>
             </div>
@@ -62,7 +62,7 @@ export default function PromptFormulaIntro() {
                 <span className="text-3xl">✨</span>
               </div>
               <div>
-                <h3 className="text-fuchsia-200 font-medium mb-1">[Objektdetails]</h3>
+                <h3 className="text-amber-600 font-medium mb-1">[Objektdetails]</h3>
                 <p className="text-white text-m">z.B. with worn leather, showing droplets</p>
               </div>
             </div>
@@ -72,7 +72,7 @@ export default function PromptFormulaIntro() {
                 <span className="text-3xl">🎨</span>
               </div>
               <div>
-                <h3 className="text-accent/75 font-medium mb-1">[Hintergrundart]</h3>
+                <h3 className="text-accent font-medium mb-1">[Hintergrundart]</h3>
                 <p className="text-white text-m">z.B. pure white, dramatic gradient</p>
               </div>
             </div>
@@ -97,8 +97,8 @@ export default function PromptFormulaIntro() {
             </div>
             <div className="p-6">
               <p className="font-mono text-sm text-white">
-                A photo of <span className="text-amber-200">vintage Leica camera</span> 
-                <span className="text-fuchsia-200"> with worn leather patina</span>, 
+                A photo of <span className="text-pink-400">vintage Leica camera</span> 
+                <span className="text-amber-500"> with worn leather patina</span>, 
                 isolated against a <span className="text-accent">pure white</span> background.
               </p>
             </div>
@@ -115,8 +115,8 @@ export default function PromptFormulaIntro() {
             </div>
             <div className="p-6">
               <p className="font-mono text-sm text-white">
-                A photo of <span className="text-amber-200">red apple</span> 
-                <span className="text-fuchsia-200"> with water droplets</span>, 
+                A photo of <span className="text-pink-400">red apple</span> 
+                <span className="text-amber-500"> with water droplets</span>, 
                 isolated against a <span className="text-accent">black</span> background.
               </p>
             </div>
@@ -133,8 +133,8 @@ export default function PromptFormulaIntro() {
             </div>
             <div className="p-6">
               <p className="font-mono text-sm text-white">
-                A photo of <span className="text-amber-200">monstera leaf</span> 
-                <span className="text-fuchsia-200"> with morning dew</span>, 
+                A photo of <span className="text-pink-400">monstera leaf</span> 
+                <span className="text-amber-500"> with morning dew</span>, 
                 isolated against a <span className="text-accent">gradient blue</span> background.
               </p>
             </div>
@@ -151,9 +151,9 @@ export default function PromptFormulaIntro() {
             </div>
             <div className="p-6">
               <p className="font-mono text-sm text-white">
-                A photo of <span className="text-amber-200">luxury watch</span> 
-                <span className="text-fuchsia-200"> with metallic shine</span>, 
-                isolated against a <span className="text-accent/75">dark gradient</span> background.
+                A photo of <span className="text-pink-400">luxury watch</span> 
+                <span className="text-amber-500"> with metallic shine</span>, 
+                isolated against a <span className="text-accent">dark gradient</span> background.
               </p>
             </div>
           </div>
