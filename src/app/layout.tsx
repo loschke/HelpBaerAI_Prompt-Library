@@ -1,11 +1,13 @@
 import { Metadata } from 'next'
-import Script from 'next/script'
 import { ThemeProvider } from '@/components/theme-provider'
 import Navigation from '@/components/navigation'
 import { Footer } from '@/components/ui/footer'
 import { SessionProvider } from "next-auth/react"
 import PrelineScript from '@/components/PrelineScript'
 import SEO, { generateMetadata } from '@/components/ui/seo'
+import CookieConsent from '@/components/cookie-consent'
+import GoogleAnalytics from '@/components/google-analytics'
+import MauticTracking from '@/components/mautic-tracking'
 import './globals.css'
 
 export const metadata: Metadata = generateMetadata({
@@ -22,11 +24,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="de" suppressHydrationWarning>
       <head>
-        <Script
-          src="https://app.cookieyes.com/js/cookieyes.min.js"
-          data-cookieyes="932055f673716cad5e5da13b"
-          strategy="beforeInteractive"
-        />
+        <CookieConsent />
+        <GoogleAnalytics />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -63,6 +62,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           </ThemeProvider>
         </SessionProvider>
         <PrelineScript />
+        <MauticTracking />
       </body>
     </html>
   )
