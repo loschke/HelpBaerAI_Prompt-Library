@@ -1,15 +1,15 @@
-"use client"
+'use client';
 
 import { useState, Suspense } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea" // Diese Komponente müssen wir noch erstellen
+import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Checkbox } from "@/components/ui/checkbox"
 
-function ContactFormContent() {
+function ContactPage() {
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -78,8 +78,8 @@ function ContactFormContent() {
           {/* Image Container */}
           <div className="relative w-full" style={{ paddingTop: '56.25%' }}>
             <Image
-              src="/images/promptbaer_contact_16-9.png"
-              alt="HelpBaer AI"
+              src="/images/promptbaer_contact_16-9.webp"
+              alt="Promptbaer Kontakt"
               fill
               className="object-cover"
               priority
@@ -88,14 +88,14 @@ function ContactFormContent() {
           
           {/* Content Container */}
           <div className="p-8 flex-1">
-            <h2 className="text-3xl font-bold mb-8 font-ff-clan">Kontaktiere uns</h2>
+            <h1 className="text-3xl font-bold mb-8 font-ff-clan">Kontaktiere uns</h1>
             <div className="space-y-6">
               <div className="flex items-start space-x-4">
                 <svg className="w-6 h-6 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
                 <div>
-                  <h3 className="font-semibold text-xl mb-2">Wir freuen uns auf deine Nachricht</h3>
+                  <h2 className="font-semibold text-xl mb-2">Wir freuen uns auf deine Nachricht</h2>
                   <p className="text-white/90">Hast du Fragen zu unserer Prompt Bibliothek oder möchtest du mehr über PromptBär erfahren? Wir sind für dich da!</p>
                 </div>
               </div>
@@ -105,7 +105,7 @@ function ContactFormContent() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
                 <div>
-                  <h3 className="font-semibold text-xl mb-2">Persönliche Betreuung</h3>
+                  <h2 className="font-semibold text-xl mb-2">Persönliche Betreuung</h2>
                   <p className="text-white/90">Falls du bereits mit einem unserer Ansprechpartner in Kontakt standest, wähle diesen bitte im Formular aus. So können wir dein Anliegen optimal betreuen.</p>
                 </div>
               </div>
@@ -115,7 +115,7 @@ function ContactFormContent() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
                 <div>
-                  <h3 className="font-semibold text-xl mb-2">Schnelle Antwort</h3>
+                  <h2 className="font-semibold text-xl mb-2">Schnelle Antwort</h2>
                   <p className="text-white/90">Wir melden uns zeitnah bei dir zurück und finden gemeinsam die beste Lösung für deine Anforderungen.</p>
                 </div>
               </div>
@@ -248,10 +248,10 @@ function ContactFormContent() {
   )
 }
 
-export default function ContactForm() {
+export default function ContactFormWithSuspense() {
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <ContactFormContent />
+      <ContactPage />
     </Suspense>
   )
-} 
+}

@@ -65,7 +65,7 @@ function RegisterFormContent() {
           {/* Image Container */}
           <div className="relative w-full" style={{ paddingTop: '56.25%' }}> {/* 16:9 aspect ratio */}
             <Image
-              src="/images/promptbaer_action_16-9.png"
+              src="/images/promptbaer_action_16-9.webp"
               alt="HelpBaer AI"
               fill
               className="object-cover"

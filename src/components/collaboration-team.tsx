@@ -86,7 +86,7 @@ export default function CollaborationTeam() {
               company="queonext"
               description="Entwickelt seit 2022 KI-gestützte Lösungen für Agenturen und optimiert kreative Workflows durch intelligente Automatisierung."
               linkedIn="https://www.linkedin.com/in/rico-loschke/"
-              imagePath="/images/rico_loschke_queonext.jpg"
+              imagePath="/images/rico_loschke_queonext.webp"
             />
             <Expert
               name="Hans Piechatzek"
@@ -94,7 +94,7 @@ export default function CollaborationTeam() {
               company="Move Elevator"
               description="Leitet eine der innovativsten Digitalagenturen Deutschlands und treibt die Integration von KI-Technologien in kreative Prozesse voran."
               linkedIn="https://www.linkedin.com/in/hans-piechatzek-95044932/"
-              imagePath="/images/hans_piechatzek_move-elevator.jpg"
+              imagePath="/images/hans_piechatzek_move-elevator.webp"
             />
           </div>
         </div>

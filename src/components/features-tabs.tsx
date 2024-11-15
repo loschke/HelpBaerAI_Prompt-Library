@@ -61,15 +61,15 @@ export default function FeaturesTabs() {
               {/* Tab Content */}
               <div>
                 <div id="tabs-with-card-1" role="tabpanel" aria-labelledby="tabs-with-card-item-1">
-                  <img className="shadow-xl shadow-gray-200 rounded-xl dark:shadow-gray-900/20" src="images/zeit-sparen.png" alt="Features Image" />
+                  <img className="shadow-xl shadow-gray-200 rounded-xl dark:shadow-gray-900/20" src="images/zeit-sparen.webp" alt="Features Image" />
                 </div>
 
                 <div id="tabs-with-card-2" className="hidden" role="tabpanel" aria-labelledby="tabs-with-card-item-2">
-                  <img className="shadow-xl shadow-gray-200 rounded-xl dark:shadow-gray-900/20" src="images/konstante-qualitaet.png" alt="Features Image" />
+                  <img className="shadow-xl shadow-gray-200 rounded-xl dark:shadow-gray-900/20" src="images/konstante-qualitaet.webp" alt="Features Image" />
                 </div>
 
                 <div id="tabs-with-card-3" className="hidden" role="tabpanel" aria-labelledby="tabs-with-card-item-3">
-                  <img className="shadow-xl shadow-gray-200 rounded-xl dark:shadow-gray-900/20" src="images/keine-lernkurve.png" alt="Features Image" />
+                  <img className="shadow-xl shadow-gray-200 rounded-xl dark:shadow-gray-900/20" src="images/keine-lernkurve.webp" alt="Features Image" />
                 </div>
               </div>
               {/* End Tab Content */}

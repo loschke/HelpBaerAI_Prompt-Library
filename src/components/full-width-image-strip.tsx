@@ -5,14 +5,14 @@ import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 
 const images = [
-  "/images/landscapes.png",
-  "/images/affe.jpg",
-  "/images/background.jpg",
-  "/images/loewe.jpg",
-  "/images/makro.jpg",
-  "/images/messe.png",
-  "/images/office.png",
-  "/images/paar.jpg",
+  "/images/landscapes.webp",
+  "/images/affe.webp",
+  "/images/background.webp",
+  "/images/loewe.webp",
+  "/images/makro.webp",
+  "/images/messe.webp",
+  "/images/office.webp",
+  "/images/paar.webp",
 ]
 
 export default function FullWidthImageStrip() {

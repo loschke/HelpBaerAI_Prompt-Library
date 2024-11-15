@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Button } from "@/components/ui/button"
 import { Crown, Unlock } from "lucide-react"
 import { SidePanel } from "@/components/ui/side-panel"
@@ -41,34 +41,10 @@ interface ConceptSliderProps {
 
 export default function ConceptSlider({ initialCards }: ConceptSliderProps) {
   const { data: session } = useSession()
-  const [cards, setCards] = useState<PromptCard[]>(initialCards)
+  const [cards] = useState<PromptCard[]>(initialCards)
   const [selectedCard, setSelectedCard] = useState<PromptCard | null>(null)
   const [isPanelOpen, setIsPanelOpen] = useState(false)
   const [showOnlyFree, setShowOnlyFree] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
-
-  // Effect to fetch fresh data client-side
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setIsLoading(true)
-        const response = await fetch('/api/airtable');
-        const data = await response.json();
-        
-        if (data.records) {
-          setCards(data.records);
-        }
-      } catch (err) {
-        console.error('Error fetching Airtable records:', err);
-        // Fallback to initial cards if fetch fails
-        setCards(initialCards);
-      } finally {
-        setIsLoading(false)
-      }
-    };
-
-    fetchData();
-  }, [initialCards]);
 
   // Filter cards based on free status
   const displayedCards = showOnlyFree ? cards.filter(card => card.fields.free) : cards;

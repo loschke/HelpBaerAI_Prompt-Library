@@ -46,8 +46,8 @@ export default function PremiumPage() {
           {/* Image Container */}
           <div className="relative w-full" style={{ paddingTop: '56.25%' }}> {/* 16:9 aspect ratio */}
             <Image
-              src="/images/promptbaer_premium_king_16_9.png"
-              alt="HelpBaer AI"
+              src="/images/promptbaer_premium_king_16_9.webp"
+              alt="Promptbaer Premium Mitgliedschaft"
               fill
               className="object-cover"
               priority
@@ -56,26 +56,26 @@ export default function PremiumPage() {
           
           {/* Content Container */}
           <div className="p-8 flex-1">
-            <h2 className="text-3xl font-bold mb-8 font-ff-clan">Premium Vorteile</h2>
+            <h1 className="text-3xl font-bold mb-8 font-ff-clan">Premium Vorteile</h1>
             <div className="space-y-6">
               <div className="flex items-start space-x-4">
                 <Check className="w-6 h-6 mt-1 flex-shrink-0" />
                 <div>
-                  <h3 className="font-semibold text-xl mb-2">Alle Prompt-Formeln</h3>
+                  <h2 className="font-semibold text-xl mb-2">Alle Prompt-Formeln</h2>
                   <p className="text-white/90">Zugriff auf sämtliche Premium Prompt-Formeln für professionelle AI-Bildgenerierung</p>
                 </div>
               </div>
               <div className="flex items-start space-x-4">
                 <Check className="w-6 h-6 mt-1 flex-shrink-0" />
                 <div>
-                  <h3 className="font-semibold text-xl mb-2">Exklusive Updates</h3>
+                  <h2 className="font-semibold text-xl mb-2">Exklusive Updates</h2>
                   <p className="text-white/90">Erhalte neue Prompt-Formeln direkt wenn sie verfügbar sind und starte sofort mit der Erstellung</p>
                 </div>
               </div>
               <div className="flex items-start space-x-4">
                 <Check className="w-6 h-6 mt-1 flex-shrink-0" />
                 <div>
-                  <h3 className="font-semibold text-xl mb-2">40% Renewal Rabatt</h3>
+                  <h2 className="font-semibold text-xl mb-2">40% Renewal Rabatt</h2>
                   <p className="text-white/90">Spare 40% bei der Verlängerung deines Premium Abos</p>
                 </div>
               </div>
@@ -104,13 +104,10 @@ export default function PremiumPage() {
 
           <div className="bg-background/50 p-6 rounded-lg mb-6">
             <div className="text-center mb-4">
-              <div className="text-sm text-muted-foreground mb-1">Regulärer Preis</div>
-              <div className="text-3xl font-bold line-through text-muted-foreground">699,- €</div>
-            </div>
-            <div className="text-center mb-4">
               <div className="text-sm text-amber-600 font-semibold mb-1">Early Bird Beta Preis</div>
-              <div className="text-4xl font-bold text-amber-600">499,- €</div>
+              <div className="text-4xl font-bold text-amber-600">699,- €</div>
               <div className="text-sm text-muted-foreground mt-1">für 12 Monate</div>
+              <p className="text-sm text-muted-foreground mt-4 text-center">✓ 40% Rabatt bei Verlängerung</p>
             </div>
           </div>
 
@@ -131,7 +128,7 @@ export default function PremiumPage() {
           <p className="text-sm text-muted-foreground mt-4 text-center">
             Sichere Zahlung über Stripe
           </p>
-          <p className="text-sm text-muted-foreground mt-4 text-center">✓ 40% Rabatt bei Verlängerung</p>
+          
         </div>
       </div>
     </div>

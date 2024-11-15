@@ -90,7 +90,7 @@ export default function PromptFormulaIntro() {
           <div className="bg-[#0A0A0A] overflow-hidden rounded-lg">
             <div className="aspect-square">
               <img 
-                src="/images/formel_sample_camera.png" 
+                src="/images/formel_sample_camera.webp" 
                 alt="Vintage Kamera Beispiel"
                 className="w-full h-full object-cover"
               />
@@ -108,7 +108,7 @@ export default function PromptFormulaIntro() {
           <div className="bg-[#0A0A0A] overflow-hidden rounded-lg">
             <div className="aspect-square">
               <img 
-                src="/images/formel_sample_apple.png" 
+                src="/images/formel_sample_apple.webp" 
                 alt="Apfel Beispiel"
                 className="w-full h-full object-cover"
               />
@@ -126,7 +126,7 @@ export default function PromptFormulaIntro() {
           <div className="bg-[#0A0A0A] overflow-hidden rounded-lg">
             <div className="aspect-square">
               <img 
-                src="/images/formel_sample_leaf.png" 
+                src="/images/formel_sample_leaf.webp" 
                 alt="Pflanze Beispiel"
                 className="w-full h-full object-cover"
               />
@@ -144,7 +144,7 @@ export default function PromptFormulaIntro() {
           <div className="bg-[#0A0A0A] overflow-hidden rounded-lg">
             <div className="aspect-square">
               <img 
-                src="/images/formel_sample_watch.png" 
+                src="/images/formel_sample_watch.webp" 
                 alt="Uhr Beispiel"
                 className="w-full h-full object-cover"
               />

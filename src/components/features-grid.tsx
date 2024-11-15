@@ -6,7 +6,7 @@ export default function FeaturesGrid() {
         <div className="aspect-w-16 aspect-h-7 mb-28">
           <img 
             className="w-full object-cover rounded-xl" 
-            src="/images/zielgruppe-team.png" 
+            src="/images/zielgruppe-team.webp" 
             alt="Features Hero Image"
           />
         </div>
