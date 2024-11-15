@@ -13,10 +13,12 @@ export const metadata: Metadata = {
 // Fetch data at build time with revalidation
 async function getStyles() {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_APP_URL;
-    const response = await fetch(`${baseUrl}/api/styles`, {
+    // Use direct Airtable API call for SSR to avoid additional hop through our API
+    const url = `https://api.airtable.com/v0/${process.env.AIRTABLE_BASE_ID}/${process.env.AIRTABLE_TABLE_STYLES}`;
+    
+    const response = await fetch(url, {
       headers: {
-        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${process.env.AIRTABLE_API_KEY}`
       },
       next: { revalidate: 3600 } // Revalidate every hour
     });
@@ -25,16 +27,25 @@ async function getStyles() {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     
-    const data = await response.json();
-    return data.data || [];
+    const result = await response.json();
+    
+    return {
+      styles: result.records.filter((record: any) => 
+        record.fields?.Preview?.[0]?.url
+      ),
+      nextOffset: result.offset || null
+    };
   } catch (err) {
     console.error('Error fetching styles:', err);
-    return [];
+    return {
+      styles: [],
+      nextOffset: null
+    };
   }
 }
 
 export default async function StylesReferencesPage() {
-  const initialStyles = await getStyles();
+  const { styles: initialStyles, nextOffset: initialOffset } = await getStyles();
 
   return (
     <main>
@@ -94,7 +105,10 @@ export default async function StylesReferencesPage() {
       {/* Content Section */}
       <div className="bg-gray-50 dark:bg-zinc-950">
         <div className="w-full mx-auto py-8">
-          <StylesGrid initialStyles={initialStyles} />
+          <StylesGrid 
+            initialStyles={initialStyles} 
+            initialOffset={initialOffset}
+          />
         </div>
       </div>
     </main>

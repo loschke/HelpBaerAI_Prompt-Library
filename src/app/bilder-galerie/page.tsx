@@ -8,13 +8,15 @@ export const metadata: Metadata = {
   keywords: 'KI Bilder, AI Art, Midjourney, DALL-E, Stable Diffusion, Promptformeln',
 }
 
-// Fetch data at build time with revalidation
+// Fetch initial data at build time
 async function getGalleryImages() {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_APP_URL;
-    const response = await fetch(`${baseUrl}/api/gallery`, {
+    // Use direct Airtable API call for SSR to avoid additional hop through our API
+    const url = `https://api.airtable.com/v0/${process.env.AIRTABLE_BASE_ID}/${process.env.AIRTABLE_TABLE_IMAGES}`;
+    
+    const response = await fetch(url, {
       headers: {
-        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${process.env.AIRTABLE_API_KEY}`
       },
       next: { revalidate: 3600 } // Revalidate every hour
     });
@@ -23,19 +25,28 @@ async function getGalleryImages() {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     
-    const data = await response.json();
+    const result = await response.json();
+    
     // Filter out records without valid preview images
-    return data.data.filter((record: any) => 
+    const validRecords = result.records.filter((record: any) => 
       record.fields?.Promptvorschau?.[0]?.url
     );
+
+    return {
+      images: validRecords,
+      nextOffset: result.offset || null
+    };
   } catch (err) {
     console.error('Error fetching gallery images:', err);
-    return [];
+    return {
+      images: [],
+      nextOffset: null
+    };
   }
 }
 
 export default async function BilderGalerie() {
-  const initialImages = await getGalleryImages();
+  const { images: initialImages, nextOffset: initialOffset } = await getGalleryImages();
 
   return (
     <main>
@@ -64,7 +75,10 @@ export default async function BilderGalerie() {
       {/* Content Section */}
       <div className="bg-gray-50 dark:bg-zinc-950">
         <div className="w-full mx-auto py-8">
-          <GalleryGrid initialImages={initialImages} />
+          <GalleryGrid 
+            initialImages={initialImages} 
+            initialOffset={initialOffset}
+          />
         </div>
       </div>
     </main>

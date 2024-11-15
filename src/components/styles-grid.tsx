@@ -26,6 +26,7 @@ interface StyleRecord {
 
 interface StylesGridProps {
   initialStyles: StyleRecord[];
+  initialOffset: string | null;
 }
 
 const STYLE_TYPES = {
@@ -55,21 +56,66 @@ const getPlatformColor = (platform?: string) => {
   }
 };
 
-export function StylesGrid({ initialStyles }: StylesGridProps) {
+export function StylesGrid({ initialStyles, initialOffset }: StylesGridProps) {
   const { data: session } = useSession();
   const [styles, setStyles] = useState<StyleRecord[]>(initialStyles);
   const [selectedStyle, setSelectedStyle] = useState<StyleRecord | null>(null);
   const [isPanelOpen, setIsPanelOpen] = useState(false);
   const [selectedFilter, setSelectedFilter] = useState<string>(STYLE_TYPES.ALL);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [hasMore, setHasMore] = useState(!!initialOffset);
+  const [nextOffset, setNextOffset] = useState<string | null>(initialOffset);
+  const [loadedIds] = useState(new Set(initialStyles.map(style => style.id)));
+  const [allStyles, setAllStyles] = useState<StyleRecord[]>(initialStyles);
 
   const filterStyles = (filter: string) => {
     setSelectedFilter(filter);
     if (filter === STYLE_TYPES.ALL) {
-      setStyles(initialStyles);
+      setStyles(allStyles);
     } else {
-      setStyles(initialStyles.filter(style => 
+      setStyles(allStyles.filter((style: StyleRecord) => 
         style.fields?.StyleType === filter
       ));
+    }
+  };
+
+  const loadMore = async () => {
+    if (loadingMore || !nextOffset) return;
+
+    try {
+      setLoadingMore(true);
+      const response = await fetch(`/api/styles?offset=${nextOffset}`);
+      const result = await response.json();
+
+      if (result.success) {
+        // Filter out records without valid preview images and duplicates
+        const validRecords = result.data.filter((record: StyleRecord) => 
+          record.fields?.Preview?.[0]?.url && !loadedIds.has(record.id)
+        );
+
+        // Add new record IDs to the set
+        validRecords.forEach((record: StyleRecord) => loadedIds.add(record.id));
+
+        // Update both the filtered and unfiltered lists
+        setAllStyles(prev => [...prev, ...validRecords]);
+        
+        // Apply current filter to new records
+        if (selectedFilter === STYLE_TYPES.ALL) {
+          setStyles(prev => [...prev, ...validRecords]);
+        } else {
+          const filteredNewRecords = validRecords.filter((style: StyleRecord) => 
+            style.fields?.StyleType === selectedFilter
+          );
+          setStyles(prev => [...prev, ...filteredNewRecords]);
+        }
+
+        setNextOffset(result.nextOffset || null);
+        setHasMore(result.hasMore);
+      }
+    } catch (error) {
+      console.error('Error loading more styles:', error);
+    } finally {
+      setLoadingMore(false);
     }
   };
 
@@ -147,6 +193,31 @@ export function StylesGrid({ initialStyles }: StylesGridProps) {
           </div>
         ))}
       </div>
+
+      {/* Load More Button */}
+      {hasMore && (
+        <div className="mt-8 flex justify-center">
+          <button
+            onClick={loadMore}
+            disabled={loadingMore}
+            className="px-6 py-2 bg-zinc-800 text-white rounded-md hover:bg-zinc-700 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {loadingMore ? 'Lädt...' : 'Mehr laden'}
+          </button>
+        </div>
+      )}
+
+      {/* Loading State */}
+      {loadingMore && (
+        <div className="mt-8 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 px-4">
+          {[...Array(6)].map((_, i) => (
+            <div 
+              key={`loading-${i}`} 
+              className="aspect-square bg-zinc-800 animate-pulse rounded-lg"
+            />
+          ))}
+        </div>
+      )}
 
       {/* Side Panel */}
       <StyleSidePanel

@@ -21,13 +21,18 @@ interface ImageRecord {
 
 interface GalleryGridProps {
   initialImages: ImageRecord[];
+  initialOffset: string | null;
 }
 
-export function GalleryGrid({ initialImages }: GalleryGridProps) {
-  const [images] = useState<ImageRecord[]>(initialImages);
+export function GalleryGrid({ initialImages, initialOffset }: GalleryGridProps) {
+  const [images, setImages] = useState<ImageRecord[]>(initialImages);
   const [selectedImage, setSelectedImage] = useState<ImageRecord | null>(null);
   const [isSidePanelOpen, setIsSidePanelOpen] = useState(false);
   const [showOnlyFree, setShowOnlyFree] = useState(false);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [hasMore, setHasMore] = useState(!!initialOffset);
+  const [nextOffset, setNextOffset] = useState<string | null>(initialOffset);
+  const [loadedIds] = useState(new Set(initialImages.map(img => img.id)));
 
   const handleImageClick = (image: ImageRecord) => {
     setSelectedImage(image);
@@ -37,6 +42,34 @@ export function GalleryGrid({ initialImages }: GalleryGridProps) {
   const handleCloseSidePanel = () => {
     setIsSidePanelOpen(false);
     setSelectedImage(null);
+  };
+
+  const loadMore = async () => {
+    if (loadingMore || !nextOffset) return;
+
+    try {
+      setLoadingMore(true);
+      const response = await fetch(`/api/gallery?offset=${nextOffset}`);
+      const result = await response.json();
+
+      if (result.success) {
+        // Filter out records without valid preview images and duplicates
+        const validRecords = result.data.filter((record: ImageRecord) => 
+          record.fields?.Promptvorschau?.[0]?.url && !loadedIds.has(record.id)
+        );
+
+        // Add new record IDs to the set
+        validRecords.forEach((record: ImageRecord) => loadedIds.add(record.id));
+
+        setImages(prev => [...prev, ...validRecords]);
+        setNextOffset(result.nextOffset || null);
+        setHasMore(result.hasMore);
+      }
+    } catch (error) {
+      console.error('Error loading more images:', error);
+    } finally {
+      setLoadingMore(false);
+    }
   };
 
   const filteredImages = showOnlyFree 
@@ -97,7 +130,7 @@ export function GalleryGrid({ initialImages }: GalleryGridProps) {
               <div className="aspect-square">
                 <img 
                   src={item.fields.Promptvorschau[0].url} 
-                  alt={item.fields?.Prompt || 'Prompt preview'}
+                  alt={`Prompt ${item.fields?.["Prompt ID"] || ''}`}
                   width={640}
                   height={640}
                   className="w-full h-full object-cover transition-transform duration-200 group-hover:scale-105"
@@ -115,6 +148,31 @@ export function GalleryGrid({ initialImages }: GalleryGridProps) {
           </div>
         ))}
       </div>
+
+      {/* Load More Button */}
+      {hasMore && (
+        <div className="mt-8 flex justify-center">
+          <button
+            onClick={loadMore}
+            disabled={loadingMore}
+            className="px-6 py-2 bg-zinc-800 text-white rounded-md hover:bg-zinc-700 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {loadingMore ? 'Lädt...' : 'Mehr laden'}
+          </button>
+        </div>
+      )}
+
+      {/* Loading State */}
+      {loadingMore && (
+        <div className="mt-8 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 px-4">
+          {[...Array(6)].map((_, i) => (
+            <div 
+              key={`loading-${i}`} 
+              className="aspect-square bg-zinc-800 animate-pulse rounded-lg"
+            />
+          ))}
+        </div>
+      )}
 
       {/* Side Panel */}
       <GallerySidePanel

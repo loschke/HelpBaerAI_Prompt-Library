@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+import Script from 'next/script'
 import { ThemeProvider } from '@/components/theme-provider'
 import Navigation from '@/components/navigation'
 import { Footer } from '@/components/ui/footer'
@@ -21,6 +22,11 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="de" suppressHydrationWarning>
       <head>
+        <Script
+          src="https://app.cookieyes.com/js/cookieyes.min.js"
+          data-cookieyes="932055f673716cad5e5da13b"
+          strategy="beforeInteractive"
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

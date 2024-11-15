@@ -16,7 +16,9 @@ export async function GET(request: NextRequest) {
     const response = await fetch(url, {
       headers: {
         'Authorization': `Bearer ${process.env.AIRTABLE_API_KEY}`
-      }
+      },
+      // Don't cache the API response to ensure fresh data
+      cache: 'no-store'
     });
 
     if (!response.ok) {
