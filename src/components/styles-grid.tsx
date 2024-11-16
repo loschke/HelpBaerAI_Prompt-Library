@@ -167,7 +167,7 @@ export function StylesGrid({ initialStyles, initialOffset }: StylesGridProps) {
               <div className="aspect-square">
                 <img 
                   src={style.fields.Preview[0].url} 
-                  alt={style.fields?.StyleValue || 'Style preview'}
+                  alt={style.fields?.ID || 'Style ID'}
                   width={style.fields.Preview[0].width || 640}
                   height={style.fields.Preview[0].height || 640}
                   className="w-full h-full object-cover transition-transform duration-200 group-hover:scale-105"
