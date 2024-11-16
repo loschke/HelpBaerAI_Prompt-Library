@@ -11,6 +11,7 @@ const baseNavItems = [
   { name: 'Prompt Formeln', href: '/prompt-formeln' },
   { name: 'Beispielbilder', href: '/bilder-galerie' },
   { name: 'Styles', href: '/stile-referenzen' },
+  { name: 'FAQ', href: '/faq' },
 ]
 
 export default function Navigation() {
