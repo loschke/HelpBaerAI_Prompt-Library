@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
+import { Button } from "./ui/button"
+import { Badge } from "./ui/badge"
 import { ArrowRight, Wand2 } from "lucide-react"
 import Link from "next/link"
 
@@ -43,7 +43,8 @@ export default function HeroEmojiCta() {
             <Link href="/auth/register" className="inline-block">
               <Button size="lg" className="px-8 py-6 text-xl">
                 <Wand2 className="mr-2 h-5 w-5" />
-                Starte mit kostenlosen Prompt-Formeln
+                <span className="block sm:hidden">Kostenlos starten</span>
+                <span className="hidden sm:block">Starte mit kostenlosen Prompt-Formeln</span>
               </Button>
             </Link>
           </div>

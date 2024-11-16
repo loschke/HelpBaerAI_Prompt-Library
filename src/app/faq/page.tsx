@@ -1,5 +1,8 @@
-import { getAllFaqs, getFaqBySlug } from '@/lib/faq';
+import { getAllFaqs, getFaqBySlug } from '../../lib/faq';
 import { Metadata } from 'next';
+import Link from 'next/link';
+import { Badge } from '@/components/ui/badge';
+import FullWidthImageStrip from '@/components/full-width-image-strip'
 
 export const metadata: Metadata = {
   title: 'FAQ | HelpBaer AI',
@@ -19,13 +22,36 @@ export default async function FaqPage() {
   );
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24 bg-background text-foreground">
-      <div className="container mx-auto max-w-5xl">
-        <h1 className="text-4xl font-bold mb-12 text-center">FAQ</h1>
+    <main className="flex min-h-screen flex-col items-center justify-between bg-background text-foreground">
+      <div className="bg-background">
+        <div className="container mx-auto px-4 py-16">
+          <div className="max-w-5xl mx-auto space-y-8 text-center">
+            <Badge variant="outline" className="border-neutral-500 text-2xl text-neutral-400 hover:bg-accent/10">
+              Hilfe & Support
+            </Badge>
+
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white">
+              Häufig gestellte Fragen
+            </h1>      
+
+            <p className="text-2xl text-foreground leading-relaxed">
+              Hier findest du Antworten auf die wichtigsten Fragen zu KI-Prompting und unseren Services
+            </p>
+            <Link 
+            href="/feedback"
+            className="inline-flex items-center justify-center px-6 py-3 text-base font-medium rounded-md text-white bg-accent hover:bg-accent/90 transition-colors duration-200"
+          >
+            Feedback & Feature-Wünsche
+          </Link>
+          </div>
+        </div>
+      </div>
+
+      <div className="container mx-auto max-w-5xl px-4 py-8 md:py-16">
         
         {categories.map(category => (
           <div key={category} className="mb-12">
-            <h2 className="text-2xl font-bold mb-6 capitalize">{category}</h2>
+            <h2 className="text-2xl font-bold mb-6 capitalize text-white">{category}</h2>
             
             <div className="grid gap-4">
               {faqsWithContent
@@ -83,6 +109,7 @@ export default async function FaqPage() {
           </p>
         )}
       </div>
+      <FullWidthImageStrip />
     </main>
   );
 }

@@ -1,6 +1,6 @@
 ---
 title: "Wie steht es um die kommerzielle Nutzung der generierten Bilder?"
-category: "geschaeftlich"
+category: "rechtliches"
 order: 1
 tags: ["kommerziell", "rechte", "nutzung", "lizenzen"]
 ---

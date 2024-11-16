@@ -2,9 +2,9 @@
 
 import React from 'react'
 import { motion } from 'framer-motion'
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "./ui/card"
 import Link from 'next/link'
-import { Button } from "@/components/ui/button"
+import { Button } from "./ui/button"
 
 interface WorkflowStepProps {
   emoji: string
@@ -102,7 +102,8 @@ export default function WorkflowAndPersonas() {
               size="lg" 
               className="px-8 py-6 text-xl"
             >
-              Gleich loslegen mit unseren FREE Prompt-Formeln 🚀
+              <span className="block sm:hidden">FREE Prompt-Formeln 🚀</span>
+              <span className="hidden sm:block">Gleich loslegen mit unseren FREE Prompt-Formeln 🚀</span>
             </Button>
           </Link>
         </motion.div>

@@ -1,6 +1,6 @@
 ---
 title: "Welche neuen Features sind geplant?"
-category: "zukunft"
+category: "roadmap"
 order: 1
 tags: ["features", "entwicklung", "planung", "roadmap"]
 ---

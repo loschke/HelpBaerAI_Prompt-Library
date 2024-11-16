@@ -1,6 +1,6 @@
 ---
 title: "Was ist mit Video-Prompts?"
-category: "zukunft"
+category: "roadmap"
 order: 2
 tags: ["video", "entwicklung", "zukunft", "features"]
 ---

@@ -132,6 +132,20 @@ export default function ProfilePage() {
         <Separator className="bg-border/50" />
         <CardFooter className="flex flex-col gap-2">
           <SubscriptionButton session={session} />
+          <div className="grid grid-cols-2 gap-2 w-full">
+            <Button 
+              variant="outline"
+              onClick={() => router.push('/feedback')}
+            >
+              Feedback 💝
+            </Button>
+            <Button 
+              variant="outline"
+              onClick={() => router.push('/faq')}
+            >
+              FAQ 💡
+            </Button>
+          </div>
           <Button onClick={handleLogout} className="w-full bg-primary hover:bg-primary/90">
             Ausloggen
           </Button>

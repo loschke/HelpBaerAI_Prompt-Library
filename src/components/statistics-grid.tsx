@@ -1,6 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
-import { Button } from "@/components/ui/button"
+import { Button } from "./ui/button"
 import { ArrowRight } from "lucide-react"
 
 const StatisticsGrid = () => {
@@ -79,7 +79,8 @@ const StatisticsGrid = () => {
           <Button size="lg" className="px-8 py-6 text-xl" asChild>
             <a href="/prompt-formeln">
               <ArrowRight className="mr-2 h-5 w-5" />
-              Alle Prompt-Formeln entdecken
+              <span className="block sm:hidden">Prompt-Formeln</span>
+              <span className="hidden sm:block">Alle Prompt-Formeln entdecken</span>
             </a>
           </Button>
         </div>
