@@ -8,7 +8,7 @@ export const metadata: Metadata = generateMetadata({
   title: 'PromptBär | 80+ KI-Prompt-Formeln für professionelle Bildgenerierung',
   description: 'Entdecke unsere erprobten KI-Prompt-Formeln für Midjourney, DALL-E & Co. Modular aufgebaut, sofort einsetzbar, mit Profi-Tipps für perfekte Ergebnisse.',
   keywords: 'prompt formeln, ki prompts, midjourney formeln, prompt vorlagen, ai prompt templates, prompt engineering, dall-e prompts, ki bildgenerierung',
-  ogImage: '/images/promptformel_code-1.png'
+  ogImage: '/images/promptbaer_ai-design_prompt-bibliothek.png'
 })
 
 interface PromptCard {
