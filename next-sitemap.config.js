@@ -7,6 +7,5 @@ module.exports = {
     '/auth/*',      // Authentifizierungsrouten
     '/api/*',       // API Endpunkte
     '/premium/*',   // Premium Bereich
-    '/faq/*',       // FAQ (temporär ausgeschlossen)
   ],
 }
