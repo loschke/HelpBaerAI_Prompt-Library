@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { StyledMarkdown } from "./styled-markdown"
+import CopyButton from "./copy-button"
 
 interface PremiumPanelContentProps {
   session: any
@@ -11,7 +12,18 @@ export function PremiumPanelContent({ session, markdownContent, children }: Prem
   // If user is logged in and has premium/partner/team subscription, show content
   if (session?.user?.subscriptionTier && session.user.subscriptionTier !== 'FREE') {
     return markdownContent ? (
-      <StyledMarkdown content={markdownContent} />
+      <div className="relative">
+        <div className="flex justify-between items-start mb-4">
+          <h3 className="text-lg font-semibold text-zinc-100">
+            Prompt Formel
+          </h3>
+          <CopyButton 
+            content={markdownContent}
+            className="ml-4"
+          />
+        </div>
+        <StyledMarkdown content={markdownContent} />
+      </div>
     ) : (
       children
     )

@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react"
 import Link from 'next/link'
 import { FreePanelContent } from "./free-panel-content"
 import { PremiumPanelContent } from "./premium-panel-content"
+import CopyButton from "./copy-button"
 
 interface GallerySidePanelProps {
   isOpen: boolean
@@ -33,6 +34,11 @@ export function GallerySidePanel({ isOpen, onClose, imageData }: GallerySidePane
   const isFree = imageData.fields?.Free?.[0] === true
 
   const renderContent = () => {
+    // Check if user has access to content
+    const hasAccess = isFree 
+      ? !!session 
+      : session?.user?.subscriptionTier && session.user.subscriptionTier !== 'FREE'
+
     // Wrap the content that should be protected
     const protectedContent = (
       <>
@@ -57,10 +63,18 @@ export function GallerySidePanel({ isOpen, onClose, imageData }: GallerySidePane
 
         {/* Prompt */}
         {imageData.fields?.Prompt && (
-          <div>
-            <h3 className="text-lg font-semibold mb-3 text-zinc-100">
-              Prompt
-            </h3>
+          <div className="relative">
+            <div className="flex justify-between items-start mb-3">
+              <h3 className="text-lg font-semibold text-zinc-100">
+                Prompt
+              </h3>
+              {hasAccess && (
+                <CopyButton 
+                  content={imageData.fields.Prompt}
+                  className="ml-4"
+                />
+              )}
+            </div>
             <p className="text-zinc-300 whitespace-pre-wrap leading-relaxed">
               {imageData.fields.Prompt}
             </p>

@@ -2,6 +2,7 @@ import React from 'react'
 import { cn } from "@/lib/utils"
 import { X } from "lucide-react"
 import { StyleFreePanelContent } from "./style-free-panel-content"
+import CopyButton from "./copy-button"
 
 interface StyleSidePanelProps {
   isOpen: boolean
@@ -29,6 +30,90 @@ interface StyleSidePanelProps {
 
 export function StyleSidePanel({ isOpen, onClose, session, styleData }: StyleSidePanelProps) {
   if (!styleData) return null
+
+  const protectedContent = (
+    <div className="space-y-8">
+      {/* Platform */}
+      {styleData.fields?.Platform && (
+        <div>
+          <h3 className="text-lg font-semibold mb-3 text-zinc-100">
+            Platform
+          </h3>
+          <span className="px-3 py-1 bg-zinc-800/80 text-zinc-400 rounded-full">
+            {styleData.fields.Platform}
+          </span>
+        </div>
+      )}
+
+      {/* Style Value */}
+      {styleData.fields?.StyleValue && (
+        <div className="relative">
+          <div className="flex justify-between items-start mb-3">
+            <h3 className="text-lg font-semibold text-zinc-100">
+              Style Value
+            </h3>
+            {session && (
+              <CopyButton 
+                content={styleData.fields.StyleValue}
+                className="ml-4"
+              />
+            )}
+          </div>
+          <p className="text-zinc-300 whitespace-pre-wrap leading-relaxed">
+            {styleData.fields.StyleValue}
+          </p>
+        </div>
+      )}
+
+      {/* Preview Images */}
+      {styleData.fields?.Preview && styleData.fields.Preview.length > 0 && (
+        <div>
+          <h3 className="text-lg font-semibold mb-3 text-zinc-100">
+            Preview
+          </h3>
+          <div className="grid grid-cols-2 gap-4">
+            {styleData.fields.Preview.map((image, index) => (
+              image?.url && (
+                <div key={index} className="rounded-lg overflow-hidden">
+                  <img
+                    src={image.url}
+                    alt={`Preview ${index + 1}`}
+                    width={image.width}
+                    height={image.height}
+                    className="w-full h-auto"
+                  />
+                </div>
+              )
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Sample Images */}
+      {styleData.fields?.ImgSamples && styleData.fields.ImgSamples.length > 0 && (
+        <div>
+          <h3 className="text-lg font-semibold mb-3 text-zinc-100">
+            Style Examples
+          </h3>
+          <div className="grid grid-cols-2 gap-4">
+            {styleData.fields.ImgSamples.map((image, index) => (
+              image?.url && (
+                <div key={index} className="rounded-lg overflow-hidden">
+                  <img
+                    src={image.url}
+                    alt={`Sample ${index + 1}`}
+                    width={image.width}
+                    height={image.height}
+                    className="w-full h-auto"
+                  />
+                </div>
+              )
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  )
 
   return (
     <>
@@ -70,79 +155,7 @@ export function StyleSidePanel({ isOpen, onClose, session, styleData }: StyleSid
 
         {/* Content */}
         <StyleFreePanelContent session={session}>
-          <div className="space-y-8">
-            {/* Platform */}
-            {styleData.fields?.Platform && (
-              <div>
-                <h3 className="text-lg font-semibold mb-3 text-zinc-100">
-                  Platform
-                </h3>
-                <span className="px-3 py-1 bg-zinc-800/80 text-zinc-400 rounded-full">
-                  {styleData.fields.Platform}
-                </span>
-              </div>
-            )}
-
-            {/* Style Value */}
-            {styleData.fields?.StyleValue && (
-              <div>
-                <h3 className="text-lg font-semibold mb-3 text-zinc-100">
-                  Style Value
-                </h3>
-                <p className="text-zinc-300 whitespace-pre-wrap leading-relaxed">
-                  {styleData.fields.StyleValue}
-                </p>
-              </div>
-            )}
-
-            {/* Preview Images */}
-            {styleData.fields?.Preview && styleData.fields.Preview.length > 0 && (
-              <div>
-                <h3 className="text-lg font-semibold mb-3 text-zinc-100">
-                  Preview
-                </h3>
-                <div className="grid grid-cols-2 gap-4">
-                  {styleData.fields.Preview.map((image, index) => (
-                    image?.url && (
-                      <div key={index} className="rounded-lg overflow-hidden">
-                        <img
-                          src={image.url}
-                          alt={`Preview ${index + 1}`}
-                          width={image.width}
-                          height={image.height}
-                          className="w-full h-auto"
-                        />
-                      </div>
-                    )
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Sample Images */}
-            {styleData.fields?.ImgSamples && styleData.fields.ImgSamples.length > 0 && (
-              <div>
-                <h3 className="text-lg font-semibold mb-3 text-zinc-100">
-                  Style Examples
-                </h3>
-                <div className="grid grid-cols-2 gap-4">
-                  {styleData.fields.ImgSamples.map((image, index) => (
-                    image?.url && (
-                      <div key={index} className="rounded-lg overflow-hidden">
-                        <img
-                          src={image.url}
-                          alt={`Sample ${index + 1}`}
-                          width={image.width}
-                          height={image.height}
-                          className="w-full h-auto"
-                        />
-                      </div>
-                    )
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
+          {protectedContent}
         </StyleFreePanelContent>
       </div>
     </>
