@@ -13,13 +13,9 @@ export function PremiumPanelContent({ session, markdownContent, children }: Prem
   if (session?.user?.subscriptionTier && session.user.subscriptionTier !== 'FREE') {
     return markdownContent ? (
       <div className="relative">
-        <div className="flex justify-between items-start mb-4">
-          <h3 className="text-lg font-semibold text-zinc-100">
-            Prompt Formel
-          </h3>
+        <div className="flex justify-end mb-4">
           <CopyButton 
             content={markdownContent}
-            className="ml-4"
           />
         </div>
         <StyledMarkdown content={markdownContent} />
