@@ -1,13 +1,12 @@
 import { Metadata, Viewport } from 'next'
-import { ThemeProvider } from '@/components/theme-provider'
-import Navigation from '@/components/navigation'
-import { Footer } from '@/components/ui/footer'
+import { ThemeProvider } from "@/components/theme-provider"
+import Navigation from "@/components/navigation"
+import { Footer } from "@/components/ui/footer"
 import { SessionProvider } from "next-auth/react"
-import PrelineScript from '@/components/PrelineScript'
-import SEO, { generateMetadata } from '@/components/ui/seo'
-import CookieConsent from '@/components/cookie-consent'
-import GoogleAnalytics from '@/components/google-analytics'
-import MauticTracking from '@/components/mautic-tracking'
+import SEO, { generateMetadata } from "@/components/ui/seo"
+import CookieConsent from "@/components/cookie-consent"
+import GoogleAnalytics from "@/components/google-analytics"
+import MauticTracking from "@/components/mautic-tracking"
 import './globals.css'
 
 export const viewport: Viewport = {
@@ -34,6 +33,10 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <head>
         <CookieConsent />
         <GoogleAnalytics />
+        <link
+          rel="icon"
+          href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐻</text></svg>"
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -69,7 +72,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
             <Footer />
           </ThemeProvider>
         </SessionProvider>
-        <PrelineScript />
         <MauticTracking />
       </body>
     </html>

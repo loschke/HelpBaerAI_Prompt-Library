@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   keywords: 'ki bildstile, ai artstyles, midjourney styles, design referenzen, visual styles, ki-design stile, prompt styles, style guide',
 }
 
-// Fetch data at build time with revalidation
+// Fetch data with no caching
 async function getStyles() {
   try {
     // Use direct Airtable API call for SSR to avoid additional hop through our API
@@ -20,7 +20,7 @@ async function getStyles() {
       headers: {
         'Authorization': `Bearer ${process.env.AIRTABLE_API_KEY}`
       },
-      next: { revalidate: 3600 } // Revalidate every hour
+      cache: 'no-store' // Disable caching to ensure fresh data
     });
 
     if (!response.ok) {

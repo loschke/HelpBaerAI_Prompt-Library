@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   keywords: 'ki beispielbilder, midjourney beispiele, ai bildgalerie, prompt beispiele, ki-design vorlagen, beispielprompts, reference images',
 }
 
-// Fetch initial data at build time
+// Fetch initial data with no caching
 async function getGalleryImages() {
   try {
     // Use direct Airtable API call for SSR to avoid additional hop through our API
@@ -18,7 +18,7 @@ async function getGalleryImages() {
       headers: {
         'Authorization': `Bearer ${process.env.AIRTABLE_API_KEY}`
       },
-      next: { revalidate: 3600 } // Revalidate every hour
+      cache: 'no-store' // Disable caching to ensure fresh data
     });
 
     if (!response.ok) {

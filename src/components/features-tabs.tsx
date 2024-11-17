@@ -1,14 +1,14 @@
 "use client"
 
-import { useEffect } from 'react'
+import { useState } from 'react'
 
 export default function FeaturesTabs() {
-  useEffect(() => {
-    // Initialize Preline tabs when component mounts
-    if (typeof window !== 'undefined') {
-      require('preline/dist/preline').initHSTabs
-    }
-  }, [])
+  const [activeTab, setActiveTab] = useState(1);
+
+  const getTabStyles = (tabNumber: number) => {
+    const isActive = activeTab === tabNumber;
+    return `${isActive ? 'bg-white dark:bg-background shadow-md' : ''} text-start hover:bg-gray-200 focus:outline-none focus:bg-gray-200 p-4 md:p-5 rounded-xl dark:hover:bg-background dark:focus:bg-background transition-all`;
+  };
 
   return (
     <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-48 mx-auto">
@@ -21,33 +21,69 @@ export default function FeaturesTabs() {
             </h2>
 
             {/* Tab Navs */}
-            <nav className="grid gap-4 mt-5 md:mt-10" aria-label="Tabs" role="tablist" aria-orientation="vertical">
-              <button type="button" className="hs-tab-active:bg-white hs-tab-active:shadow-md hs-tab-active:hover:border-transparent text-start hover:bg-gray-200 focus:outline-none focus:bg-gray-200 p-4 md:p-5 rounded-xl dark:hs-tab-active:bg-background dark:hover:bg-background dark:focus:bg-background active" id="tabs-with-card-item-1" aria-selected="true" data-hs-tab="#tabs-with-card-1" aria-controls="tabs-with-card-1" role="tab">
+            <nav className="grid gap-4 mt-5 md:mt-10" aria-label="Tabs" role="tablist">
+              <button 
+                type="button" 
+                className={getTabStyles(1)}
+                onClick={() => setActiveTab(1)}
+                aria-selected="true"
+                role="tab"
+                aria-controls="tab-panel-1"
+                id="tab-1"
+              >
                 <span className="flex gap-x-6">
                   <span className="shrink-0 mt-1 text-2xl">⚡</span>
                   <span className="grow">
-                    <span className="block text-xl font-semibold hs-tab-active:text-blue-600 text-gray-800 dark:hs-tab-active:text-primary dark:text-neutral-200">Spare einfach Zeit</span>
-                    <span className="block mt-1 text-lg text-gray-800 dark:hs-tab-active:text-gray-200 dark:text-neutral-200">Prompt finden oder Bildrecherche von 2-3 Stunden auf 15-20 Minuten reduziert.</span>
+                    <span className={`block text-xl font-semibold ${activeTab === 1 ? 'text-primary' : 'text-gray-800 dark:text-neutral-200'}`}>
+                      Spare einfach Zeit
+                    </span>
+                    <span className="block mt-1 text-lg text-gray-800 dark:text-neutral-200">
+                      Prompt finden oder Bildrecherche von 2-3 Stunden auf 15-20 Minuten reduziert.
+                    </span>
                   </span>
                 </span>
               </button>
 
-              <button type="button" className="hs-tab-active:bg-white hs-tab-active:shadow-md hs-tab-active:hover:border-transparent text-start hover:bg-gray-200 focus:outline-none focus:bg-background p-4 md:p-5 rounded-xl dark:hs-tab-active:bg-background dark:hover:bg-background dark:focus:bg-background" id="tabs-with-card-item-2" aria-selected="false" data-hs-tab="#tabs-with-card-2" aria-controls="tabs-with-card-2" role="tab">
+              <button 
+                type="button" 
+                className={getTabStyles(2)}
+                onClick={() => setActiveTab(2)}
+                aria-selected="false"
+                role="tab"
+                aria-controls="tab-panel-2"
+                id="tab-2"
+              >
                 <span className="flex gap-x-6">
                   <span className="shrink-0 mt-1 text-2xl">✨</span>
                   <span className="grow">
-                    <span className="block text-xl font-semibold hs-tab-active:text-primary text-gray-800 dark:hs-tab-active:text-primary dark:text-neutral-200">Konstante Qualität</span>
-                    <span className="block mt-1 text-lg text-gray-800 dark:hs-tab-active:text-gray-200 dark:text-neutral-200">Erprobte Formeln für verlässlich gute Ergebnisse beim ersten Versuch</span>
+                    <span className={`block text-xl font-semibold ${activeTab === 2 ? 'text-primary' : 'text-gray-800 dark:text-neutral-200'}`}>
+                      Konstante Qualität
+                    </span>
+                    <span className="block mt-1 text-lg text-gray-800 dark:text-neutral-200">
+                      Erprobte Formeln für verlässlich gute Ergebnisse beim ersten Versuch
+                    </span>
                   </span>
                 </span>
               </button>
 
-              <button type="button" className="hs-tab-active:bg-white hs-tab-active:shadow-md hs-tab-active:hover:border-transparent text-start hover:bg-gray-200 focus:outline-none focus:bg-gray-200 p-4 md:p-5 rounded-xl dark:hs-tab-active:bg-background dark:hover:bg-background dark:focus:bg-background" id="tabs-with-card-item-3" aria-selected="false" data-hs-tab="#tabs-with-card-3" aria-controls="tabs-with-card-3" role="tab">
+              <button 
+                type="button" 
+                className={getTabStyles(3)}
+                onClick={() => setActiveTab(3)}
+                aria-selected="false"
+                role="tab"
+                aria-controls="tab-panel-3"
+                id="tab-3"
+              >
                 <span className="flex gap-x-6">
                   <span className="shrink-0 mt-1 text-2xl">🎯</span>
                   <span className="grow">
-                    <span className="block text-xl font-semibold hs-tab-active:text-blue-600 text-gray-800 dark:hs-tab-active:text-primary dark:text-neutral-200">Lernkurve? Welche Lernkurve?</span>
-                    <span className="block mt-1 text-lg text-gray-800 dark:hs-tab-active:text-gray-200 dark:text-neutral-200">Keine Lernkurve, keine Probleme. Sofort nutzbar, ohne wochenlange Einarbeitung</span>
+                    <span className={`block text-xl font-semibold ${activeTab === 3 ? 'text-primary' : 'text-gray-800 dark:text-neutral-200'}`}>
+                      Lernkurve? Welche Lernkurve?
+                    </span>
+                    <span className="block mt-1 text-lg text-gray-800 dark:text-neutral-200">
+                      Keine Lernkurve, keine Probleme. Sofort nutzbar, ohne wochenlange Einarbeitung
+                    </span>
                   </span>
                 </span>
               </button>
@@ -60,20 +96,46 @@ export default function FeaturesTabs() {
             <div className="relative">
               {/* Tab Content */}
               <div>
-                <div id="tabs-with-card-1" role="tabpanel" aria-labelledby="tabs-with-card-item-1">
-                  <img className="shadow-xl shadow-gray-200 rounded-xl dark:shadow-gray-900/20" src="images/zeit-sparen.webp" alt="Features Image" />
+                <div 
+                  role="tabpanel" 
+                  id="tab-panel-1"
+                  aria-labelledby="tab-1"
+                  className={activeTab === 1 ? 'block' : 'hidden'}
+                >
+                  <img 
+                    className="shadow-xl shadow-gray-200 rounded-xl dark:shadow-gray-900/20" 
+                    src="images/zeit-sparen.webp" 
+                    alt="Features Image" 
+                  />
                 </div>
 
-                <div id="tabs-with-card-2" className="hidden" role="tabpanel" aria-labelledby="tabs-with-card-item-2">
-                  <img className="shadow-xl shadow-gray-200 rounded-xl dark:shadow-gray-900/20" src="images/konstante-qualitaet.webp" alt="Features Image" />
+                <div 
+                  role="tabpanel"
+                  id="tab-panel-2"
+                  aria-labelledby="tab-2"
+                  className={activeTab === 2 ? 'block' : 'hidden'}
+                >
+                  <img 
+                    className="shadow-xl shadow-gray-200 rounded-xl dark:shadow-gray-900/20" 
+                    src="images/konstante-qualitaet.webp" 
+                    alt="Features Image" 
+                  />
                 </div>
 
-                <div id="tabs-with-card-3" className="hidden" role="tabpanel" aria-labelledby="tabs-with-card-item-3">
-                  <img className="shadow-xl shadow-gray-200 rounded-xl dark:shadow-gray-900/20" src="images/keine-lernkurve.webp" alt="Features Image" />
+                <div 
+                  role="tabpanel"
+                  id="tab-panel-3"
+                  aria-labelledby="tab-3"
+                  className={activeTab === 3 ? 'block' : 'hidden'}
+                >
+                  <img 
+                    className="shadow-xl shadow-gray-200 rounded-xl dark:shadow-gray-900/20" 
+                    src="images/keine-lernkurve.webp" 
+                    alt="Features Image" 
+                  />
                 </div>
               </div>
               {/* End Tab Content */}
-
             </div>
           </div>
           {/* End Col */}
