@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Session } from "next-auth"
-import { SubscriptionTier } from "@prisma/client"
-import { Crown, ExternalLink } from "lucide-react"
+import { SubscriptionTier, Role } from "@prisma/client"
+import { Crown, ExternalLink, LayoutDashboard } from "lucide-react"
 import Link from "next/link"
 
 interface SubscriptionButtonProps {
@@ -11,9 +11,33 @@ interface SubscriptionButtonProps {
 export function SubscriptionButton({ session }: SubscriptionButtonProps) {
   const customerPortalUrl = process.env.NEXT_PUBLIC_STRIPE_CUSTOMER_PORTAL_URL
   
+  // If user is admin, show dashboard button
+  if (session?.user?.role === Role.ADMIN || session?.user?.role === Role.SUPER_ADMIN) {
+    return (
+      <Button 
+        asChild
+        variant="outline"
+        size="lg"
+        className="w-full"
+      >
+        <Link 
+          href="/dashboard"
+          className="inline-flex items-center gap-2"
+        >
+          <LayoutDashboard className="h-4 w-4" />
+          Dashboard
+        </Link>
+      </Button>
+    )
+  }
+
+  // If user is lifetime, don't show any subscription button
+  if (session?.user?.subscriptionTier === SubscriptionTier.LIFETIME) {
+    return null
+  }
+  
   // If user is premium, show subscription info and portal link
-  if (session?.user?.subscriptionTier === SubscriptionTier.PREMIUM || 
-      session?.user?.subscriptionTier === SubscriptionTier.PARTNER) {
+  if (session?.user?.subscriptionTier === SubscriptionTier.PREMIUM) {
     return (
       <div className="w-full space-y-2">
         {session.user.subscriptionEndDate && (

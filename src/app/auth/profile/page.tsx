@@ -101,11 +101,13 @@ export default function ProfilePage() {
             <div className="flex justify-between items-center">
               <Label className="text-sm font-medium text-foreground">Plan</Label>
               <span className={`text-xs font-medium px-2.5 py-0.5 rounded inline-flex items-center gap-1 ${
-                userProfile.plan === SubscriptionTier.PREMIUM || userProfile.plan === SubscriptionTier.PARTNER
-                  ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300'
-                  : 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300'
+                userProfile.plan === SubscriptionTier.LIFETIME
+                  ? 'bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-200'
+                  : userProfile.plan === SubscriptionTier.PREMIUM
+                    ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300'
+                    : 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300'
               }`}>
-                {(userProfile.plan === SubscriptionTier.PREMIUM || userProfile.plan === SubscriptionTier.PARTNER)
+                {(userProfile.plan === SubscriptionTier.PREMIUM || userProfile.plan === SubscriptionTier.LIFETIME)
                   ? <Crown className="h-3 w-3" />
                   : <LockOpen className="h-3 w-3" />
                 }

@@ -15,14 +15,14 @@ enum Role {
   SUPER_ADMIN
   ADMIN
   PARTNER
+  TEAM
   USER
 }
 
 enum SubscriptionTier {
   FREE
   PREMIUM
-  PARTNER
-  TEAM
+  LIFETIME
 }
 
 enum ActivityType {

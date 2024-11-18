@@ -19,9 +19,12 @@ const updateUserSchema = z.object({
 
 export async function PATCH(
   request: Request,
-  { params }: { params: { userId: string } }
+  context: { params: Promise<{ userId: string }> }
 ) {
   try {
+    // Get and await params
+    const params = await context.params
+
     // Check authentication and authorization
     const session = await auth()
     if (!session?.user) {
@@ -98,9 +101,12 @@ export async function PATCH(
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { userId: string } }
+  context: { params: Promise<{ userId: string }> }
 ) {
   try {
+    // Get and await params
+    const params = await context.params
+
     // Check authentication and authorization
     const session = await auth()
     if (!session?.user) {

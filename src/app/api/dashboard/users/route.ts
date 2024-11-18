@@ -76,9 +76,12 @@ export async function GET(request: Request) {
 
 export async function PATCH(
   request: Request,
-  { params }: { params: { userId: string } }
+  context: { params: Promise<{ userId: string }> }
 ) {
   try {
+    // Get and await params
+    const params = await context.params
+
     // Check authentication and authorization
     const session = await auth()
     if (!session?.user) {
@@ -116,7 +119,7 @@ export async function PATCH(
       )
     }
 
-    // Get the user ID from the URL
+    // Get the user ID from params
     const userId = params.userId
     if (!userId) {
       return NextResponse.json(
