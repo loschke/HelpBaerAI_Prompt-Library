@@ -51,6 +51,8 @@ export function UserTable({
         return "👑"
       case Role.PARTNER:
         return "🤝"
+      case Role.TEAM:
+        return "👤"
       case Role.USER:
         return "👤"
       default:
@@ -62,10 +64,8 @@ export function UserTable({
     switch (tier) {
       case SubscriptionTier.PREMIUM:
         return "⭐"
-      case SubscriptionTier.PARTNER:
+      case SubscriptionTier.LIFETIME:
         return "🤝"
-      case SubscriptionTier.TEAM:
-        return "👥"
       case SubscriptionTier.FREE:
         return "🆓"
       default:

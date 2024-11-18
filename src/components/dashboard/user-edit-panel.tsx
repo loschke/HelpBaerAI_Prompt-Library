@@ -154,6 +154,7 @@ export function UserEditPanel({
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value={Role.USER}>User</SelectItem>
+                <SelectItem value={Role.TEAM}>Team</SelectItem>
                 <SelectItem value={Role.PARTNER}>Partner</SelectItem>
                 <SelectItem value={Role.ADMIN}>Admin</SelectItem>
                 {currentUserRole === Role.SUPER_ADMIN && (
@@ -183,8 +184,7 @@ export function UserEditPanel({
               <SelectContent>
                 <SelectItem value={SubscriptionTier.FREE}>Free</SelectItem>
                 <SelectItem value={SubscriptionTier.PREMIUM}>Premium</SelectItem>
-                <SelectItem value={SubscriptionTier.PARTNER}>Partner</SelectItem>
-                <SelectItem value={SubscriptionTier.TEAM}>Team</SelectItem>
+                <SelectItem value={SubscriptionTier.LIFETIME}>Lifetime</SelectItem>
               </SelectContent>
             </Select>
           </div>

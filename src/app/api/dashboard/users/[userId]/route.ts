@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server"
 import { auth } from "@/auth"
 import { prisma } from "@/lib/prisma"
-import { Role } from "@prisma/client"
+import { Role, SubscriptionTier } from "@prisma/client"
 import { z } from "zod"
 
 // Helper to check if user has admin access
@@ -11,8 +11,8 @@ const hasAdminAccess = (role?: Role) => {
 
 // Validation schema for update operations
 const updateUserSchema = z.object({
-  role: z.enum([Role.SUPER_ADMIN, Role.ADMIN, Role.PARTNER, Role.USER]).optional(),
-  subscriptionTier: z.enum(["FREE", "PREMIUM", "PARTNER", "TEAM"]).optional(),
+  role: z.enum([Role.SUPER_ADMIN, Role.ADMIN, Role.PARTNER, Role.TEAM, Role.USER]).optional(),
+  subscriptionTier: z.enum([SubscriptionTier.FREE, SubscriptionTier.PREMIUM, SubscriptionTier.LIFETIME]).optional(),
   referralCode: z.string().optional().nullable(),
   isVerified: z.boolean().optional(),
 })
@@ -62,13 +62,19 @@ export async function PATCH(
       )
     }
 
+    // Prepare update data with proper Prisma format
+    const updateData = {
+      ...(data.role && { role: { set: data.role } }),
+      ...(data.subscriptionTier && { subscriptionTier: { set: data.subscriptionTier } }),
+      ...(data.referralCode !== undefined && { referralCode: { set: data.referralCode } }),
+      ...(data.isVerified !== undefined && { isVerified: { set: data.isVerified } }),
+      updatedAt: new Date(),
+    }
+
     // Update user
     const updatedUser = await prisma.user.update({
       where: { id: params.userId },
-      data: {
-        ...data,
-        updatedAt: new Date(),
-      },
+      data: updateData,
       select: {
         id: true,
         firstName: true,
