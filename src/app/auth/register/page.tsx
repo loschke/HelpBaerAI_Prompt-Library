@@ -1,16 +1,15 @@
 "use client"
 
-import { useState, Suspense } from 'react'
+import { useState, Suspense, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { registerSchema } from "@/lib/validations/auth"
 
 function RegisterFormContent() {
-  const searchParams = useSearchParams()
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -20,8 +19,21 @@ function RegisterFormContent() {
     email: '',
     password: '',
     confirmPassword: '',
-    referralCode: searchParams.get('ea') || ''
+    referralCode: ''
   })
+
+  // Read referral code from cookie on component mount
+  useEffect(() => {
+    const cookies = document.cookie.split(';')
+    const referralCookie = cookies.find(cookie => cookie.trim().startsWith('referralCode='))
+    if (referralCookie) {
+      const referralCode = referralCookie.split('=')[1]
+      setFormData(prev => ({
+        ...prev,
+        referralCode: decodeURIComponent(referralCode)
+      }))
+    }
+  }, [])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData(prev => ({
